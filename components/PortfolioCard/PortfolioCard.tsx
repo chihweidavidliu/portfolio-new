@@ -19,7 +19,7 @@ const PortfolioCard = ({ project }: PortfolioCardProps) => {
       <Card>
         <Image src={project.images[0].source} alt={project.images[0].caption} borderRadius="md" width="100%" />
 
-        <Grid gridTemplateColumns="repeat(auto-fit, minmax(200px, 1fr))" gridGap="8" mt="8">
+        <Grid gridTemplateColumns="1fr 1fr" gridGap="8" mt="8">
           <Box>
             <Heading as="h4" size="sm" color={primaryColor(500)} mb="2">
               About

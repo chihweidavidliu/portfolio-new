@@ -8,7 +8,7 @@ const ProjectsSection = () => {
     <PageSection title="Portfolio">
       <Grid
         gridGap="7"
-        gridTemplateColumns={{ base: 'repeat(auto-fill, minmax(500px, 1fr))', sm: '1fr' }}
+        gridTemplateColumns="repeat(auto-fill, minmax(500px, 1fr))"
         width="100%"
         gridAutoRows="max-content"
       >
