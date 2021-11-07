@@ -5,7 +5,7 @@ export interface IPortfolioProject {
   id: string
   title: string
   description: string
-  techStack: { [index: string]: string[] }
+  techStack: { frontEnd?: string[]; backEnd?: string[] }
   githubLinks: ILink[]
   liveSiteLink: ILink
   images: IImage[]
