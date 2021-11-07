@@ -10,7 +10,7 @@ export const PageSection: FC<PageSectionProps> = ({ children, title }) => {
     <Center padding="clamp(10px, 5vw, 40px)">
       <Box maxWidth="container.lg" width="100%">
         {title && (
-          <Heading as="h2" mb="10" textAlign="center">
+          <Heading as="h2" mb="10" textAlign="center" fontWeight="semibold">
             {title}
           </Heading>
         )}
