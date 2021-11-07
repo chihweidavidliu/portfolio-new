@@ -1,8 +1,9 @@
 import { Image } from '@chakra-ui/image'
-import { Badge, Box, Divider, Flex, Grid, Heading, HStack, Stack, Text } from '@chakra-ui/layout'
+import { Box, Grid, Heading, Stack, Text } from '@chakra-ui/layout'
 import { primaryColor } from '../../theme'
 import { IPortfolioProject } from '../../types/PortfolioProject'
 import Card from '../Card'
+import TechStackList from '../TechStackList'
 
 interface PortfolioCardProps {
   project: IPortfolioProject
@@ -10,15 +11,15 @@ interface PortfolioCardProps {
 
 const PortfolioCard = ({ project }: PortfolioCardProps) => {
   return (
-    <Box>
-      <Heading as="h3" size="md" fontWeight="semibold" color="gray.500" textAlign="center" mb="5">
+    <Grid height="100%" gridTemplateRows="max-content 1fr">
+      <Heading as="h3" size="md" fontWeight="semibold" color="gray.600" textAlign="center" mb="5" mt="2">
         {project.title}
       </Heading>
 
       <Card>
-        <Image src={project.images[0].source} alt={project.images[0].caption} borderRadius="md" />
+        <Image src={project.images[0].source} alt={project.images[0].caption} borderRadius="md" width="100%" />
 
-        <Grid gridTemplateColumns="1fr 1fr" gridGap="5" mt="7">
+        <Grid gridTemplateColumns="repeat(auto-fit, minmax(200px, 1fr))" gridGap="8" mt="8">
           <Box>
             <Heading as="h4" size="sm" color={primaryColor(500)} mb="2">
               About
@@ -30,46 +31,14 @@ const PortfolioCard = ({ project }: PortfolioCardProps) => {
             <Heading as="h4" size="sm" color={primaryColor(500)} mb="2">
               Tech Stack
             </Heading>
-
             <Stack spacing="5">
-              {project.techStack?.frontEnd && (
-                <Box>
-                  <Text color={primaryColor(500)} mb="2">
-                    Front End
-                  </Text>
-                  <Flex gridGap="2" flexWrap="wrap">
-                    {project.techStack?.frontEnd?.map((item) => {
-                      return (
-                        <Badge key={item} padding="1" size="sm" borderRadius="md" colorScheme="gray">
-                          {item}
-                        </Badge>
-                      )
-                    })}
-                  </Flex>
-                </Box>
-              )}
-
-              {project.techStack?.backEnd && (
-                <Box>
-                  <Text color={primaryColor(500)} mb="2">
-                    Back End
-                  </Text>
-                  <Flex gridGap="2" flexWrap="wrap">
-                    {project.techStack?.backEnd?.map((item) => {
-                      return (
-                        <Badge key={item} padding="1" size="sm" borderRadius="md" colorScheme="gray">
-                          {item}
-                        </Badge>
-                      )
-                    })}
-                  </Flex>
-                </Box>
-              )}
+              {project.techStack?.frontEnd && <TechStackList title="Front End" items={project.techStack.frontEnd} />}
+              {project.techStack?.backEnd && <TechStackList title="Front End" items={project.techStack.backEnd} />}
             </Stack>
           </Box>
         </Grid>
       </Card>
-    </Box>
+    </Grid>
   )
 }
 

@@ -6,7 +6,12 @@ import { projects } from '../../data/projects'
 const ProjectsSection = () => {
   return (
     <PageSection title="Portfolio">
-      <Grid gridGap="7" gridTemplateColumns="repeat(auto-fill, minmax(500px, 1fr))" width="100%">
+      <Grid
+        gridGap="7"
+        gridTemplateColumns={{ base: 'repeat(auto-fill, minmax(500px, 1fr))', sm: '1fr' }}
+        width="100%"
+        gridAutoRows="max-content"
+      >
         {projects.map((project) => {
           return <PortfolioCard key={project.id} project={project} />
         })}

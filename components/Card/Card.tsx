@@ -10,7 +10,7 @@ const Card: FC = ({ children }) => {
       bgColor="white"
       boxShadow="lg"
       transition="all 0.4s"
-      _hover={{ transform: 'scale(1.05)' }}
+      _hover={{ transform: 'scale(1.02)' }}
     >
       {children}
     </Box>

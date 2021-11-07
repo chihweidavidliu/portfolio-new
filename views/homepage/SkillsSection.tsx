@@ -1,4 +1,4 @@
-import { Grid, HStack } from '@chakra-ui/layout'
+import { Grid } from '@chakra-ui/layout'
 import PageSection from '../../components/PageSection'
 import SkillCard from '../../components/SkillCard'
 import { ISkillCard } from '../../types/SkillCard'

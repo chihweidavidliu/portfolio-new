@@ -24,9 +24,7 @@ const SkillCard = ({ skillCard }: SkillCardProps) => {
 
               <Grid templateColumns="repeat(2, 1fr)" gridGap="2" marginTop="3">
                 {category.skills.map((skill, index) => (
-                  <Text key={skill + index} fontWeight="thin">
-                    {skill}
-                  </Text>
+                  <Text key={skill + index}>{skill}</Text>
                 ))}
               </Grid>
             </Box>
