@@ -1,21 +1,25 @@
+import { Image } from '@chakra-ui/image'
 import { Box, Divider, Grid, Heading, Stack, Text } from '@chakra-ui/layout'
 import { primaryColor } from '../../theme'
-import { ISkillCard } from '../../types/SkillCard'
+import { IPortfolioProject } from '../../types/PortfolioProject'
 import Card from '../Card'
 
-interface SkillCardProps {
-  skillCard: ISkillCard
+interface PortfolioCardProps {
+  project: IPortfolioProject
 }
 
-const SkillCard = ({ skillCard }: SkillCardProps) => {
+const PortfolioCard = ({ project }: PortfolioCardProps) => {
   return (
-    <Card>
-      <Heading as="h3" size="md" fontWeight="semibold" color={primaryColor(500)} textAlign="center" mb="5">
-        {skillCard.title}
+    <Box>
+      <Heading as="h3" size="md" fontWeight="semibold" color="gray.500" textAlign="center" mb="5">
+        {project.title}
       </Heading>
 
+      <Card>
+        <Image src={project.images[0].source} alt={project.images[0].caption} borderRadius="md" />
+        {/* 
       <Stack spacing="5" divider={<Divider />}>
-        {skillCard.categories.map((category) => {
+        {PortfolioCard.categories.map((category) => {
           return (
             <Box key={category.categoryName}>
               <Heading as="h4" size="sm" fontWeight="semibold" color={primaryColor(500)}>
@@ -32,9 +36,10 @@ const SkillCard = ({ skillCard }: SkillCardProps) => {
             </Box>
           )
         })}
-      </Stack>
-    </Card>
+      </Stack> */}
+      </Card>
+    </Box>
   )
 }
 
-export default SkillCard
+export default PortfolioCard
