@@ -1,4 +1,4 @@
-import { HStack } from '@chakra-ui/layout'
+import { Grid, HStack } from '@chakra-ui/layout'
 import PageSection from '../../components/PageSection'
 import SkillCard from '../../components/SkillCard'
 import { ISkillCard } from '../../types/SkillCard'
@@ -65,11 +65,11 @@ const skillCards: ISkillCard[] = [
 const SkillsSection = () => {
   return (
     <PageSection title="Skills">
-      <HStack>
+      <Grid gridGap="7" gridTemplateColumns="repeat(auto-fill, minmax(300px, 1fr))" width="100%">
         {skillCards.map((skillCard) => {
           return <SkillCard key={skillCard.title} skillCard={skillCard} />
         })}
-      </HStack>
+      </Grid>
     </PageSection>
   )
 }
