@@ -1,7 +1,11 @@
-import { Box } from '@chakra-ui/layout'
+import { Box, BoxProps } from '@chakra-ui/layout'
 import { FC } from 'react'
 
-const Card: FC = ({ children }) => {
+interface CardProps {
+  chakraProps?: BoxProps
+}
+
+const Card: FC<CardProps> = ({ children, chakraProps }) => {
   return (
     <Box
       borderWidth="1px"
@@ -11,6 +15,7 @@ const Card: FC = ({ children }) => {
       boxShadow="lg"
       transition="all 0.4s"
       _hover={{ transform: 'scale(1.02)' }}
+      {...chakraProps}
     >
       {children}
     </Box>

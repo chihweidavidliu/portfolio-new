@@ -26,9 +26,9 @@ const PortfolioCard = ({ project }: PortfolioCardProps) => {
         {project.title}
       </Heading>
 
-      <Card>
+      <Card chakraProps={{ display: 'grid', gridTemplateRows: 'max-content 1fr max-content', gridGap: '12' }}>
         <Image src={project.images[0].source} alt={project.images[0].caption} borderRadius="md" width="100%" />
-        <Grid gridTemplateColumns="1fr 1fr" gridGap="8" mt="8">
+        <Grid gridTemplateColumns="1fr 1fr" gridGap="8">
           <Box>
             <Subheading>About</Subheading>
             <Text>{project.description}</Text>
@@ -43,35 +43,33 @@ const PortfolioCard = ({ project }: PortfolioCardProps) => {
           </Box>
         </Grid>
 
-        <Box mt="8">
-          <ButtonGroup>
-            {project.githubLinks.map((link) => (
-              <Button
-                as="a"
-                href={link.url}
-                key={link.url}
-                color={primaryColor(500)}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {link.label}
-              </Button>
-            ))}
+        <Grid gridGap="3">
+          {project.githubLinks.map((link) => (
+            <Button
+              as="a"
+              href={link.url}
+              key={link.url}
+              color={primaryColor(500)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {link.label}
+            </Button>
+          ))}
 
-            {project.liveSiteLink && (
-              <Button
-                as="a"
-                href={project.liveSiteLink.url}
-                key={project.liveSiteLink.url}
-                colorScheme="teal"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {project.liveSiteLink.label}
-              </Button>
-            )}
-          </ButtonGroup>
-        </Box>
+          {project.liveSiteLink && (
+            <Button
+              as="a"
+              href={project.liveSiteLink.url}
+              key={project.liveSiteLink.url}
+              colorScheme="teal"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {project.liveSiteLink.label}
+            </Button>
+          )}
+        </Grid>
       </Card>
     </Grid>
   )
