@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { Box, Divider } from '@chakra-ui/react'
-import PageSection from '../../components/PageSection'
 import SkillsSection from './SkillsSection'
 import ProjectsSection from './ProjectsSection'
+import TimelineSection from './TimelineSection'
 
 export const Homepage = () => {
   return (
@@ -17,8 +17,7 @@ export const Homepage = () => {
         <SkillsSection />
         <Divider />
         <ProjectsSection />
-
-        <PageSection title="Work Experience">Hello</PageSection>
+        <TimelineSection />
       </Box>
     </>
   )
