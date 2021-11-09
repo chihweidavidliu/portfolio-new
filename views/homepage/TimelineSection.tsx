@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/layout'
-import { differenceInYears, getYear, isAfter } from 'date-fns'
+import { differenceInMonths, differenceInYears, getYear, isAfter } from 'date-fns'
 import PageSection from '../../components/PageSection'
 import { timelineContents } from '../../data/timeline/timelineContents'
 
@@ -62,15 +62,32 @@ const TimelineSection = () => {
           )
         })}
         {timelineItems.map((item, index) => {
+          const isEven = index % 2 === 0
+
           const startYear = getYear(item.startDate)
           const endYear = getYear(item.endDate)
 
-          const numYears = differenceInYears(item.endDate, item.startDate)
-          const span = numYears * YEAR_HEIGHT
-          const top = (getYear(new Date()) - startYear) * YEAR_HEIGHT + LABEL_HEIGHT / 2
+          const numMonths = differenceInMonths(item.endDate, item.startDate)
+          const span = (numMonths / 12) * YEAR_HEIGHT
+
+          // TODO: change this to center based on span and container height
+          const top = (getYear(new Date()) - endYear) * YEAR_HEIGHT + LABEL_HEIGHT / 2
+
+          const bottom = top - span
+
+          console.log({ numMonths, span, top, item })
 
           return (
-            <Box key={item.organisation + index} position="absolute" top={top + 'px'}>
+            <Box
+              key={item.organisation + index}
+              position="absolute"
+              top={top + 'px'}
+              left={isEven ? '40px' : undefined}
+              right={!isEven ? '40px' : undefined}
+              height={span + 'px'}
+              bg="white"
+              boxShadow="md"
+            >
               {item.organisation}
             </Box>
           )
