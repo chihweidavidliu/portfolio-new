@@ -115,12 +115,12 @@ const TimelineSection = () => {
           const startYear = getYear(item.startDate)
           const endYear = getYear(item.endDate)
 
-          const durationMonths = differenceInMonths(item.endDate, item.startDate) + 1
-          const span = durationMonths * MONTH_HEIGHT
+          const durationMonths = differenceInMonths(item.endDate, item.startDate)
 
           const numYearsSpanned = endYear - startYear
 
           const yearsSinceEnd = getYear(new Date()) - endYear
+
           const monthsSinceEnd = differenceInMonths(new Date(), item.endDate)
 
           const LABEL_OFFSET = (yearsSinceEnd + 1) * DEFAULT_LABEL_HEIGHT
@@ -132,9 +132,10 @@ const TimelineSection = () => {
           const subsequentYearLabelOffsets = DEFAULT_LABEL_HEIGHT + MONTH_HEIGHT // subsequent year labels are slightly taller than the first by half a month's space
 
           // distance from top = the space a number of months takes up + the space taken up by the number of year labels above the card
-          let top = monthsSinceEnd * MONTH_HEIGHT + (yearsSinceEnd + 1) * baseOffset
 
-          top = baseOffset + MONTH_HEIGHT * monthsSinceEnd + yearsSinceEnd * subsequentYearLabelOffsets
+          const top = baseOffset + MONTH_HEIGHT * monthsSinceEnd + yearsSinceEnd * subsequentYearLabelOffsets
+          const span = MONTH_HEIGHT * durationMonths + numYearsSpanned * subsequentYearLabelOffsets
+
           return (
             <Box
               key={item.organisation + index}
@@ -162,6 +163,7 @@ const TimelineSection = () => {
                   monthsSinceEnd,
                   yearsSinceEnd,
                   baseOffset,
+                  durationMonths,
                 },
                 null,
                 2
