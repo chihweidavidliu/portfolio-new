@@ -1,28 +1,14 @@
 import React from 'react'
-import { Box, Flex, Text, Heading } from '@chakra-ui/layout'
-import { differenceInMonths, differenceInYears, getMonth, getYear, isAfter, subMonths } from 'date-fns'
+import { Box, Text, Heading } from '@chakra-ui/layout'
+import { differenceInMonths, getYear, isAfter, subMonths } from 'date-fns'
 import PageSection from '../../components/PageSection'
-import TimelineBranch from '../../components/Timeline/TimelineBranch'
 import { timelineContents } from '../../data/timeline/timelineContents'
 import { primaryColor } from '../../theme'
-import TimelinePoint, { DEFAULT_LABEL_HEIGHT } from '../../components/Timeline/TimelinePoint'
+import { DEFAULT_LABEL_HEIGHT } from '../../components/Timeline/TimelinePoint'
 import TimelineYear, { MONTH_HEIGHT } from '../../components/Timeline/TimelineYear'
-
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-]
-
+import styled, { css } from 'styled-components'
+;`}
+`
 function monthDiff(dateFrom: Date, dateTo: Date) {
   return dateTo.getMonth() - dateFrom.getMonth() + 12 * (dateTo.getFullYear() - dateFrom.getFullYear())
 }
@@ -63,7 +49,8 @@ const TimelineSection = () => {
 
   return (
     <PageSection title="Work Experience and Education">
-      <Box position="relative">
+      {/* width of 0 so that the cards can be absolutely positioned against the vertical center of the screen */}
+      <Box position="relative" width="0px" margin="0 auto">
         {keys.map((year, yearIndex) => {
           const months = timelinePointsByYear[parseInt(year)]
 
@@ -92,32 +79,62 @@ const TimelineSection = () => {
                 key={item.organisation + index}
                 position="absolute"
                 top={top + 'px'}
-                left={isEven ? '40px' : undefined}
-                right={!isEven ? '40px' : undefined}
+                left={isEven ? '150px' : undefined}
+                right={!isEven ? '150px' : undefined}
                 height={span + 'px'}
-                bg="white"
-                boxShadow="md"
-                minW="300px"
-                maxW="400px"
-                padding="7"
+                display="flex"
+                alignItems="center"
+                pointerEvents="none"
               >
-                <Heading fontSize="lg" color={primaryColor(500)} fontWeight="semibold">
-                  {item.title}
-                </Heading>
-                <Text color="gray.700">{item.organisation}</Text>
-                <Text color="gray.700">End: {item.endDate.toLocaleString()}</Text>
-                <Text color="gray.700">Start: {item.startDate.toLocaleString()}</Text>
+                <Box
+                  bg="white"
+                  boxShadow="md"
+                  minW="300px"
+                  maxW="400px"
+                  padding="7"
+                  pointerEvents="initial"
+                  _hover={{
+                    '&& + .bar': {
+                      borderWidth: '1px',
+                      borderColor: primaryColor(500),
+                      borderStyle: 'solid',
+                      zIndex: 100,
+                      opacity: 1,
+                    },
+                  }}
+                >
+                  <Heading fontSize="lg" color={primaryColor(500)} fontWeight="semibold">
+                    {item.title}
+                  </Heading>
+                  <Text color="gray.700">{item.organisation}</Text>
+                  <Text color="gray.700">End: {item.endDate.toLocaleString()}</Text>
+                  <Text color="gray.700">Start: {item.startDate.toLocaleString()}</Text>
 
-                {JSON.stringify(
-                  {
-                    monthsSinceEnd,
-                    yearsSinceEnd,
-                    baseOffset,
-                    durationMonths,
-                  },
-                  null,
-                  2
-                )}
+                  {JSON.stringify(
+                    {
+                      monthsSinceEnd,
+                      yearsSinceEnd,
+                      baseOffset,
+                      durationMonths,
+                    },
+                    null,
+                    2
+                  )}
+                </Box>
+
+                <Box
+                  className="bar"
+                  transition="all 0.5s"
+                  width="2px"
+                  borderWidth="1px"
+                  opacity={0}
+                  borderColor="gray.500"
+                  borderStyle="dotted"
+                  height="100%"
+                  position="absolute"
+                  right={!isEven ? '-40px' : undefined}
+                  left={isEven ? '-40px' : undefined}
+                />
               </Box>
             </>
           )

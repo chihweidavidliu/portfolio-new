@@ -3,7 +3,7 @@ import { getMonth } from 'date-fns'
 import TimelinePoint from './TimelinePoint'
 
 export const MONTH_LABEL_HEIGHT = 21
-export const MONTH_HEIGHT = 50
+export const MONTH_HEIGHT = 30
 
 const monthNames = [
   'January',
@@ -57,7 +57,7 @@ const TimelineYear = ({ yearIndex, months, year, showGuideLines = true }: Timeli
                       display: 'block',
                       width: '100vw',
                       height: '1px',
-                      backgroundColor: 'gray.400',
+                      backgroundColor: 'gray.300',
                       position: 'relative',
                       bottom: MONTH_LABEL_HEIGHT / 2,
                       right: '50vw',
