@@ -79,7 +79,7 @@ const TimelineSection = () => {
                 key={item.organisation + index}
                 position="absolute"
                 top={top + 'px'}
-                left={isEven ? '150px' : undefined}
+                left={isEven ? '200px' : undefined}
                 right={!isEven ? '150px' : undefined}
                 height={span + 'px'}
                 display="flex"
@@ -95,7 +95,6 @@ const TimelineSection = () => {
                   pointerEvents="initial"
                   _hover={{
                     '&& + .bar': {
-                      borderWidth: '1px',
                       borderColor: primaryColor(500),
                       borderStyle: 'solid',
                       zIndex: 100,
@@ -124,17 +123,21 @@ const TimelineSection = () => {
 
                 <Box
                   className="bar"
-                  transition="all 0.5s"
-                  width="2px"
-                  borderWidth="1px"
-                  opacity={0}
+                  transition="all 2s"
+                  width="30px"
+                  borderRadius="3px"
+                  borderRightWidth={isEven ? '2px' : undefined}
+                  borderLeftWidth={!isEven ? '2px' : undefined}
+                  borderTopWidth="2px"
+                  borderBottomWidth="2px"
+                  opacity={1}
                   borderColor="gray.500"
                   borderStyle="dotted"
                   height="100%"
                   position="absolute"
-                  right={!isEven ? '-40px' : undefined}
-                  left={isEven ? '-40px' : undefined}
-                />
+                  right={!isEven ? '-60px' : undefined}
+                  left={isEven ? '-60px' : undefined}
+                ></Box>
               </Box>
             </>
           )
