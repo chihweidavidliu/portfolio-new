@@ -6,9 +6,7 @@ import TimelineBranch from '../../components/Timeline/TimelineBranch'
 import { timelineContents } from '../../data/timeline/timelineContents'
 import { primaryColor } from '../../theme'
 import TimelinePoint, { DEFAULT_LABEL_HEIGHT } from '../../components/Timeline/TimelinePoint'
-
-const MONTH_HEIGHT = 50
-const MONTH_LABEL_HEIGHT = 21
+import TimelineYear, { MONTH_HEIGHT } from '../../components/Timeline/TimelineYear'
 
 const monthNames = [
   'January',
@@ -69,48 +67,7 @@ const TimelineSection = () => {
         {keys.map((year, yearIndex) => {
           const months = timelinePointsByYear[parseInt(year)]
 
-          const BAR_HEIGHT = months.length * MONTH_HEIGHT
-
-          return (
-            <Flex key={year} flexDir="column" alignItems="center">
-              {yearIndex === 0 && <TimelinePoint label="Present" />}
-              <Box bgColor="teal.500" height={BAR_HEIGHT + 'px'} width="3px" borderRadius="5px" position="relative">
-                {months.map((month, index) => {
-                  const monthIndex = getMonth(month)
-                  const monthName = monthNames[monthIndex]
-
-                  // top offset of a month label is a function of how recent the month is + half the height of a month section (to center the month)
-                  // minus half the label height itself to center the label
-                  // const TOP_OFFSET = index * MONTH_HEIGHT + MONTH_HEIGHT / 2 - MONTH_LABEL_HEIGHT / 2
-                  const TOP_OFFSET = index * MONTH_HEIGHT + MONTH_HEIGHT / 2 - MONTH_LABEL_HEIGHT / 2
-                  return (
-                    <Text
-                      key={monthIndex}
-                      position="absolute"
-                      top={TOP_OFFSET}
-                      left="10px"
-                      fontSize="sm"
-                      color="gray.500"
-                      _after={{
-                        content: `""`,
-                        display: 'block',
-                        width: '100vw',
-                        height: '1px',
-                        backgroundColor: 'gray.400',
-                        position: 'relative',
-                        bottom: MONTH_LABEL_HEIGHT / 2,
-                        right: '50vw',
-                      }}
-                    >
-                      {monthName}
-                    </Text>
-                  )
-                })}
-              </Box>
-
-              <TimelinePoint label={year} />
-            </Flex>
-          )
+          return <TimelineYear year={year} yearIndex={yearIndex} months={months} key={yearIndex} />
         })}
 
         {timelineItems.map((item, index) => {
@@ -130,37 +87,39 @@ const TimelineSection = () => {
           const span = MONTH_HEIGHT * durationMonths + numYearsSpanned * DEFAULT_LABEL_HEIGHT
 
           return (
-            <Box
-              key={item.organisation + index}
-              position="absolute"
-              top={top + 'px'}
-              left={isEven ? '40px' : undefined}
-              right={!isEven ? '40px' : undefined}
-              height={span + 'px'}
-              bg="white"
-              boxShadow="md"
-              minW="300px"
-              maxW="400px"
-              padding="7"
-            >
-              <Heading fontSize="lg" color={primaryColor(500)} fontWeight="semibold">
-                {item.title}
-              </Heading>
-              <Text color="gray.700">{item.organisation}</Text>
-              <Text color="gray.700">End: {item.endDate.toLocaleString()}</Text>
-              <Text color="gray.700">Start: {item.startDate.toLocaleString()}</Text>
+            <>
+              <Box
+                key={item.organisation + index}
+                position="absolute"
+                top={top + 'px'}
+                left={isEven ? '40px' : undefined}
+                right={!isEven ? '40px' : undefined}
+                height={span + 'px'}
+                bg="white"
+                boxShadow="md"
+                minW="300px"
+                maxW="400px"
+                padding="7"
+              >
+                <Heading fontSize="lg" color={primaryColor(500)} fontWeight="semibold">
+                  {item.title}
+                </Heading>
+                <Text color="gray.700">{item.organisation}</Text>
+                <Text color="gray.700">End: {item.endDate.toLocaleString()}</Text>
+                <Text color="gray.700">Start: {item.startDate.toLocaleString()}</Text>
 
-              {JSON.stringify(
-                {
-                  monthsSinceEnd,
-                  yearsSinceEnd,
-                  baseOffset,
-                  durationMonths,
-                },
-                null,
-                2
-              )}
-            </Box>
+                {JSON.stringify(
+                  {
+                    monthsSinceEnd,
+                    yearsSinceEnd,
+                    baseOffset,
+                    durationMonths,
+                  },
+                  null,
+                  2
+                )}
+              </Box>
+            </>
           )
         })}
       </Box>
