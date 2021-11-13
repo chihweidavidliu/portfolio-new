@@ -25,6 +25,10 @@ const monthNames = [
   'December',
 ]
 
+function monthDiff(dateFrom: Date, dateTo: Date) {
+  return dateTo.getMonth() - dateFrom.getMonth() + 12 * (dateTo.getFullYear() - dateFrom.getFullYear())
+}
+
 const TimelineSection = () => {
   const timelineItems = Object.values(timelineContents).sort((a, b) => {
     if (isAfter(a.startDate, b.startDate)) {
@@ -115,26 +119,15 @@ const TimelineSection = () => {
           const startYear = getYear(item.startDate)
           const endYear = getYear(item.endDate)
 
-          const durationMonths = differenceInMonths(item.endDate, item.startDate)
-
+          const durationMonths = monthDiff(item.startDate, item.endDate)
           const numYearsSpanned = endYear - startYear
-
           const yearsSinceEnd = getYear(new Date()) - endYear
-
-          const monthsSinceEnd = differenceInMonths(new Date(), item.endDate)
-
-          const LABEL_OFFSET = (yearsSinceEnd + 1) * DEFAULT_LABEL_HEIGHT
-
-          // TODO: change this to center based on span and container height
-          // const top = monthsSinceEnd * MONTH_HEIGHT + DEFAULT_LABEL_HEIGHT
-
+          const monthsSinceEnd = monthDiff(item.endDate, new Date())
           const baseOffset = DEFAULT_LABEL_HEIGHT + MONTH_HEIGHT / 2 // the base offset needed to get a card aligned to the last mongth of the most recent year
-          const subsequentYearLabelOffsets = DEFAULT_LABEL_HEIGHT + MONTH_HEIGHT // subsequent year labels are slightly taller than the first by half a month's space
 
           // distance from top = the space a number of months takes up + the space taken up by the number of year labels above the card
-
-          const top = baseOffset + MONTH_HEIGHT * monthsSinceEnd + yearsSinceEnd * subsequentYearLabelOffsets
-          const span = MONTH_HEIGHT * durationMonths + numYearsSpanned * subsequentYearLabelOffsets
+          const top = baseOffset + MONTH_HEIGHT * monthsSinceEnd + DEFAULT_LABEL_HEIGHT * yearsSinceEnd
+          const span = MONTH_HEIGHT * durationMonths + numYearsSpanned * DEFAULT_LABEL_HEIGHT
 
           return (
             <Box
@@ -154,9 +147,8 @@ const TimelineSection = () => {
                 {item.title}
               </Heading>
               <Text color="gray.700">{item.organisation}</Text>
-
-              <Text color="gray.700">Start: {item.startDate.toLocaleString()}</Text>
               <Text color="gray.700">End: {item.endDate.toLocaleString()}</Text>
+              <Text color="gray.700">Start: {item.startDate.toLocaleString()}</Text>
 
               {JSON.stringify(
                 {
