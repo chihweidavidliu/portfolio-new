@@ -1,4 +1,4 @@
-import { Badge, Box, Flex, Grid, Heading, HStack, Text } from '@chakra-ui/layout'
+import { Heading, Box, Text } from '@chakra-ui/layout'
 import { differenceInCalendarDays, getYear } from 'date-fns'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
