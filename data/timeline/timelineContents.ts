@@ -10,6 +10,7 @@ export const timelineContents: { [index: string]: TimelineItem } = {
     startDate: new Date(2021, 0, 4),
     endDate: new Date(),
     description: dedent``,
+    keyTechnologies: ['React', 'Typescript', 'Hasura (GraphQL Engine)', 'Postgres', 'Kubernetes', 'ArgoCD', 'GCP'],
   },
   satoshi: {
     title: 'Full Stack Engineer',
@@ -25,7 +26,9 @@ export const timelineContents: { [index: string]: TimelineItem } = {
         * Front-end development with React/Typescript
         * End to end testing with Cypress
         
-        *Key technologies used: React, Typescript, Nodejs , Docker, Kubernetes*`,
+        `,
+
+    keyTechnologies: ['React', 'Typescript', 'Nodejs', 'Docker', 'Kubernetes', 'Azure Devops'],
   },
   defty: {
     title: 'Full Stack Engineer',
@@ -41,7 +44,8 @@ export const timelineContents: { [index: string]: TimelineItem } = {
     * API implementation and testing with Express + data modelling with Postgres
     * Gained experience with CI/CD workflows using Circleci + visual regression testing with Percy
     
-    *Key technologies used: Typescript, React, styled-components, Nodejs, PostgreSQL, AWS*`,
+`,
+    keyTechnologies: ['React', 'Typescript', 'Styled Components', 'Nodejs', 'Postgres', 'AWS'],
   },
   bearjs: {
     title: 'Web Developer',
@@ -50,8 +54,8 @@ export const timelineContents: { [index: string]: TimelineItem } = {
     startDate: new Date(2019, 0, 1),
     endDate: new Date(2019, 6, 31),
     description: dedent`Developed a frontend UI for interacting with spreadsheets in Bridging Software for HMRC’s Making Tax Digital API
-
-    *Key technologies used: React, Nextjs, Nodejs, GraphQl*`,
+`,
+    keyTechnologies: ['React', 'Nextjs', 'Nodejs', 'GraphQL'],
   },
   freelance: {
     title: 'Freelance Web Developer',
@@ -70,8 +74,8 @@ export const timelineContents: { [index: string]: TimelineItem } = {
     **Jinwen University, Taipei, Taiwan**  
     * Created a full-stack internship platform allowing university staff to publish internship opportunities, upload interview outcomes and calculate final internship placements
     * Wrote a sorting algorithm to match student preferences to company shortlists
-    
-    *Key technologies used: React, Redux, Nodejs, Mongoose, MongoDb*`,
+`,
+    keyTechnologies: ['React', 'Redux', 'Nodejs', 'Mongoose', 'MongoDB'],
   },
   ens: {
     title: 'English Lecturer',
@@ -81,6 +85,7 @@ export const timelineContents: { [index: string]: TimelineItem } = {
     startDate: new Date(2017, 8, 1),
     endDate: new Date(2019, 6, 31),
     description: dedent`Lectured undergraduate and postgraduate students in English language and culture.
+
     `,
   },
   mcs: {

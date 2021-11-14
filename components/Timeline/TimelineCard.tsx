@@ -1,11 +1,16 @@
-import { Box, Heading, Text } from '@chakra-ui/layout'
-import getYear from 'date-fns/getYear'
+import { Badge, Box, Flex, Grid, Heading, HStack, Text } from '@chakra-ui/layout'
+import { differenceInCalendarDays, getYear } from 'date-fns'
+import ReactMarkdown from 'react-markdown'
+import gfm from 'remark-gfm'
 import { primaryColor } from '../../theme'
 import { TimelineItem } from '../../types/TimelineItem'
 import { monthDiff } from '../../util/monthDiff'
 import { DEFAULT_LABEL_HEIGHT } from './TimelinePoint'
 import { MONTH_HEIGHT } from './TimelineYear'
 import TimelineBranch from './TimelineBranch'
+import { Image } from '@chakra-ui/image'
+import format from 'date-fns/format'
+import TechStackList from '../TechStackList'
 
 interface TimelineCardProps {
   item: TimelineItem
@@ -13,8 +18,9 @@ interface TimelineCardProps {
 }
 
 const TimelineCard = ({ item, isEven }: TimelineCardProps) => {
-  const startYear = getYear(item.startDate)
-  const endYear = getYear(item.endDate)
+  const { startDate, endDate, description, title, organisation } = item
+  const startYear = getYear(startDate)
+  const endYear = getYear(endDate)
 
   const durationMonths = monthDiff(item.startDate, item.endDate)
   const numYearsSpanned = endYear - startYear
@@ -25,6 +31,26 @@ const TimelineCard = ({ item, isEven }: TimelineCardProps) => {
   // distance from top = the space a number of months takes up + the space taken up by the number of year labels above the card
   const top = baseOffset + MONTH_HEIGHT * monthsSinceEnd + DEFAULT_LABEL_HEIGHT * yearsSinceEnd
   const span = MONTH_HEIGHT * durationMonths + numYearsSpanned * DEFAULT_LABEL_HEIGHT
+
+  const isPresentJob = differenceInCalendarDays(endDate, startDate) === 0
+
+  const renderDuration = () => {
+    const days = differenceInCalendarDays(endDate, startDate)
+    const months = Math.round(days / 30.41)
+    const years = Math.floor(months / 12)
+    const remainingMonths = months % 12
+
+    let duration = ''
+    if (years > 0) {
+      duration += `${years} year${years === 1 ? '' : 's'}`
+    }
+
+    if (remainingMonths) {
+      duration += ` ${years > 0 ? remainingMonths : months} months`
+    }
+
+    return duration ? ` (${duration.trim()})` : ''
+  }
 
   return (
     <Box
@@ -41,7 +67,7 @@ const TimelineCard = ({ item, isEven }: TimelineCardProps) => {
       <Box
         bg="white"
         boxShadow="md"
-        minW="300px"
+        minW="400px"
         maxW="400px"
         padding="7"
         pointerEvents="initial"
@@ -56,22 +82,43 @@ const TimelineCard = ({ item, isEven }: TimelineCardProps) => {
           },
         }}
       >
-        <Heading fontSize="lg" color={primaryColor(500)} fontWeight="semibold">
-          {item.title}
-        </Heading>
-        <Text color="gray.700">{item.organisation}</Text>
-        <Text color="gray.700">End: {item.endDate.toLocaleString()}</Text>
-        <Text color="gray.700">Start: {item.startDate.toLocaleString()}</Text>
+        <Box display="flex" width="100%" justifyContent="space-between">
+          <Box>
+            <Heading fontSize="lg" color={primaryColor(500)} fontWeight="semibold" mb="2px">
+              {title}
+            </Heading>
+            <Text color="gray.700" fontWeight="semibold">
+              {organisation}
+            </Text>
+          </Box>
+          {item.logoUrl && (
+            <Image src={item.logoUrl} height="40px" width="40px" alt={item.organisation + ' logo'} marginLeft="10px" />
+          )}
+        </Box>
+        <Text color="gray.600" fontSize="sm" fontWeight="semibold">
+          {format(startDate, 'MMMM yyyy')} - {isPresentJob ? 'Present' : format(endDate, 'MMMM yyyy')}
+          {renderDuration()}
+        </Text>
 
-        {JSON.stringify(
-          {
-            monthsSinceEnd,
-            yearsSinceEnd,
-            baseOffset,
-            durationMonths,
-          },
-          null,
-          2
+        <Box
+          marginTop="30px"
+          fontSize="sm"
+          maxW="100%"
+          css={{
+            li: { marginLeft: '20px' },
+            ul: {
+              marginTop: '10px',
+              marginBottom: '10px',
+            },
+          }}
+        >
+          <ReactMarkdown plugins={[gfm]}>{description}</ReactMarkdown>
+        </Box>
+
+        {item?.keyTechnologies && item.keyTechnologies.length > 0 && (
+          <Box mt="15px">
+            <TechStackList title="Key Technologies" items={item.keyTechnologies} />
+          </Box>
         )}
       </Box>
       <TimelineBranch isEven={isEven} />
