@@ -7,6 +7,7 @@ import { primaryColor } from '../../theme'
 import { DEFAULT_LABEL_HEIGHT } from '../../components/Timeline/TimelinePoint'
 import TimelineYear, { MONTH_HEIGHT } from '../../components/Timeline/TimelineYear'
 import styled, { css } from 'styled-components'
+import TimelineCard from '../../components/Timeline/TimelineCard'
 ;`}
 `
 function monthDiff(dateFrom: Date, dateTo: Date) {
@@ -54,93 +55,14 @@ const TimelineSection = () => {
         {keys.map((year, yearIndex) => {
           const months = timelinePointsByYear[parseInt(year)]
 
-          return <TimelineYear year={year} yearIndex={yearIndex} months={months} key={yearIndex} />
+          return (
+            <TimelineYear year={year} yearIndex={yearIndex} months={months} key={yearIndex} showGuideLines={false} />
+          )
         })}
 
         {timelineItems.map((item, index) => {
           const isEven = index % 2 === 0
-
-          const startYear = getYear(item.startDate)
-          const endYear = getYear(item.endDate)
-
-          const durationMonths = monthDiff(item.startDate, item.endDate)
-          const numYearsSpanned = endYear - startYear
-          const yearsSinceEnd = getYear(new Date()) - endYear
-          const monthsSinceEnd = monthDiff(item.endDate, new Date())
-          const baseOffset = DEFAULT_LABEL_HEIGHT + MONTH_HEIGHT / 2 // the base offset needed to get a card aligned to the last mongth of the most recent year
-
-          // distance from top = the space a number of months takes up + the space taken up by the number of year labels above the card
-          const top = baseOffset + MONTH_HEIGHT * monthsSinceEnd + DEFAULT_LABEL_HEIGHT * yearsSinceEnd
-          const span = MONTH_HEIGHT * durationMonths + numYearsSpanned * DEFAULT_LABEL_HEIGHT
-
-          return (
-            <>
-              <Box
-                key={item.organisation + index}
-                position="absolute"
-                top={top + 'px'}
-                left={isEven ? '200px' : undefined}
-                right={!isEven ? '150px' : undefined}
-                height={span + 'px'}
-                display="flex"
-                alignItems="center"
-                pointerEvents="none"
-              >
-                <Box
-                  bg="white"
-                  boxShadow="md"
-                  minW="300px"
-                  maxW="400px"
-                  padding="7"
-                  pointerEvents="initial"
-                  _hover={{
-                    '&& + .bar': {
-                      borderColor: primaryColor(500),
-                      borderStyle: 'solid',
-                      zIndex: 100,
-                      opacity: 1,
-                    },
-                  }}
-                >
-                  <Heading fontSize="lg" color={primaryColor(500)} fontWeight="semibold">
-                    {item.title}
-                  </Heading>
-                  <Text color="gray.700">{item.organisation}</Text>
-                  <Text color="gray.700">End: {item.endDate.toLocaleString()}</Text>
-                  <Text color="gray.700">Start: {item.startDate.toLocaleString()}</Text>
-
-                  {JSON.stringify(
-                    {
-                      monthsSinceEnd,
-                      yearsSinceEnd,
-                      baseOffset,
-                      durationMonths,
-                    },
-                    null,
-                    2
-                  )}
-                </Box>
-
-                <Box
-                  className="bar"
-                  transition="all 2s"
-                  width="30px"
-                  borderRadius="3px"
-                  borderRightWidth={isEven ? '2px' : undefined}
-                  borderLeftWidth={!isEven ? '2px' : undefined}
-                  borderTopWidth="2px"
-                  borderBottomWidth="2px"
-                  opacity={1}
-                  borderColor="gray.500"
-                  borderStyle="dotted"
-                  height="100%"
-                  position="absolute"
-                  right={!isEven ? '-60px' : undefined}
-                  left={isEven ? '-60px' : undefined}
-                ></Box>
-              </Box>
-            </>
-          )
+          return <TimelineCard key={index} item={item} isEven={isEven} />
         })}
       </Box>
     </PageSection>
