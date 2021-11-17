@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
 import { Heading, Box, Text } from '@chakra-ui/layout'
 import { differenceInCalendarDays, getYear } from 'date-fns'
 import ReactMarkdown from 'react-markdown'
+import { useInView } from 'react-intersection-observer'
+import { useAnimation, motion } from 'framer-motion'
 import gfm from 'remark-gfm'
 import { primaryColor } from '../../theme'
 import { TimelineItem } from '../../types/TimelineItem'
@@ -18,6 +21,18 @@ interface TimelineCardProps {
 }
 
 const TimelineCard = ({ item, isEven }: TimelineCardProps) => {
+  const controls = useAnimation()
+  const { ref, inView } = useInView({
+    threshold: 0.7,
+    rootMargin: `0px 0px 100px 0px`,
+  })
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('visible')
+    }
+  }, [controls, inView])
+
   const { startDate, endDate, description, title, organisation } = item
   const startYear = getYear(startDate)
   const endYear = getYear(endDate)
@@ -52,19 +67,32 @@ const TimelineCard = ({ item, isEven }: TimelineCardProps) => {
     return duration ? ` (${duration.trim()})` : ''
   }
 
+  const getAnimationVariants = (isEven: boolean) => {
+    return {
+      visible: { opacity: 1, x: '0%', transition: { duration: 0.7 } },
+      hidden: { opacity: 0, x: isEven ? '50%' : '-50%' },
+    }
+  }
+
   return (
-    <Box
+    <motion.div
+      animate={controls}
+      variants={getAnimationVariants(isEven)}
+      initial="hidden"
       className="timeline-card"
-      position="absolute"
-      top={top + 'px'}
-      left={isEven ? '180px' : undefined}
-      right={!isEven ? '130px' : undefined}
-      height={span + 'px'}
-      display="flex"
-      alignItems="center"
-      pointerEvents="none"
+      style={{
+        position: 'absolute',
+        top: top + 'px',
+        left: isEven ? '180px' : undefined,
+        right: !isEven ? '130px' : undefined,
+        height: span + 'px',
+        display: 'flex',
+        alignItems: 'center',
+        pointerEvents: 'none',
+      }}
     >
       <Box
+        ref={ref}
         bg="white"
         boxShadow="md"
         minW="400px"
@@ -122,7 +150,7 @@ const TimelineCard = ({ item, isEven }: TimelineCardProps) => {
         )}
       </Box>
       <TimelineBranch isEven={isEven} />
-    </Box>
+    </motion.div>
   )
 }
 
