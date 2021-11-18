@@ -6,20 +6,7 @@ export const MONTH_LABEL_HEIGHT = 21;
 export const MONTH_HEIGHT = 30;
 export const LABEL_FONT_SIZE = 14;
 
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
+const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 interface TimelineYearProps {
   yearIndex: number;
@@ -45,7 +32,6 @@ const TimelineYear = ({ yearIndex, months, year, showGuideLines = true, scaleBy 
 
           const TOP_OFFSET = index * MONTH_HEIGHT * scaleBy;
 
-          const isEven = index % 2 === 0;
           return (
             <Text
               key={monthIndex}
@@ -72,7 +58,7 @@ const TimelineYear = ({ yearIndex, months, year, showGuideLines = true, scaleBy 
                   : {}
               }
             >
-              {monthName}
+              {scaleBy >= 1 && monthName}
             </Text>
           );
         })}

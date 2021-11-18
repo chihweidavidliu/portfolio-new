@@ -6,7 +6,7 @@ import { timelineContents } from '../../data/timeline/timelineContents';
 import TimelineYear from '../../components/Timeline/TimelineYear';
 import TimelineCard from '../../components/Timeline/TimelineCard';
 
-const REDUCED_SCALE = 0.4; // the factor by which condensed years should shrink
+const REDUCED_SCALE = 0.1; // the factor by which condensed years should shrink
 
 interface TimelineSectionProps {
   collapseBeforeYear?: number;
@@ -58,7 +58,7 @@ const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
               yearIndex={yearIndex}
               months={months}
               key={yearIndex}
-              showGuideLines={true}
+              showGuideLines={false}
               scaleBy={scaleBy}
             />
           );

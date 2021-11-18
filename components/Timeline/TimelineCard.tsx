@@ -128,8 +128,8 @@ const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: Ti
       style={{
         position: 'absolute',
         top: top + 'px',
-        left: isEven ? '180px' : undefined,
-        right: !isEven ? '130px' : undefined,
+        left: isEven ? '115px' : undefined,
+        right: !isEven ? '100px' : undefined,
         height: span + 'px',
         display: 'flex',
         alignItems: 'center',
