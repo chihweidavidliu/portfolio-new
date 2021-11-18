@@ -46,43 +46,51 @@ const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: Ti
 
   // the number of months above the end date that have been scaled down
   const monthsSinceCompactedFromEndDate = collapseBeforeYear
-    ? monthDiff(item.endDate, new Date(collapseBeforeYear, 0, 1))
+    ? monthDiff(item.endDate, new Date(collapseBeforeYear - 1, 11, 31)) // last day of year where compacting started
     : 0;
+
   const numCompactedMonthsAfter = monthsSinceCompactedFromEndDate > 0 ? monthsSinceCompactedFromEndDate : 0;
   const numFullSizeMonthsAfter = monthsSinceEnd - numCompactedMonthsAfter;
 
   const monthsSinceCompactedFromStartDate = collapseBeforeYear
-    ? monthDiff(item.startDate, new Date(collapseBeforeYear, 0, 1))
+    ? monthDiff(item.startDate, new Date(collapseBeforeYear - 1, 11, 31))
     : 0;
 
   const numCompactedMonthsDuring =
     monthsSinceCompactedFromStartDate > 0 ? monthsSinceCompactedFromStartDate - numCompactedMonthsAfter : 0;
   const numFullSizeMonthsDuring = durationMonths - numCompactedMonthsDuring;
 
-  //   console.log({
-  //     organisation,
-  //     title,
-  //     monthsSinceCompactedFromEndDate,
-  //     monthsSinceCompactedFromStartDate,
-  //     numCompactedMonthsDuring,
-  //     numFullSizeMonthsDuring,
-  //     durationMonths,
-  //     reducedScale,
-  //   });
+  console.log({
+    organisation,
+    title,
+    monthsSinceEnd,
+    monthsSinceCompactedFromEndDate,
+    numFullSizeMonthsAfter,
+    numCompactedMonthsAfter,
+  });
 
-  const baseOffset = DEFAULT_LABEL_HEIGHT + MONTH_HEIGHT / 2; // the base offset needed to get a card aligned to the last mongth of the most recent year
+  const baseOffset =
+    numCompactedMonthsAfter > 0
+      ? DEFAULT_LABEL_HEIGHT + (MONTH_HEIGHT / 2) * reducedScale
+      : DEFAULT_LABEL_HEIGHT + MONTH_HEIGHT / 2; // the base offset needed to get a card aligned to the last mongth of the most recent year
 
   // distance from top = the space a number of months takes up + the space taken up by the number of year labels above the card
   const top =
     baseOffset +
     MONTH_HEIGHT * numFullSizeMonthsAfter +
-    MONTH_HEIGHT * reducedScale * numCompactedMonthsAfter +
+    MONTH_HEIGHT * numCompactedMonthsAfter * reducedScale +
     DEFAULT_LABEL_HEIGHT * yearsSinceEnd;
 
-  const span =
+  let span =
     MONTH_HEIGHT * numFullSizeMonthsDuring +
     MONTH_HEIGHT * reducedScale * numCompactedMonthsDuring +
     numYearsSpanned * DEFAULT_LABEL_HEIGHT;
+
+  // if a card spans different scales, need to adjust for that in the span
+  // TODO: investigate this
+  if (numCompactedMonthsAfter === 0 && numCompactedMonthsDuring > 0) {
+    span = span - (MONTH_HEIGHT / 2) * reducedScale;
+  }
 
   const isPresentJob = differenceInCalendarDays(endDate, startDate) === 0;
 
@@ -113,9 +121,9 @@ const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: Ti
 
   return (
     <motion.div
-      //   animate={controls}
-      //   variants={getAnimationVariants(isEven)}
-      //   initial="hidden"
+      animate={controls}
+      variants={getAnimationVariants(isEven)}
+      initial="hidden"
       className="timeline-card"
       style={{
         position: 'absolute',

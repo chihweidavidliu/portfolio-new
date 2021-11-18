@@ -63,7 +63,7 @@ const TimelineYear = ({ yearIndex, months, year, showGuideLines = true, scaleBy 
               position="absolute"
               top={TOP_OFFSET + 'px'}
               left="10px"
-              fontSize={LABEL_FONT_SIZE * scaleBy + 'px'}
+              fontSize={LABEL_FONT_SIZE + 'px'}
               color="gray.500"
               display="flex"
               alignItems="center"
