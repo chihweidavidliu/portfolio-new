@@ -1,8 +1,8 @@
-import Head from 'next/head'
-import { Box, Divider } from '@chakra-ui/react'
-import SkillsSection from './SkillsSection'
-import ProjectsSection from './ProjectsSection'
-import TimelineSection from './TimelineSection'
+import Head from 'next/head';
+import { Box, Divider } from '@chakra-ui/react';
+import SkillsSection from './SkillsSection';
+import ProjectsSection from './ProjectsSection';
+import TimelineSection from './TimelineSection';
 
 export const Homepage = () => {
   return (
@@ -17,10 +17,10 @@ export const Homepage = () => {
         <SkillsSection />
         <Divider />
         <ProjectsSection />
-        <TimelineSection />
+        <TimelineSection collapseBeforeYear={2017} />
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;

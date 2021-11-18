@@ -1,84 +1,119 @@
-import { useEffect } from 'react'
-import { Heading, Box, Text } from '@chakra-ui/layout'
-import { differenceInCalendarDays, getYear } from 'date-fns'
-import ReactMarkdown from 'react-markdown'
-import { useInView } from 'react-intersection-observer'
-import { useAnimation, motion } from 'framer-motion'
-import gfm from 'remark-gfm'
-import { primaryColor } from '../../theme'
-import { TimelineItem } from '../../types/TimelineItem'
-import { monthDiff } from '../../util/monthDiff'
-import { DEFAULT_LABEL_HEIGHT } from './TimelinePoint'
-import { MONTH_HEIGHT } from './TimelineYear'
-import TimelineBranch from './TimelineBranch'
-import { Image } from '@chakra-ui/image'
-import format from 'date-fns/format'
-import TechStackList from '../TechStackList'
+import { useEffect } from 'react';
+import { Heading, Box, Text } from '@chakra-ui/layout';
+import { differenceInCalendarDays, getYear } from 'date-fns';
+import ReactMarkdown from 'react-markdown';
+import { useInView } from 'react-intersection-observer';
+import { useAnimation, motion } from 'framer-motion';
+import gfm from 'remark-gfm';
+import { primaryColor } from '../../theme';
+import { TimelineItem } from '../../types/TimelineItem';
+import { monthDiff } from '../../util/monthDiff';
+import { DEFAULT_LABEL_HEIGHT } from './TimelinePoint';
+import { MONTH_HEIGHT } from './TimelineYear';
+import TimelineBranch from './TimelineBranch';
+import { Image } from '@chakra-ui/image';
+import format from 'date-fns/format';
+import TechStackList from '../TechStackList';
 
 interface TimelineCardProps {
-  item: TimelineItem
-  isEven: boolean
+  item: TimelineItem;
+  isEven: boolean;
+  reducedScale?: number;
+  collapseBeforeYear?: number;
 }
 
-const TimelineCard = ({ item, isEven }: TimelineCardProps) => {
-  const controls = useAnimation()
+const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: TimelineCardProps) => {
+  const controls = useAnimation();
   const { ref, inView } = useInView({
     threshold: 0.7,
     rootMargin: `0px 0px 100px 0px`,
-  })
+  });
 
   useEffect(() => {
     if (inView) {
-      controls.start('visible')
+      controls.start('visible');
     }
-  }, [controls, inView])
+  }, [controls, inView]);
 
-  const { startDate, endDate, description, title, organisation } = item
-  const startYear = getYear(startDate)
-  const endYear = getYear(endDate)
+  const { startDate, endDate, description, title, organisation } = item;
+  const startYear = getYear(startDate);
+  const endYear = getYear(endDate);
 
-  const durationMonths = monthDiff(item.startDate, item.endDate)
-  const numYearsSpanned = endYear - startYear
-  const yearsSinceEnd = getYear(new Date()) - endYear
-  const monthsSinceEnd = monthDiff(item.endDate, new Date())
-  const baseOffset = DEFAULT_LABEL_HEIGHT + MONTH_HEIGHT / 2 // the base offset needed to get a card aligned to the last mongth of the most recent year
+  const durationMonths = monthDiff(item.startDate, item.endDate);
+  const numYearsSpanned = endYear - startYear;
+  const yearsSinceEnd = getYear(new Date()) - endYear;
+  const monthsSinceEnd = monthDiff(item.endDate, new Date());
+
+  // the number of months above the end date that have been scaled down
+  const monthsSinceCompactedFromEndDate = collapseBeforeYear
+    ? monthDiff(item.endDate, new Date(collapseBeforeYear, 0, 1))
+    : 0;
+  const numCompactedMonthsAfter = monthsSinceCompactedFromEndDate > 0 ? monthsSinceCompactedFromEndDate : 0;
+  const numFullSizeMonthsAfter = monthsSinceEnd - numCompactedMonthsAfter;
+
+  const monthsSinceCompactedFromStartDate = collapseBeforeYear
+    ? monthDiff(item.startDate, new Date(collapseBeforeYear, 0, 1))
+    : 0;
+
+  const numCompactedMonthsDuring = monthsSinceCompactedFromStartDate > 0 ? monthsSinceCompactedFromStartDate : 0;
+  const numFullSizeMonthsDuring = durationMonths - numCompactedMonthsDuring;
+
+  console.log({
+    organisation,
+    title,
+    monthsSinceCompactedFromStartDate,
+    numCompactedMonthsDuring,
+    numFullSizeMonthsDuring,
+    durationMonths,
+    reducedScale,
+  });
+
+  const baseOffset = DEFAULT_LABEL_HEIGHT + MONTH_HEIGHT / 2; // the base offset needed to get a card aligned to the last mongth of the most recent year
 
   // distance from top = the space a number of months takes up + the space taken up by the number of year labels above the card
-  const top = baseOffset + MONTH_HEIGHT * monthsSinceEnd + DEFAULT_LABEL_HEIGHT * yearsSinceEnd
-  const span = MONTH_HEIGHT * durationMonths + numYearsSpanned * DEFAULT_LABEL_HEIGHT
+  const top =
+    baseOffset +
+    MONTH_HEIGHT * numFullSizeMonthsAfter +
+    MONTH_HEIGHT * reducedScale * numCompactedMonthsAfter +
+    DEFAULT_LABEL_HEIGHT * yearsSinceEnd;
 
-  const isPresentJob = differenceInCalendarDays(endDate, startDate) === 0
+  const span =
+    MONTH_HEIGHT * numFullSizeMonthsDuring +
+    MONTH_HEIGHT * reducedScale * numCompactedMonthsDuring +
+    numYearsSpanned * DEFAULT_LABEL_HEIGHT;
+
+  const isPresentJob = differenceInCalendarDays(endDate, startDate) === 0;
 
   const renderDuration = () => {
-    const days = differenceInCalendarDays(endDate, startDate)
-    const months = Math.round(days / 30.41)
-    const years = Math.floor(months / 12)
-    const remainingMonths = months % 12
+    const days = differenceInCalendarDays(endDate, startDate);
+    const months = Math.round(days / 30.41);
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
 
-    let duration = ''
+    let duration = '';
     if (years > 0) {
-      duration += `${years} year${years === 1 ? '' : 's'}`
+      duration += `${years} year${years === 1 ? '' : 's'}`;
     }
 
     if (remainingMonths) {
-      duration += ` ${years > 0 ? remainingMonths : months} months`
+      duration += ` ${years > 0 ? remainingMonths : months} months`;
     }
 
-    return duration ? ` (${duration.trim()})` : ''
-  }
+    return duration ? ` (${duration.trim()})` : '';
+  };
 
   const getAnimationVariants = (isEven: boolean) => {
     return {
       visible: { opacity: 1, x: '0%', transition: { duration: 0.7 } },
       hidden: { opacity: 0, x: isEven ? '50%' : '-50%' },
-    }
-  }
+    };
+  };
 
   return (
     <motion.div
-      animate={controls}
-      variants={getAnimationVariants(isEven)}
-      initial="hidden"
+      //   animate={controls}
+      //   variants={getAnimationVariants(isEven)}
+      //   initial="hidden"
       className="timeline-card"
       style={{
         position: 'absolute',
@@ -151,7 +186,7 @@ const TimelineCard = ({ item, isEven }: TimelineCardProps) => {
       </Box>
       <TimelineBranch isEven={isEven} />
     </motion.div>
-  )
-}
+  );
+};
 
-export default TimelineCard
+export default TimelineCard;
