@@ -32,6 +32,7 @@ const TimelineYear = ({ yearIndex, months, year, showGuideLines = true, scaleBy 
   const BAR_HEIGHT = months.length * MONTH_HEIGHT * scaleBy;
 
   console.log(BAR_HEIGHT);
+
   return (
     <Flex flexDir="column" alignItems="center">
       {yearIndex === 0 && <TimelinePoint label="Present" />}
@@ -47,18 +48,22 @@ const TimelineYear = ({ yearIndex, months, year, showGuideLines = true, scaleBy 
           const monthIndex = getMonth(month);
           const monthName = monthNames[monthIndex];
 
-          // top offset of a month label is a function of how recent the month is + half the height of a month section (to center the month)
-          // minus half the label height itself to center the label
-          // const TOP_OFFSET = index * MONTH_HEIGHT + MONTH_HEIGHT / 2 - MONTH_LABEL_HEIGHT / 2
-          const TOP_OFFSET = index * MONTH_HEIGHT + MONTH_HEIGHT / 2 - MONTH_LABEL_HEIGHT / 2;
+          const TOP_OFFSET = index * MONTH_HEIGHT * scaleBy;
+
+          if (index === 2) {
+            console.log({ monthName, TOP_OFFSET });
+          }
           return (
             <Text
               key={monthIndex}
+              height={MONTH_HEIGHT}
               position="absolute"
-              top={TOP_OFFSET * scaleBy}
+              top={TOP_OFFSET + 'px'}
               left="10px"
               fontSize="sm"
               color="gray.500"
+              display="flex"
+              alignItems="center"
               _after={
                 showGuideLines
                   ? {
@@ -68,7 +73,6 @@ const TimelineYear = ({ yearIndex, months, year, showGuideLines = true, scaleBy 
                       height: '1px',
                       backgroundColor: 'gray.300',
                       position: 'relative',
-                      bottom: MONTH_LABEL_HEIGHT / 2,
                       right: '50vw',
                     }
                   : {}

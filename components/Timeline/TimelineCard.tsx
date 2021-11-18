@@ -59,16 +59,16 @@ const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: Ti
     monthsSinceCompactedFromStartDate > 0 ? monthsSinceCompactedFromStartDate - numCompactedMonthsAfter : 0;
   const numFullSizeMonthsDuring = durationMonths - numCompactedMonthsDuring;
 
-  console.log({
-    organisation,
-    title,
-    monthsSinceCompactedFromEndDate,
-    monthsSinceCompactedFromStartDate,
-    numCompactedMonthsDuring,
-    numFullSizeMonthsDuring,
-    durationMonths,
-    reducedScale,
-  });
+  //   console.log({
+  //     organisation,
+  //     title,
+  //     monthsSinceCompactedFromEndDate,
+  //     monthsSinceCompactedFromStartDate,
+  //     numCompactedMonthsDuring,
+  //     numFullSizeMonthsDuring,
+  //     durationMonths,
+  //     reducedScale,
+  //   });
 
   const baseOffset = DEFAULT_LABEL_HEIGHT + MONTH_HEIGHT / 2; // the base offset needed to get a card aligned to the last mongth of the most recent year
 
