@@ -4,6 +4,7 @@ import TimelinePoint from './TimelinePoint';
 
 export const MONTH_LABEL_HEIGHT = 21;
 export const MONTH_HEIGHT = 30;
+export const LABEL_FONT_SIZE = 14;
 
 const monthNames = [
   'January',
@@ -29,9 +30,10 @@ interface TimelineYearProps {
 }
 
 const TimelineYear = ({ yearIndex, months, year, showGuideLines = true, scaleBy = 1 }: TimelineYearProps) => {
-  const BAR_HEIGHT = months.length * MONTH_HEIGHT * scaleBy;
+  const SCALED_MONTH_HEIGHT = MONTH_HEIGHT * scaleBy;
+  const BAR_HEIGHT = months.length * SCALED_MONTH_HEIGHT;
 
-  console.log(BAR_HEIGHT);
+  console.log({ BAR_HEIGHT, year, scaleBy });
 
   return (
     <Flex flexDir="column" alignItems="center">
@@ -56,11 +58,12 @@ const TimelineYear = ({ yearIndex, months, year, showGuideLines = true, scaleBy 
           return (
             <Text
               key={monthIndex}
-              height={MONTH_HEIGHT}
+              height={SCALED_MONTH_HEIGHT}
+              padding="0px"
               position="absolute"
               top={TOP_OFFSET + 'px'}
               left="10px"
-              fontSize="sm"
+              fontSize={LABEL_FONT_SIZE * scaleBy + 'px'}
               color="gray.500"
               display="flex"
               alignItems="center"
