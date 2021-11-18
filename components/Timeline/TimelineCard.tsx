@@ -55,12 +55,14 @@ const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: Ti
     ? monthDiff(item.startDate, new Date(collapseBeforeYear, 0, 1))
     : 0;
 
-  const numCompactedMonthsDuring = monthsSinceCompactedFromStartDate > 0 ? monthsSinceCompactedFromStartDate : 0;
+  const numCompactedMonthsDuring =
+    monthsSinceCompactedFromStartDate > 0 ? monthsSinceCompactedFromStartDate - numCompactedMonthsAfter : 0;
   const numFullSizeMonthsDuring = durationMonths - numCompactedMonthsDuring;
 
   console.log({
     organisation,
     title,
+    monthsSinceCompactedFromEndDate,
     monthsSinceCompactedFromStartDate,
     numCompactedMonthsDuring,
     numFullSizeMonthsDuring,
