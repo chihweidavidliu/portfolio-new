@@ -33,32 +33,23 @@ const TimelineYear = ({ yearIndex, months, year, showGuideLines = true, scaleBy 
   const SCALED_MONTH_HEIGHT = MONTH_HEIGHT * scaleBy;
   const BAR_HEIGHT = months.length * SCALED_MONTH_HEIGHT;
 
-  console.log({ BAR_HEIGHT, year, scaleBy });
+  console.log({ BAR_HEIGHT, year, scaleBy, SCALED_MONTH_HEIGHT, numMonths: months.length });
 
   return (
     <Flex flexDir="column" alignItems="center">
       {yearIndex === 0 && <TimelinePoint label="Present" />}
-      <Box
-        bgColor="teal.500"
-        height={BAR_HEIGHT + 'px'}
-        width="3px"
-        borderRadius="5px"
-        position="relative"
-        display="flex"
-      >
+      <Box bgColor="teal.500" height={BAR_HEIGHT + 'px'} width="3px" borderRadius="5px" position="relative">
         {months.map((month, index) => {
           const monthIndex = getMonth(month);
           const monthName = monthNames[monthIndex];
 
           const TOP_OFFSET = index * MONTH_HEIGHT * scaleBy;
 
-          if (index === 2) {
-            console.log({ monthName, TOP_OFFSET });
-          }
+          const isEven = index % 2 === 0;
           return (
             <Text
               key={monthIndex}
-              height={SCALED_MONTH_HEIGHT}
+              height={SCALED_MONTH_HEIGHT + 'px'}
               padding="0px"
               position="absolute"
               top={TOP_OFFSET + 'px'}
