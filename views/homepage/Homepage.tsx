@@ -14,10 +14,10 @@ export const Homepage = () => {
       </Head>
 
       <Box>
+        <TimelineSection collapseBeforeYear={2018} />
         <SkillsSection />
         <Divider />
         <ProjectsSection />
-        <TimelineSection collapseBeforeYear={2018} />
       </Box>
     </>
   );

@@ -1,8 +1,6 @@
 import { FC, useEffect } from 'react';
-import { Box } from '@chakra-ui/layout';
 import { useInView } from 'react-intersection-observer';
-import { useAnimation, motion } from 'framer-motion';
-import { primaryColor } from '../../theme';
+import { useAnimation, motion, useMotionValue, useTransform } from 'framer-motion';
 import TimelineBranch from './TimelineBranch';
 
 interface BaseTimelineCardProps {
@@ -12,6 +10,11 @@ interface BaseTimelineCardProps {
 }
 
 const BaseTimelineCard: FC<BaseTimelineCardProps> = ({ children, isEven, topOffset, height }) => {
+  const x = useMotionValue(200);
+  const y = useMotionValue(200);
+  const rotateX = useTransform(y, [0, 400], [3, -3]);
+  const rotateY = useTransform(x, [0, 400], [-3, 3]);
+
   const controls = useAnimation();
   const { ref, inView } = useInView({
     threshold: 0.7,
@@ -36,40 +39,50 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({ children, isEven, topOffs
       animate={controls}
       variants={getAnimationVariants(isEven)}
       initial="hidden"
-      className="timeline-card"
       style={{
         position: 'absolute',
+        perspective: 400,
         top: topOffset + 'px',
         left: isEven ? '115px' : undefined,
         right: !isEven ? '100px' : undefined,
         height: height + 'px',
         display: 'flex',
-
         alignItems: 'center',
         pointerEvents: 'none',
       }}
+      onMouseLeave={() => {
+        x.set(200);
+        y.set(200);
+        rotateX.set(0);
+        rotateY.set(0);
+      }}
+      onMouseMove={(e) => {
+        const rect = e?.currentTarget.getBoundingClientRect();
+        const newX = e.clientX - rect.left;
+        const newY = e.clientY - rect.top;
+
+        x.set(newX);
+        y.set(newY);
+      }}
     >
-      <Box
+      <motion.div
         ref={ref}
-        bg="white"
-        boxShadow="md"
-        minW="400px"
-        maxW="400px"
-        padding="7"
-        pointerEvents="initial"
-        _hover={{
-          '&& + .bar': {
-            borderColor: primaryColor(500),
-            zIndex: 100,
-            '.horizontal-bar': {
-              borderColor: primaryColor(500),
-              zIndex: 100,
-            },
-          },
+        className="timeline-card"
+        style={{
+          background: 'white',
+          minWidth: '400px',
+          maxWidth: '400px',
+          padding: '30px',
+          borderRadius: '10px',
+          pointerEvents: 'initial',
+          boxShadow: '2px 4px 25px rgba(0, 0, 0, 0.1)',
+          transition: 'all 0.1s',
+          rotateX: rotateX,
+          rotateY: rotateY,
         }}
       >
         {children}
-      </Box>
+      </motion.div>
       <TimelineBranch isEven={isEven} />
     </motion.div>
   );
