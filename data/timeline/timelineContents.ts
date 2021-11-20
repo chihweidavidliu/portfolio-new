@@ -34,7 +34,7 @@ export const timelineContents: { [index: string]: TimelineItem } = {
     organisation: 'Sourceful',
     location: 'London',
     startDate: new Date(2021, 0, 4),
-    endDate: new Date(2021, 4, 30),
+    endDate: new Date(2021, 5, 1),
     description: dedent`
     
       - Contributed across the stack to core features of the company CRM / Operations tool
