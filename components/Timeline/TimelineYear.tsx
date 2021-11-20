@@ -3,7 +3,7 @@ import { getMonth } from 'date-fns';
 import TimelinePoint from './TimelinePoint';
 
 export const MONTH_LABEL_HEIGHT = 21;
-export const MONTH_HEIGHT = 30;
+export const MONTH_HEIGHT = 40;
 export const LABEL_FONT_SIZE = 14;
 
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

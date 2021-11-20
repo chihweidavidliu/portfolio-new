@@ -1,16 +1,61 @@
-import dedent from 'dedent'
-import { TimelineItem } from '../../types/TimelineItem'
+import dedent from 'dedent';
+import { TimelineItem } from '../../types/TimelineItem';
 
 export const timelineContents: { [index: string]: TimelineItem } = {
+  sourceful2: {
+    title: 'Team Lead of Engineering',
+    logoUrl: 'https://res.cloudinary.com/dhccfu1un/image/upload/v1617309220/portfolio/logos/sourceful_dxoy5h.jpg',
+    organisation: 'Sourceful',
+    location: 'London',
+    startDate: new Date(2021, 5, 1),
+    endDate: new Date(),
+    description: dedent`
+      - Working with CTO and other senior engineers to completely re-architect our technology solutions
+      - Managing and planning Engineering work across the company
+      - Responsible for hiring within Engineering
+      - Leading and contributing to development of Sourceful's public-facing platform
+    `,
+    keyTechnologies: [
+      'React',
+      'Typescript',
+      'NextJs',
+      'Hasura (GraphQL Engine)',
+      'Postgres',
+      'Kubernetes',
+      'NodeJs',
+      'Python',
+      'ArgoCD',
+      'GCP',
+    ],
+  },
   sourceful: {
     title: 'Software Engineer',
     logoUrl: 'https://res.cloudinary.com/dhccfu1un/image/upload/v1617309220/portfolio/logos/sourceful_dxoy5h.jpg',
     organisation: 'Sourceful',
     location: 'London',
     startDate: new Date(2021, 0, 4),
-    endDate: new Date(),
-    description: dedent``,
-    keyTechnologies: ['React', 'Typescript', 'Hasura (GraphQL Engine)', 'Postgres', 'Kubernetes', 'ArgoCD', 'GCP'],
+    endDate: new Date(2021, 4, 30),
+    description: dedent`
+    
+      - Contributed across the stack to core features of the company CRM / Operations tool
+      - Led development of Sourceful's public-facing platform in NextJs / Sanity CMS
+      - Led a migration of existing frontend codebases from Javascript to Typescript
+      - Introduced Visual Regression testing + Storybook-driven design via Chromatic
+      - Designed and implemented backend services in Nodejs / Python / Go
+      - Managed deployments on GCP with Github Actions / ArgoCD / Kubernetes
+    `,
+    keyTechnologies: [
+      'React',
+      'Typescript',
+      'NextJs',
+      'Hasura (GraphQL Engine)',
+      'Postgres',
+      'Kubernetes',
+      'NodeJs',
+      'Python',
+      'ArgoCD',
+      'GCP',
+    ],
   },
   satoshi: {
     title: 'Full Stack Engineer',
@@ -122,4 +167,4 @@ export const timelineContents: { [index: string]: TimelineItem } = {
     * Distinction in Spoken French
     * Awarded the RA Knox Prize for Outstanding Firsts`,
   },
-}
+};

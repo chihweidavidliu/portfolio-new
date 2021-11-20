@@ -6,7 +6,7 @@ import { timelineContents } from '../../data/timeline/timelineContents';
 import TimelineYear from '../../components/Timeline/TimelineYear';
 import TimelineCard from '../../components/Timeline/TimelineCard';
 
-const REDUCED_SCALE = 0.1; // the factor by which condensed years should shrink
+const REDUCED_SCALE = 0.2; // the factor by which condensed years should shrink
 
 interface TimelineSectionProps {
   collapseBeforeYear?: number;
@@ -46,7 +46,7 @@ const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
   return (
     <PageSection title="Work Experience and Education">
       {/* width of 0 so that the cards can be absolutely positioned against the vertical center of the screen */}
-      <Box position="relative" width="0px" margin="0 auto">
+      <Box position="relative" width="0px" margin="0 auto" marginTop="100px">
         {keys.map((year, yearIndex) => {
           const months = timelinePointsByYear[parseInt(year)];
 

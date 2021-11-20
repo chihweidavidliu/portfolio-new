@@ -17,7 +17,7 @@ export const Homepage = () => {
         <SkillsSection />
         <Divider />
         <ProjectsSection />
-        <TimelineSection collapseBeforeYear={2017} />
+        <TimelineSection collapseBeforeYear={2018} />
       </Box>
     </>
   );

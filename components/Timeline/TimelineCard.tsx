@@ -174,7 +174,7 @@ const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: Ti
         </Text>
 
         <Box
-          marginTop="30px"
+          marginTop="15px"
           fontSize="sm"
           maxW="100%"
           css={{
