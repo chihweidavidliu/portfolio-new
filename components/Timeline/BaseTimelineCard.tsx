@@ -2,6 +2,10 @@ import { FC, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation, motion, useMotionValue, useTransform } from 'framer-motion';
 import TimelineBranch from './TimelineBranch';
+import { Box, BoxProps } from '@chakra-ui/layout';
+import { primaryColor } from '../../theme';
+
+const MotionBox = motion<BoxProps>(Box);
 
 interface BaseTimelineCardProps {
   isEven: boolean;
@@ -35,7 +39,7 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({ children, isEven, topOffs
   };
 
   return (
-    <motion.div
+    <MotionBox
       animate={controls}
       variants={getAnimationVariants(isEven)}
       initial="hidden"
@@ -64,27 +68,38 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({ children, isEven, topOffs
         x.set(newX);
         y.set(newY);
       }}
+      _hover={{
+        zIndex: 100,
+      }}
     >
-      <motion.div
+      <MotionBox
+        bg="white"
+        minW="400px"
+        maxW="400px"
+        padding="30px"
+        pointerEvents="initial"
+        boxShadow="md"
+        borderRadius="md"
         ref={ref}
         className="timeline-card"
+        _hover={{
+          '&& + .bar': {
+            borderColor: primaryColor(500),
+            '.horizontal-bar': {
+              borderColor: primaryColor(500),
+            },
+          },
+        }}
         style={{
-          background: 'white',
-          minWidth: '400px',
-          maxWidth: '400px',
-          padding: '30px',
-          borderRadius: '10px',
-          pointerEvents: 'initial',
-          boxShadow: '2px 4px 25px rgba(0, 0, 0, 0.1)',
           transition: 'all 0.1s',
           rotateX: rotateX,
           rotateY: rotateY,
         }}
       >
         {children}
-      </motion.div>
+      </MotionBox>
       <TimelineBranch isEven={isEven} />
-    </motion.div>
+    </MotionBox>
   );
 };
 
