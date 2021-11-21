@@ -9,7 +9,10 @@ const ProjectsSection = () => {
       {() => (
         <Grid
           gridGap="7"
-          gridTemplateColumns="repeat(auto-fill, minmax(500px, 1fr))"
+          gridTemplateColumns={{
+            base: '1fr',
+            lg: '1fr 1fr',
+          }}
           width="100%"
           justifyItems="center"
           gridAutoRows="max-content"

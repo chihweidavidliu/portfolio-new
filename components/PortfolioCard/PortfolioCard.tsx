@@ -1,22 +1,22 @@
-import { Button, ButtonGroup } from '@chakra-ui/button'
-import { Image } from '@chakra-ui/image'
-import { Box, Grid, Heading, Stack, Text } from '@chakra-ui/layout'
-import { FC } from 'react'
-import { primaryColor } from '../../theme'
-import { IPortfolioProject } from '../../types/PortfolioProject'
-import Card from '../Card'
-import TechStackList from '../TechStackList'
+import { Button, ButtonGroup } from '@chakra-ui/button';
+import { Image } from '@chakra-ui/image';
+import { Box, Grid, Heading, Stack, Text } from '@chakra-ui/layout';
+import { FC } from 'react';
+import { primaryColor } from '../../theme';
+import { IPortfolioProject } from '../../types/PortfolioProject';
+import Card from '../Card';
+import TechStackList from '../TechStackList';
 
 const Subheading: FC = ({ children }) => {
   return (
     <Heading as="h4" size="sm" color={primaryColor(500)} mb="2">
       {children}
     </Heading>
-  )
-}
+  );
+};
 
 interface PortfolioCardProps {
-  project: IPortfolioProject
+  project: IPortfolioProject;
 }
 
 const PortfolioCard = ({ project }: PortfolioCardProps) => {
@@ -28,7 +28,11 @@ const PortfolioCard = ({ project }: PortfolioCardProps) => {
 
       <Card chakraProps={{ display: 'grid', gridTemplateRows: 'max-content 1fr max-content', gridGap: '12' }}>
         <Image src={project.images[0].source} alt={project.images[0].caption} borderRadius="md" width="100%" />
-        <Grid gridTemplateColumns="1fr 1fr" gridGap="8">
+        <Grid
+          gridTemplateColumns={{ base: '1fr', md: '1fr 1fr' }}
+          textAlign={{ base: 'center', md: 'left' }}
+          gridGap="8"
+        >
           <Box>
             <Subheading>About</Subheading>
             <Text>{project.description}</Text>
@@ -72,7 +76,7 @@ const PortfolioCard = ({ project }: PortfolioCardProps) => {
         </Grid>
       </Card>
     </Grid>
-  )
-}
+  );
+};
 
-export default PortfolioCard
+export default PortfolioCard;
