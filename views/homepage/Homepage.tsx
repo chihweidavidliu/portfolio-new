@@ -3,6 +3,7 @@ import { Box, Divider } from '@chakra-ui/react';
 import SkillsSection from './SkillsSection';
 import ProjectsSection from './ProjectsSection';
 import TimelineSection from './TimelineSection';
+import { TimelineProvider } from '../../providers/TimelineProvider';
 
 export const Homepage = () => {
   return (
@@ -17,7 +18,9 @@ export const Homepage = () => {
         <SkillsSection />
         <Divider />
         <ProjectsSection />
-        <TimelineSection collapseBeforeYear={2018} />
+        <TimelineProvider>
+          <TimelineSection collapseBeforeYear={2018} />
+        </TimelineProvider>
       </Box>
     </>
   );

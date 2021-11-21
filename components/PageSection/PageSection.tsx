@@ -1,13 +1,13 @@
-import { FC } from 'react'
-import { Box, Center, Heading } from '@chakra-ui/layout'
+import { FC } from 'react';
+import { Box, Center, Heading } from '@chakra-ui/layout';
 
 interface PageSectionProps {
-  title?: string
+  title?: string;
 }
 
 export const PageSection: FC<PageSectionProps> = ({ children, title }) => {
   return (
-    <Center padding="clamp(10px, 5vw, 40px)">
+    <Center padding="clamp(10px, 5vw, 40px)" width="100%">
       <Box maxWidth="container.xl" width="100%">
         {title && (
           <Heading as="h2" mb="10" textAlign="center" fontWeight="semibold" color="gray.600">
@@ -17,7 +17,7 @@ export const PageSection: FC<PageSectionProps> = ({ children, title }) => {
         {children}
       </Box>
     </Center>
-  )
-}
+  );
+};
 
-export default PageSection
+export default PageSection;

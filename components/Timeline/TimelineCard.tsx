@@ -6,20 +6,22 @@ import { primaryColor } from '../../theme';
 import { TimelineItem } from '../../types/TimelineItem';
 import { monthDiff } from '../../util/monthDiff';
 import { DEFAULT_LABEL_HEIGHT } from './TimelinePoint';
-import { MONTH_HEIGHT } from './TimelineYear';
 import { Image } from '@chakra-ui/image';
 import format from 'date-fns/format';
 import TechStackList from '../TechStackList';
 import BaseTimelineCard from './BaseTimelineCard';
+import { Position } from '../../types/Position';
+import { useTimelineContext } from '../../providers/TimelineProvider';
 
 interface TimelineCardProps {
   item: TimelineItem;
-  isEven: boolean;
+  cardPosition: Position;
   reducedScale?: number;
   collapseBeforeYear?: number;
 }
 
-const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: TimelineCardProps) => {
+const TimelineCard = ({ item, cardPosition, reducedScale = 1, collapseBeforeYear }: TimelineCardProps) => {
+  const { monthHeight } = useTimelineContext();
   const { startDate, endDate, description, title, organisation } = item;
   const startYear = getYear(startDate);
   const endYear = getYear(endDate);
@@ -45,37 +47,37 @@ const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: Ti
     monthsSinceCompactedFromStartDate > 0 ? monthsSinceCompactedFromStartDate - numCompactedMonthsAfter : 0;
   const numFullSizeMonthsDuring = durationMonths - numCompactedMonthsDuring;
 
-  console.log({
-    organisation,
-    title,
-    durationMonths,
-    monthsSinceEnd,
-    monthsSinceCompactedFromEndDate,
-    numFullSizeMonthsAfter,
-    numCompactedMonthsAfter,
-  });
+  // console.log({
+  //   organisation,
+  //   title,
+  //   durationMonths,
+  //   monthsSinceEnd,
+  //   monthsSinceCompactedFromEndDate,
+  //   numFullSizeMonthsAfter,
+  //   numCompactedMonthsAfter,
+  // });
 
   const baseOffset =
     numCompactedMonthsAfter > 0
-      ? DEFAULT_LABEL_HEIGHT + (MONTH_HEIGHT / 2) * reducedScale
-      : DEFAULT_LABEL_HEIGHT + MONTH_HEIGHT / 2; // the base offset needed to get a card aligned to the last mongth of the most recent year
+      ? DEFAULT_LABEL_HEIGHT + (monthHeight / 2) * reducedScale
+      : DEFAULT_LABEL_HEIGHT + monthHeight / 2; // the base offset needed to get a card aligned to the last mongth of the most recent year
 
   // distance from top = the space a number of months takes up + the space taken up by the number of year labels above the card
   const top =
     baseOffset +
-    MONTH_HEIGHT * numFullSizeMonthsAfter +
-    MONTH_HEIGHT * numCompactedMonthsAfter * reducedScale +
+    monthHeight * numFullSizeMonthsAfter +
+    monthHeight * numCompactedMonthsAfter * reducedScale +
     DEFAULT_LABEL_HEIGHT * yearsSinceEnd;
 
   let span =
-    MONTH_HEIGHT * numFullSizeMonthsDuring +
-    MONTH_HEIGHT * reducedScale * numCompactedMonthsDuring +
+    monthHeight * numFullSizeMonthsDuring +
+    monthHeight * reducedScale * numCompactedMonthsDuring +
     numYearsSpanned * DEFAULT_LABEL_HEIGHT;
 
   // if a card spans different scales, need to adjust for that in the span
   // TODO: investigate this
   if (numCompactedMonthsAfter === 0 && numCompactedMonthsDuring > 0) {
-    span = span - (MONTH_HEIGHT / 2) * reducedScale;
+    span = span - (monthHeight / 2) * reducedScale;
   }
 
   const isPresentJob = differenceInCalendarDays(endDate, startDate) === 0;
@@ -99,7 +101,7 @@ const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: Ti
   };
 
   return (
-    <BaseTimelineCard topOffset={top} height={span} isEven={isEven}>
+    <BaseTimelineCard topOffset={top} height={span} cardPosition={cardPosition}>
       <Box display="flex" width="100%" justifyContent="space-between">
         <Box>
           <Heading fontSize="lg" color={primaryColor(500)} fontWeight="semibold" mb="2px">
@@ -110,7 +112,13 @@ const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: Ti
           </Text>
         </Box>
         {item.logoUrl && (
-          <Image src={item.logoUrl} height="40px" width="40px" alt={item.organisation + ' logo'} marginLeft="10px" />
+          <Image
+            src={item.logoUrl}
+            height="40px"
+            width="40px"
+            alt={item.organisation + ' logo'}
+            marginLeft="10px"
+          />
         )}
       </Box>
       <Text color="gray.600" fontSize="sm" fontWeight="semibold">

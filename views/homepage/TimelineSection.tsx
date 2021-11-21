@@ -5,14 +5,15 @@ import PageSection from '../../components/PageSection';
 import { timelineContents } from '../../data/timeline/timelineContents';
 import TimelineYear from '../../components/Timeline/TimelineYear';
 import TimelineCard from '../../components/Timeline/TimelineCard';
-
-const REDUCED_SCALE = 0.2; // the factor by which condensed years should shrink
+import { useTimelineContext } from '../../providers/TimelineProvider';
 
 interface TimelineSectionProps {
   collapseBeforeYear?: number;
 }
 
 const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
+  const { reducedScale, cardLayout } = useTimelineContext();
+
   const timelineItems = Object.values(timelineContents).sort((a, b) => {
     if (isAfter(a.startDate, b.startDate)) {
       return -1;
@@ -46,11 +47,11 @@ const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
   return (
     <PageSection title="Work Experience and Education">
       {/* width of 0 so that the cards can be absolutely positioned against the vertical center of the screen */}
-      <Box position="relative" width="0px" margin="0 auto" marginTop="100px">
+      <Box position="relative" width="0px" margin={{ base: '0 0 0 20px', lg: '0 auto' }} marginTop="100px">
         {keys.map((year, yearIndex) => {
           const months = timelinePointsByYear[parseInt(year)];
 
-          const scaleBy = collapseBeforeYear && Number(year) < collapseBeforeYear ? REDUCED_SCALE : 1;
+          const scaleBy = collapseBeforeYear && Number(year) < collapseBeforeYear ? reducedScale : 1;
 
           return (
             <TimelineYear
@@ -70,9 +71,9 @@ const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
             <TimelineCard
               key={index}
               item={item}
-              isEven={isEven}
+              cardPosition={isEven ? 'right' : 'left'}
               collapseBeforeYear={collapseBeforeYear}
-              reducedScale={REDUCED_SCALE}
+              reducedScale={reducedScale}
             />
           );
         })}

@@ -4,16 +4,17 @@ import { useAnimation, motion, useMotionValue, useTransform } from 'framer-motio
 import TimelineBranch from './TimelineBranch';
 import { Box, BoxProps } from '@chakra-ui/layout';
 import { primaryColor } from '../../theme';
+import { Position } from '../../types/Position';
 
 const MotionBox = motion<BoxProps>(Box);
 
 interface BaseTimelineCardProps {
-  isEven: boolean;
+  cardPosition: Position;
   topOffset: number;
   height: number;
 }
 
-const BaseTimelineCard: FC<BaseTimelineCardProps> = ({ children, isEven, topOffset, height }) => {
+const BaseTimelineCard: FC<BaseTimelineCardProps> = ({ children, topOffset, height, cardPosition }) => {
   const x = useMotionValue(200);
   const y = useMotionValue(200);
   const rotateX = useTransform(y, [0, 400], [3, -3]);
@@ -31,24 +32,24 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({ children, isEven, topOffs
     }
   }, [controls, inView]);
 
-  const getAnimationVariants = (isEven: boolean) => {
+  const getAnimationVariants = (position: Position) => {
     return {
       visible: { opacity: 1, x: '0%', transition: { duration: 0.7 } },
-      hidden: { opacity: 0, x: isEven ? '50%' : '-50%' },
+      hidden: { opacity: 0, x: position === 'right' ? '50%' : '-50%' },
     };
   };
 
   return (
     <MotionBox
       animate={controls}
-      variants={getAnimationVariants(isEven)}
+      variants={getAnimationVariants(cardPosition)}
       initial="hidden"
+      left={{ base: '115px', lg: cardPosition === 'right' ? '115px' : undefined }}
+      right={{ base: undefined, lg: cardPosition === 'left' ? '100px' : undefined }}
       style={{
         position: 'absolute',
         perspective: 400,
         top: topOffset + 'px',
-        left: isEven ? '115px' : undefined,
-        right: !isEven ? '100px' : undefined,
         height: height + 'px',
         display: 'flex',
         alignItems: 'center',
@@ -98,7 +99,7 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({ children, isEven, topOffs
       >
         {children}
       </MotionBox>
-      <TimelineBranch isEven={isEven} />
+      <TimelineBranch branchPosition={cardPosition} />
     </MotionBox>
   );
 };
