@@ -4,19 +4,20 @@ import { useAnimation, motion, useMotionValue, useTransform } from 'framer-motio
 import TimelineBranch from './TimelineBranch';
 import { Box, BoxProps } from '@chakra-ui/layout';
 import { primaryColor } from '../../theme';
+import { TimelinePosition } from '../../types/TimelinePosition';
 
 export const MotionBox = motion<BoxProps>(Box);
 
 interface BaseTimelineCardProps {
-  isEven: boolean;
   topOffset: number;
   height: number;
   hasAdequateSpace?: boolean;
+  position: TimelinePosition;
 }
 
 const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
   children,
-  isEven,
+  position,
   topOffset,
   height,
   hasAdequateSpace = true,
@@ -38,7 +39,7 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
     }
   }, [controls, inView]);
 
-  const getAnimationVariants = (isEven: boolean, hasAdequateSpace: boolean) => {
+  const getAnimationVariants = (position: TimelinePosition, hasAdequateSpace: boolean) => {
     if (!hasAdequateSpace) {
       return {
         visible: { opacity: 1, y: '0%', transition: { duration: 0.7 } },
@@ -47,7 +48,7 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
     }
     return {
       visible: { opacity: 1, x: '0%', transition: { duration: 0.7 } },
-      hidden: { opacity: 0, x: isEven ? '50%' : '-50%' },
+      hidden: { opacity: 0, x: position === 'right' ? '50%' : '-50%' },
     };
   };
 
@@ -66,15 +67,15 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
   return (
     <MotionBox
       animate={controls}
-      variants={getAnimationVariants(isEven, hasAdequateSpace)}
+      variants={getAnimationVariants(position, hasAdequateSpace)}
       initial="hidden"
       right={{
-        base: !isEven ? '90px' : undefined,
-        lg: !isEven ? '100px' : undefined,
+        base: position === 'left' ? '90px' : undefined,
+        lg: position === 'left' ? '100px' : undefined,
       }}
       left={{
-        base: isEven ? '90px' : undefined, // account for month labels disappearing
-        lg: isEven ? '115px' : undefined,
+        base: position === 'right' ? '90px' : undefined, // account for month labels disappearing
+        lg: position === 'right' ? '115px' : undefined,
       }}
       style={{
         ...getPositioningStyles(hasAdequateSpace),
@@ -126,7 +127,7 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
       >
         {children}
       </MotionBox>
-      {hasAdequateSpace && <TimelineBranch isEven={isEven} />}
+      {hasAdequateSpace && <TimelineBranch cardPosition={position} />}
     </MotionBox>
   );
 };

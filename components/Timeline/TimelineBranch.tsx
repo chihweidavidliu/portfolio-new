@@ -1,14 +1,14 @@
-import { Box } from '@chakra-ui/layout'
+import { Box } from '@chakra-ui/layout';
+import { TimelinePosition } from '../../types/TimelinePosition';
 
-const getVerticalBranchStyles = (isEven: boolean) => {
-  // Even elements go on left
-  if (isEven) {
+const getVerticalBranchStyles = (cardPosition: TimelinePosition) => {
+  if (cardPosition === 'right') {
     return {
       left: '-70px',
       borderRightWidth: '2px',
       borderTopRightRadius: '5px',
       borderBottomRightRadius: '5px',
-    }
+    };
   }
 
   return {
@@ -16,25 +16,25 @@ const getVerticalBranchStyles = (isEven: boolean) => {
     borderLeftWidth: '2px',
     borderTopLeftRadius: '5px',
     borderBottomLeftRadius: '5px',
-  }
-}
+  };
+};
 
-const getHorizontalBranchStyles = (isEven: boolean) => {
-  if (isEven) {
+const getHorizontalBranchStyles = (cardPosition: TimelinePosition) => {
+  if (cardPosition === 'right') {
     return {
       right: '-35px',
-    }
+    };
   }
 
   return {
     left: '-35px',
-  }
-}
+  };
+};
 interface TimelineBranchProps {
-  isEven: boolean
+  cardPosition: TimelinePosition;
 }
 
-const TimelineBranch = ({ isEven }: TimelineBranchProps) => {
+const TimelineBranch = ({ cardPosition }: TimelineBranchProps) => {
   return (
     <Box
       className="bar"
@@ -46,7 +46,7 @@ const TimelineBranch = ({ isEven }: TimelineBranchProps) => {
       borderStyle="dashed"
       height="100%"
       position="absolute"
-      {...getVerticalBranchStyles(isEven)}
+      {...getVerticalBranchStyles(cardPosition)}
       display="flex"
       alignItems="center"
     >
@@ -59,10 +59,10 @@ const TimelineBranch = ({ isEven }: TimelineBranchProps) => {
         borderStyle="dashed"
         borderTopWidth="2px"
         transition="all 0.5s"
-        {...getHorizontalBranchStyles(isEven)}
+        {...getHorizontalBranchStyles(cardPosition)}
       />
     </Box>
-  )
-}
+  );
+};
 
-export default TimelineBranch
+export default TimelineBranch;

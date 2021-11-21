@@ -5,7 +5,6 @@ import PageSection from '../../components/PageSection';
 import { timelineContents } from '../../data/timeline/timelineContents';
 import TimelineYear from '../../components/Timeline/TimelineYear';
 import TimelineCard from '../../components/Timeline/TimelineCard';
-import { useMediaQuery } from '@chakra-ui/media-query';
 
 const REDUCED_SCALE = 0.2; // the factor by which condensed years should shrink
 const CONTAINER_BREAKPOINT = 920;
@@ -69,7 +68,7 @@ const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
                   <TimelineCard
                     key={index}
                     item={item}
-                    isEven={true}
+                    position={isEven ? 'right' : 'left'}
                     collapseBeforeYear={collapseBeforeYear}
                     reducedScale={REDUCED_SCALE}
                     defaultScale={1}
@@ -105,7 +104,7 @@ const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
                 <TimelineCard
                   key={index}
                   item={item}
-                  isEven={hasAdequateSpace ? isEven : true}
+                  position={isEven ? 'right' : 'left'}
                   collapseBeforeYear={collapseBeforeYear}
                   reducedScale={REDUCED_SCALE}
                   defaultScale={1}

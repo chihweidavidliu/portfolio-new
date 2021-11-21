@@ -2,6 +2,7 @@ import { Box, BoxProps, Heading } from '@chakra-ui/layout';
 import { useAnimation } from 'framer-motion';
 import { FC, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { primaryColor } from '../../theme';
 import { MotionBox } from '../Timeline/BaseTimelineCard';
 
 interface CardProps {
@@ -50,7 +51,10 @@ const Card: FC<CardProps> = ({ children, chakraProps, animate, title }) => {
         bgColor="white"
         boxShadow="lg"
         maxWidth="700px"
-        // _hover={{ transform: 'scale(1.02)' }}
+        css={{
+          transition: 'all 0.4s',
+        }}
+        _hover={{ borderColor: primaryColor(500) }}
       >
         {children}
       </Box>

@@ -11,10 +11,11 @@ import { Image } from '@chakra-ui/image';
 import format from 'date-fns/format';
 import TechStackList from '../TechStackList';
 import BaseTimelineCard from './BaseTimelineCard';
+import { TimelinePosition } from '../../types/TimelinePosition';
 
 interface TimelineCardProps {
   item: TimelineItem;
-  isEven: boolean;
+  position: TimelinePosition;
   defaultScale?: number;
   reducedScale?: number;
   collapseBeforeYear?: number;
@@ -23,7 +24,7 @@ interface TimelineCardProps {
 
 const TimelineCard = ({
   item,
-  isEven,
+  position,
   defaultScale = 1,
   reducedScale = 1,
   collapseBeforeYear,
@@ -108,7 +109,7 @@ const TimelineCard = ({
   };
 
   return (
-    <BaseTimelineCard topOffset={top} height={span} isEven={isEven} hasAdequateSpace={hasAdequateSpace}>
+    <BaseTimelineCard topOffset={top} height={span} position={position} hasAdequateSpace={hasAdequateSpace}>
       <Box display="flex" width="100%" justifyContent="space-between">
         <Box>
           <Heading fontSize="lg" color={primaryColor(500)} fontWeight="semibold" mb="2px">
