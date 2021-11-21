@@ -14,9 +14,17 @@ interface TimelineYearProps {
   year: string;
   showGuideLines?: boolean;
   scaleBy?: number;
+  hasAdequateSpace?: boolean;
 }
 
-const TimelineYear = ({ yearIndex, months, year, showGuideLines = true, scaleBy = 1 }: TimelineYearProps) => {
+const TimelineYear = ({
+  yearIndex,
+  months,
+  year,
+  showGuideLines = true,
+  scaleBy = 1,
+  hasAdequateSpace = true,
+}: TimelineYearProps) => {
   const SCALED_MONTH_HEIGHT = MONTH_HEIGHT * scaleBy;
   const BAR_HEIGHT = months.length * SCALED_MONTH_HEIGHT;
 
@@ -26,42 +34,43 @@ const TimelineYear = ({ yearIndex, months, year, showGuideLines = true, scaleBy 
     <Flex flexDir="column" alignItems="center">
       {yearIndex === 0 && <TimelinePoint label="Present" />}
       <Box bgColor="teal.500" height={BAR_HEIGHT + 'px'} width="3px" borderRadius="5px" position="relative">
-        {months.map((month, index) => {
-          const monthIndex = getMonth(month);
-          const monthName = monthNames[monthIndex];
+        {scaleBy >= 1 &&
+          months.map((month, index) => {
+            const monthIndex = getMonth(month);
+            const monthName = monthNames[monthIndex];
 
-          const TOP_OFFSET = index * MONTH_HEIGHT * scaleBy;
+            const TOP_OFFSET = index * MONTH_HEIGHT * scaleBy;
 
-          return (
-            <Text
-              key={monthIndex}
-              height={SCALED_MONTH_HEIGHT + 'px'}
-              padding="0px"
-              position="absolute"
-              top={TOP_OFFSET + 'px'}
-              left="10px"
-              fontSize={LABEL_FONT_SIZE + 'px'}
-              color="gray.500"
-              display="flex"
-              alignItems="center"
-              _after={
-                showGuideLines
-                  ? {
-                      content: `""`,
-                      display: 'block',
-                      width: '100vw',
-                      height: '1px',
-                      backgroundColor: 'gray.300',
-                      position: 'relative',
-                      right: '50vw',
-                    }
-                  : {}
-              }
-            >
-              {scaleBy >= 1 && monthName}
-            </Text>
-          );
-        })}
+            return (
+              <Text
+                key={monthIndex}
+                height={SCALED_MONTH_HEIGHT + 'px'}
+                padding="0px"
+                position="absolute"
+                top={TOP_OFFSET + 'px'}
+                left="10px"
+                fontSize={LABEL_FONT_SIZE + 'px'}
+                color="gray.500"
+                display={{ base: 'none', lg: 'flex' }}
+                alignItems="center"
+                _after={
+                  showGuideLines
+                    ? {
+                        content: `""`,
+                        display: 'block',
+                        width: '100vw',
+                        height: '1px',
+                        backgroundColor: 'gray.300',
+                        position: 'relative',
+                        right: '50vw',
+                      }
+                    : {}
+                }
+              >
+                {monthName}
+              </Text>
+            );
+          })}
       </Box>
 
       <TimelinePoint label={year} />

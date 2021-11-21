@@ -8,14 +8,13 @@ import TimelineCard from '../../components/Timeline/TimelineCard';
 import { useMediaQuery } from '@chakra-ui/media-query';
 
 const REDUCED_SCALE = 0.2; // the factor by which condensed years should shrink
-const INADEQUATE_SPACE_SCALE = 2.5; // timeline needs to get bigger because all the cards are on the right size
+const CONTAINER_BREAKPOINT = 920;
+
 interface TimelineSectionProps {
   collapseBeforeYear?: number;
 }
 
 const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
-  const [isLgScreen] = useMediaQuery('(min-width: 68em)');
-
   const timelineItems = Object.values(timelineContents).sort((a, b) => {
     if (isAfter(a.startDate, b.startDate)) {
       return -1;
@@ -49,7 +48,7 @@ const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
   return (
     <PageSection title="Work Experience and Education">
       {({ width }) => {
-        const hasAdequateSpace = width && width > 1020;
+        const hasAdequateSpace = width && width > CONTAINER_BREAKPOINT;
         console.log({ width, hasAdequateSpace });
 
         if (!hasAdequateSpace) {
@@ -57,11 +56,12 @@ const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
             <Box
               display="grid"
               gridTemplateColumns="1fr"
-              maxWidth="500px"
+              maxWidth="700px"
               width="100%"
               margin="0 auto"
               position="relative"
               gridGap="5"
+              justifyItems="center"
             >
               {timelineItems.map((item, index) => {
                 const isEven = index % 2 === 0;
@@ -73,7 +73,7 @@ const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
                     collapseBeforeYear={collapseBeforeYear}
                     reducedScale={REDUCED_SCALE}
                     defaultScale={1}
-                    hasInadequateSpace
+                    hasAdequateSpace={false}
                   />
                 );
               })}

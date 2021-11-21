@@ -1,8 +1,8 @@
-import { Box, BoxProps } from '@chakra-ui/layout'
-import { FC } from 'react'
+import { Box, BoxProps } from '@chakra-ui/layout';
+import { FC } from 'react';
 
 interface CardProps {
-  chakraProps?: BoxProps
+  chakraProps?: BoxProps;
 }
 
 const Card: FC<CardProps> = ({ children, chakraProps }) => {
@@ -13,12 +13,13 @@ const Card: FC<CardProps> = ({ children, chakraProps }) => {
       borderRadius="md"
       bgColor="white"
       boxShadow="lg"
+      maxWidth="700px"
       transition="all 0.4s"
       _hover={{ transform: 'scale(1.02)' }}
       {...chakraProps}
     >
       {children}
     </Box>
-  )
-}
-export default Card
+  );
+};
+export default Card;

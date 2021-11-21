@@ -11,7 +11,7 @@ interface BaseTimelineCardProps {
   isEven: boolean;
   topOffset: number;
   height: number;
-  hasInadequateSpace?: boolean;
+  hasAdequateSpace?: boolean;
 }
 
 const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
@@ -19,7 +19,7 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
   isEven,
   topOffset,
   height,
-  hasInadequateSpace = false,
+  hasAdequateSpace = true,
 }) => {
   const x = useMotionValue(200);
   const y = useMotionValue(200);
@@ -28,8 +28,8 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
 
   const controls = useAnimation();
   const { ref, inView } = useInView({
-    threshold: hasInadequateSpace ? 0 : 0.7,
-    rootMargin: `0px 0px ${hasInadequateSpace ? '100px' : '0px'} 0px`,
+    threshold: !hasAdequateSpace ? 0 : 0.7,
+    rootMargin: `0px 0px ${!hasAdequateSpace ? '100px' : '0px'} 0px`,
   });
 
   useEffect(() => {
@@ -38,8 +38,8 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
     }
   }, [controls, inView]);
 
-  const getAnimationVariants = (isEven: boolean, hasInadequateSpace: boolean) => {
-    if (hasInadequateSpace) {
+  const getAnimationVariants = (isEven: boolean, hasAdequateSpace: boolean) => {
+    if (!hasAdequateSpace) {
       return {
         visible: { opacity: 1, y: '0%', transition: { duration: 0.7 } },
         hidden: { opacity: 0, y: '50%' },
@@ -51,16 +51,14 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
     };
   };
 
-  const getPositioningStyles = (hasInadequateSpace: boolean): BoxProps['style'] => {
-    if (hasInadequateSpace) {
+  const getPositioningStyles = (hasAdequateSpace: boolean): BoxProps['style'] => {
+    if (!hasAdequateSpace) {
       return {};
     }
 
     return {
       position: 'absolute',
       top: topOffset + 'px',
-      left: isEven ? '115px' : undefined,
-      right: !isEven ? '100px' : undefined,
       height: height + 'px',
     };
   };
@@ -68,10 +66,18 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
   return (
     <MotionBox
       animate={controls}
-      variants={getAnimationVariants(isEven, hasInadequateSpace)}
+      variants={getAnimationVariants(isEven, hasAdequateSpace)}
       initial="hidden"
+      right={{
+        base: !isEven ? '90px' : undefined,
+        lg: !isEven ? '100px' : undefined,
+      }}
+      left={{
+        base: isEven ? '90px' : undefined, // account for month labels disappearing
+        lg: isEven ? '115px' : undefined,
+      }}
       style={{
-        ...getPositioningStyles(hasInadequateSpace),
+        ...getPositioningStyles(hasAdequateSpace),
         perspective: 400,
         display: 'flex',
         alignItems: 'center',
@@ -97,8 +103,7 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
     >
       <MotionBox
         bg="white"
-        minW="400px"
-        maxW="400px"
+        width={hasAdequateSpace ? 'clamp(350px, 30vw, 400px)' : 'clamp(300px, 80vw, 700px)'}
         padding="30px"
         pointerEvents="initial"
         boxShadow="md"
@@ -121,7 +126,7 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
       >
         {children}
       </MotionBox>
-      {!hasInadequateSpace && <TimelineBranch isEven={isEven} />}
+      {hasAdequateSpace && <TimelineBranch isEven={isEven} />}
     </MotionBox>
   );
 };

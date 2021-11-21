@@ -18,7 +18,7 @@ interface TimelineCardProps {
   defaultScale?: number;
   reducedScale?: number;
   collapseBeforeYear?: number;
-  hasInadequateSpace?: boolean;
+  hasAdequateSpace?: boolean;
 }
 
 const TimelineCard = ({
@@ -27,7 +27,7 @@ const TimelineCard = ({
   defaultScale = 1,
   reducedScale = 1,
   collapseBeforeYear,
-  hasInadequateSpace = false,
+  hasAdequateSpace = true,
 }: TimelineCardProps) => {
   const { startDate, endDate, description, title, organisation } = item;
   const startYear = getYear(startDate);
@@ -108,7 +108,7 @@ const TimelineCard = ({
   };
 
   return (
-    <BaseTimelineCard topOffset={top} height={span} isEven={isEven} hasInadequateSpace={hasInadequateSpace}>
+    <BaseTimelineCard topOffset={top} height={span} isEven={isEven} hasAdequateSpace={hasAdequateSpace}>
       <Box display="flex" width="100%" justifyContent="space-between">
         <Box>
           <Heading fontSize="lg" color={primaryColor(500)} fontWeight="semibold" mb="2px">
