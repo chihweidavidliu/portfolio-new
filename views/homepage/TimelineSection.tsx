@@ -5,14 +5,17 @@ import PageSection from '../../components/PageSection';
 import { timelineContents } from '../../data/timeline/timelineContents';
 import TimelineYear from '../../components/Timeline/TimelineYear';
 import TimelineCard from '../../components/Timeline/TimelineCard';
+import { useMediaQuery } from '@chakra-ui/media-query';
 
 const REDUCED_SCALE = 0.2; // the factor by which condensed years should shrink
-
+const INADEQUATE_SPACE_SCALE = 2.5; // timeline needs to get bigger because all the cards are on the right size
 interface TimelineSectionProps {
   collapseBeforeYear?: number;
 }
 
 const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
+  const [isLgScreen] = useMediaQuery('(min-width: 68em)');
+
   const timelineItems = Object.values(timelineContents).sort((a, b) => {
     if (isAfter(a.startDate, b.startDate)) {
       return -1;
@@ -45,38 +48,73 @@ const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
 
   return (
     <PageSection title="Work Experience and Education">
-      {/* width of 0 so that the cards can be absolutely positioned against the vertical center of the screen */}
-      <Box position="relative" width="0px" margin="0 auto" marginTop="100px">
-        {keys.map((year, yearIndex) => {
-          const months = timelinePointsByYear[parseInt(year)];
+      {({ width }) => {
+        const hasAdequateSpace = width && width > 1020;
+        console.log({ width, hasAdequateSpace });
 
-          const scaleBy = collapseBeforeYear && Number(year) < collapseBeforeYear ? REDUCED_SCALE : 1;
-
+        if (!hasAdequateSpace) {
           return (
-            <TimelineYear
-              year={year}
-              yearIndex={yearIndex}
-              months={months}
-              key={yearIndex}
-              showGuideLines={false}
-              scaleBy={scaleBy}
-            />
+            <Box
+              display="grid"
+              gridTemplateColumns="1fr"
+              maxWidth="500px"
+              width="100%"
+              margin="0 auto"
+              position="relative"
+              gridGap="5"
+            >
+              {timelineItems.map((item, index) => {
+                const isEven = index % 2 === 0;
+                return (
+                  <TimelineCard
+                    key={index}
+                    item={item}
+                    isEven={true}
+                    collapseBeforeYear={collapseBeforeYear}
+                    reducedScale={REDUCED_SCALE}
+                    defaultScale={1}
+                    hasInadequateSpace
+                  />
+                );
+              })}
+            </Box>
           );
-        })}
+        }
+        return (
+          <Box position="relative" width="0px" margin="0 auto" marginTop="100px">
+            {keys.map((year, yearIndex) => {
+              const months = timelinePointsByYear[parseInt(year)];
 
-        {timelineItems.map((item, index) => {
-          const isEven = index % 2 === 0;
-          return (
-            <TimelineCard
-              key={index}
-              item={item}
-              isEven={isEven}
-              collapseBeforeYear={collapseBeforeYear}
-              reducedScale={REDUCED_SCALE}
-            />
-          );
-        })}
-      </Box>
+              let scaleBy = collapseBeforeYear && Number(year) < collapseBeforeYear ? REDUCED_SCALE : 1;
+
+              return (
+                <TimelineYear
+                  year={year}
+                  yearIndex={yearIndex}
+                  months={months}
+                  key={yearIndex}
+                  showGuideLines={false}
+                  scaleBy={scaleBy}
+                />
+              );
+            })}
+
+            {timelineItems.map((item, index) => {
+              const isEven = index % 2 === 0;
+              return (
+                <TimelineCard
+                  key={index}
+                  item={item}
+                  isEven={hasAdequateSpace ? isEven : true}
+                  collapseBeforeYear={collapseBeforeYear}
+                  reducedScale={REDUCED_SCALE}
+                  defaultScale={1}
+                />
+              );
+            })}
+          </Box>
+        );
+      }}
     </PageSection>
   );
 };

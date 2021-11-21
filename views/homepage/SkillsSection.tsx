@@ -1,7 +1,7 @@
-import { Grid } from '@chakra-ui/layout'
-import PageSection from '../../components/PageSection'
-import SkillCard from '../../components/SkillCard'
-import { ISkillCard } from '../../types/SkillCard'
+import { Grid } from '@chakra-ui/layout';
+import PageSection from '../../components/PageSection';
+import SkillCard from '../../components/SkillCard';
+import { ISkillCard } from '../../types/SkillCard';
 
 // TODO: move this to Sanity
 const skillCards: ISkillCard[] = [
@@ -60,18 +60,20 @@ const skillCards: ISkillCard[] = [
       },
     ],
   },
-]
+];
 
 const SkillsSection = () => {
   return (
     <PageSection title="Skills">
-      <Grid gridGap="7" gridTemplateColumns="repeat(auto-fill, minmax(300px, 1fr))" width="100%">
-        {skillCards.map((skillCard) => {
-          return <SkillCard key={skillCard.title} skillCard={skillCard} />
-        })}
-      </Grid>
+      {() => (
+        <Grid gridGap="7" gridTemplateColumns="repeat(auto-fill, minmax(300px, 1fr))" width="100%">
+          {skillCards.map((skillCard) => {
+            return <SkillCard key={skillCard.title} skillCard={skillCard} />;
+          })}
+        </Grid>
+      )}
     </PageSection>
-  )
-}
+  );
+};
 
-export default SkillsSection
+export default SkillsSection;

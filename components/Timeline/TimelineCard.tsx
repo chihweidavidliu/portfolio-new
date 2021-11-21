@@ -15,11 +15,20 @@ import BaseTimelineCard from './BaseTimelineCard';
 interface TimelineCardProps {
   item: TimelineItem;
   isEven: boolean;
+  defaultScale?: number;
   reducedScale?: number;
   collapseBeforeYear?: number;
+  hasInadequateSpace?: boolean;
 }
 
-const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: TimelineCardProps) => {
+const TimelineCard = ({
+  item,
+  isEven,
+  defaultScale = 1,
+  reducedScale = 1,
+  collapseBeforeYear,
+  hasInadequateSpace = false,
+}: TimelineCardProps) => {
   const { startDate, endDate, description, title, organisation } = item;
   const startYear = getYear(startDate);
   const endYear = getYear(endDate);
@@ -45,31 +54,31 @@ const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: Ti
     monthsSinceCompactedFromStartDate > 0 ? monthsSinceCompactedFromStartDate - numCompactedMonthsAfter : 0;
   const numFullSizeMonthsDuring = durationMonths - numCompactedMonthsDuring;
 
-  console.log({
-    organisation,
-    title,
-    durationMonths,
-    monthsSinceEnd,
-    monthsSinceCompactedFromEndDate,
-    numFullSizeMonthsAfter,
-    numCompactedMonthsAfter,
-  });
+  // console.log({
+  //   organisation,
+  //   title,
+  //   durationMonths,
+  //   monthsSinceEnd,
+  //   monthsSinceCompactedFromEndDate,
+  //   numFullSizeMonthsAfter,
+  //   numCompactedMonthsAfter,
+  // });
 
   const baseOffset =
     numCompactedMonthsAfter > 0
-      ? DEFAULT_LABEL_HEIGHT + (MONTH_HEIGHT / 2) * reducedScale
-      : DEFAULT_LABEL_HEIGHT + MONTH_HEIGHT / 2; // the base offset needed to get a card aligned to the last mongth of the most recent year
+      ? DEFAULT_LABEL_HEIGHT + (MONTH_HEIGHT / 2) * defaultScale * reducedScale
+      : DEFAULT_LABEL_HEIGHT + (MONTH_HEIGHT / 2) * defaultScale; // the base offset needed to get a card aligned to the last mongth of the most recent year
 
   // distance from top = the space a number of months takes up + the space taken up by the number of year labels above the card
   const top =
     baseOffset +
-    MONTH_HEIGHT * numFullSizeMonthsAfter +
-    MONTH_HEIGHT * numCompactedMonthsAfter * reducedScale +
+    MONTH_HEIGHT * numFullSizeMonthsAfter * defaultScale +
+    MONTH_HEIGHT * numCompactedMonthsAfter * defaultScale * reducedScale +
     DEFAULT_LABEL_HEIGHT * yearsSinceEnd;
 
   let span =
-    MONTH_HEIGHT * numFullSizeMonthsDuring +
-    MONTH_HEIGHT * reducedScale * numCompactedMonthsDuring +
+    MONTH_HEIGHT * numFullSizeMonthsDuring * defaultScale +
+    MONTH_HEIGHT * defaultScale * reducedScale * numCompactedMonthsDuring +
     numYearsSpanned * DEFAULT_LABEL_HEIGHT;
 
   // if a card spans different scales, need to adjust for that in the span
@@ -99,7 +108,7 @@ const TimelineCard = ({ item, isEven, reducedScale = 1, collapseBeforeYear }: Ti
   };
 
   return (
-    <BaseTimelineCard topOffset={top} height={span} isEven={isEven}>
+    <BaseTimelineCard topOffset={top} height={span} isEven={isEven} hasInadequateSpace={hasInadequateSpace}>
       <Box display="flex" width="100%" justifyContent="space-between">
         <Box>
           <Heading fontSize="lg" color={primaryColor(500)} fontWeight="semibold" mb="2px">

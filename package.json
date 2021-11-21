@@ -23,6 +23,7 @@
     "remark-gfm": "^3.0.1",
     "save-dev": "^0.0.1-security",
     "styled-components": "^5.3.3",
+    "use-resize-observer": "^8.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

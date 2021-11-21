@@ -20,7 +20,7 @@ const TimelineYear = ({ yearIndex, months, year, showGuideLines = true, scaleBy 
   const SCALED_MONTH_HEIGHT = MONTH_HEIGHT * scaleBy;
   const BAR_HEIGHT = months.length * SCALED_MONTH_HEIGHT;
 
-  console.log({ BAR_HEIGHT, year, scaleBy, SCALED_MONTH_HEIGHT, numMonths: months.length });
+  // console.log({ BAR_HEIGHT, year, scaleBy, SCALED_MONTH_HEIGHT, numMonths: months.length });
 
   return (
     <Flex flexDir="column" alignItems="center">

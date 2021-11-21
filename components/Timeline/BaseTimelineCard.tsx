@@ -11,9 +11,16 @@ interface BaseTimelineCardProps {
   isEven: boolean;
   topOffset: number;
   height: number;
+  hasInadequateSpace?: boolean;
 }
 
-const BaseTimelineCard: FC<BaseTimelineCardProps> = ({ children, isEven, topOffset, height }) => {
+const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
+  children,
+  isEven,
+  topOffset,
+  height,
+  hasInadequateSpace = false,
+}) => {
   const x = useMotionValue(200);
   const y = useMotionValue(200);
   const rotateX = useTransform(y, [0, 400], [3, -3]);
@@ -21,8 +28,8 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({ children, isEven, topOffs
 
   const controls = useAnimation();
   const { ref, inView } = useInView({
-    threshold: 0.7,
-    rootMargin: `0px 0px 100px 0px`,
+    threshold: hasInadequateSpace ? 0 : 0.7,
+    rootMargin: `0px 0px ${hasInadequateSpace ? '100px' : '0px'} 0px`,
   });
 
   useEffect(() => {
@@ -31,25 +38,41 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({ children, isEven, topOffs
     }
   }, [controls, inView]);
 
-  const getAnimationVariants = (isEven: boolean) => {
+  const getAnimationVariants = (isEven: boolean, hasInadequateSpace: boolean) => {
+    if (hasInadequateSpace) {
+      return {
+        visible: { opacity: 1, y: '0%', transition: { duration: 0.7 } },
+        hidden: { opacity: 0, y: '50%' },
+      };
+    }
     return {
       visible: { opacity: 1, x: '0%', transition: { duration: 0.7 } },
       hidden: { opacity: 0, x: isEven ? '50%' : '-50%' },
     };
   };
 
+  const getPositioningStyles = (hasInadequateSpace: boolean): BoxProps['style'] => {
+    if (hasInadequateSpace) {
+      return {};
+    }
+
+    return {
+      position: 'absolute',
+      top: topOffset + 'px',
+      left: isEven ? '115px' : undefined,
+      right: !isEven ? '100px' : undefined,
+      height: height + 'px',
+    };
+  };
+
   return (
     <MotionBox
       animate={controls}
-      variants={getAnimationVariants(isEven)}
+      variants={getAnimationVariants(isEven, hasInadequateSpace)}
       initial="hidden"
       style={{
-        position: 'absolute',
+        ...getPositioningStyles(hasInadequateSpace),
         perspective: 400,
-        top: topOffset + 'px',
-        left: isEven ? '115px' : undefined,
-        right: !isEven ? '100px' : undefined,
-        height: height + 'px',
         display: 'flex',
         alignItems: 'center',
         pointerEvents: 'none',
@@ -98,7 +121,7 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({ children, isEven, topOffs
       >
         {children}
       </MotionBox>
-      <TimelineBranch isEven={isEven} />
+      {!hasInadequateSpace && <TimelineBranch isEven={isEven} />}
     </MotionBox>
   );
 };
