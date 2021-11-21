@@ -1,15 +1,17 @@
-import { Box, Divider, Grid, Heading, Stack, Text } from '@chakra-ui/layout'
-import { primaryColor } from '../../theme'
-import { ISkillCard } from '../../types/SkillCard'
-import Card from '../Card'
+import { Box, Divider, Grid, Heading, Stack, Text } from '@chakra-ui/layout';
+import { primaryColor } from '../../theme';
+import { ISkillCard } from '../../types/SkillCard';
+import { useSlideInAnimation } from '../../util/useSlideInAnimation';
+import Card from '../Card';
+import { MotionBox } from '../Timeline/BaseTimelineCard';
 
 interface SkillCardProps {
-  skillCard: ISkillCard
+  skillCard: ISkillCard;
 }
 
 const SkillCard = ({ skillCard }: SkillCardProps) => {
   return (
-    <Card>
+    <Card animate>
       <Heading as="h3" size="md" fontWeight="semibold" color={primaryColor(500)} textAlign="center" mb="5">
         {skillCard.title}
       </Heading>
@@ -28,11 +30,11 @@ const SkillCard = ({ skillCard }: SkillCardProps) => {
                 ))}
               </Grid>
             </Box>
-          )
+          );
         })}
       </Stack>
     </Card>
-  )
-}
+  );
+};
 
-export default SkillCard
+export default SkillCard;

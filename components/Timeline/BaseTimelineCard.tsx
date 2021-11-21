@@ -5,7 +5,7 @@ import TimelineBranch from './TimelineBranch';
 import { Box, BoxProps } from '@chakra-ui/layout';
 import { primaryColor } from '../../theme';
 
-const MotionBox = motion<BoxProps>(Box);
+export const MotionBox = motion<BoxProps>(Box);
 
 interface BaseTimelineCardProps {
   isEven: boolean;

@@ -21,12 +21,8 @@ interface PortfolioCardProps {
 
 const PortfolioCard = ({ project }: PortfolioCardProps) => {
   return (
-    <Grid height="100%" gridTemplateRows="max-content 1fr">
-      <Heading as="h3" size="md" fontWeight="semibold" color="gray.600" textAlign="center" mb="5" mt="2">
-        {project.title}
-      </Heading>
-
-      <Card chakraProps={{ display: 'grid', gridTemplateRows: 'max-content 1fr max-content', gridGap: '12' }}>
+    <Card animate title={project.title}>
+      <Box display="grid" gridTemplateRows="max-content 1fr max-content" gridGap="12" height="100%">
         <Image src={project.images[0].source} alt={project.images[0].caption} borderRadius="md" width="100%" />
         <Grid
           gridTemplateColumns={{ base: '1fr', md: '1fr 1fr' }}
@@ -74,8 +70,8 @@ const PortfolioCard = ({ project }: PortfolioCardProps) => {
             </Button>
           )}
         </Grid>
-      </Card>
-    </Grid>
+      </Box>
+    </Card>
   );
 };
 
