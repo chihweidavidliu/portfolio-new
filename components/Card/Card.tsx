@@ -9,9 +9,10 @@ interface CardProps {
   chakraProps?: BoxProps;
   animate?: boolean;
   title?: string;
+  id?: string;
 }
 
-const Card: FC<CardProps> = ({ children, chakraProps, animate, title }) => {
+const Card: FC<CardProps> = ({ children, chakraProps, animate, title, id }) => {
   const controls = useAnimation();
   const { ref, inView } = useInView({
     threshold: 0,
@@ -26,6 +27,7 @@ const Card: FC<CardProps> = ({ children, chakraProps, animate, title }) => {
 
   return (
     <MotionBox
+      id={id}
       ref={ref}
       animate={animate ? controls : undefined}
       initial={animate ? 'hidden' : 'visible'}

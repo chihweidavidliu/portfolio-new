@@ -1,4 +1,4 @@
-import { Button, ButtonGroup } from '@chakra-ui/button';
+import { Button } from '@chakra-ui/button';
 import { Image } from '@chakra-ui/image';
 import { Box, Grid, Heading, Stack, Text } from '@chakra-ui/layout';
 import { FC } from 'react';
@@ -21,7 +21,7 @@ interface PortfolioCardProps {
 
 const PortfolioCard = ({ project }: PortfolioCardProps) => {
   return (
-    <Card animate title={project.title}>
+    <Card animate title={project.title} id={project.title}>
       <Box display="grid" gridTemplateRows="max-content 1fr max-content" gridGap="12" height="100%">
         <Image src={project.images[0].source} alt={project.images[0].caption} borderRadius="md" width="100%" />
         <Grid
