@@ -3,6 +3,7 @@ import { Box, Divider } from '@chakra-ui/react';
 import SkillsSection from './SkillsSection';
 import ProjectsSection from './ProjectsSection';
 import TimelineSection from './TimelineSection';
+import Hero from './Hero';
 
 export const Homepage = () => {
   return (
@@ -14,6 +15,7 @@ export const Homepage = () => {
       </Head>
 
       <Box>
+        <Hero />
         <SkillsSection />
         <Divider />
         <ProjectsSection />
