@@ -2,6 +2,8 @@ import { Flex, Grid, Heading, Box } from '@chakra-ui/layout';
 import { useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import HeroImage from '../../components/HeroImage';
+import { PhoneIcon, AddIcon, WarningIcon, ChevronDownIcon } from '@chakra-ui/icons';
+import HeroChevronLink from '../../components/HeroChevronLink';
 
 const HERO_IMAGE_URL =
   "url('https://images.unsplash.com/photo-1506259091721-347e791bab0f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')";
@@ -40,7 +42,7 @@ const Hero = () => {
       <Grid gridGap="70px" maxWidth="container.xl" padding="0px 30px">
         <Heading
           as="h1"
-          color="white"
+          color="gray.100"
           fontSize="clamp(40px, 5vw, 70px)"
           textShadow="2px 2px 30px #2D3748"
           textAlign="center"
@@ -76,6 +78,8 @@ const Hero = () => {
             interSectionRatio={intersectionRatio}
           />
         </Grid>
+
+        <HeroChevronLink />
       </Grid>
     </Flex>
   );

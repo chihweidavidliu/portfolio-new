@@ -4,6 +4,7 @@ import SkillsSection from './SkillsSection';
 import ProjectsSection from './ProjectsSection';
 import TimelineSection from './TimelineSection';
 import Hero from './Hero';
+import AboutSection from './AboutSection';
 
 export const Homepage = () => {
   return (
@@ -16,6 +17,7 @@ export const Homepage = () => {
 
       <Box>
         <Hero />
+        <AboutSection />
         <SkillsSection />
         <Divider />
         <ProjectsSection />
