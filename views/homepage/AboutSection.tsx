@@ -15,6 +15,7 @@ const AboutSection = () => {
             gridTemplateColumns={{ base: '1fr', md: '1fr max-content' }}
             justifyItems="center"
             gridGap="20px"
+            padding="10px"
           >
             <Grid gridGap={4}>
               <Text>

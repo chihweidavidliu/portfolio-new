@@ -19,9 +19,10 @@ const TechStackList = ({ title, items }: TechStackListProps) => {
               padding="2px"
               size="sm"
               borderRadius="md"
-              colorScheme="gray"
               fontWeight="semibold"
               fontSize="sm"
+              bgColor="gray.200"
+              color="gray.600"
             >
               {item}
             </Badge>

@@ -50,6 +50,7 @@ const PortfolioCard = ({ project }: PortfolioCardProps) => {
               href={link.url}
               key={link.url}
               color={primaryColor(500)}
+              bgColor="gray.200"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -62,7 +63,11 @@ const PortfolioCard = ({ project }: PortfolioCardProps) => {
               as="a"
               href={project.liveSiteLink.url}
               key={project.liveSiteLink.url}
-              colorScheme="teal"
+              bgColor={primaryColor(500)}
+              _hover={{
+                bgColor: primaryColor(600),
+              }}
+              color="white"
               target="_blank"
               rel="noopener noreferrer"
             >
