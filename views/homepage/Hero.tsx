@@ -8,20 +8,14 @@ import { useWindowSize } from 'react-use';
 const HERO_IMAGE_URL =
   "url('https://images.unsplash.com/photo-1506259091721-347e791bab0f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')";
 
-interface HeroImageProps {
-  href: string;
-  src: string;
-  alt: string;
-  position: 'left' | 'center' | 'right';
-  interSectionRatio: number;
-}
-
 const THRESHOLD = [
   0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1,
 ]; // Store multiple thresholds in a constant
 
 const Hero = () => {
   const { height } = useWindowSize();
+  console.log('height', height);
+
   const controls = useAnimation();
   const { ref, entry } = useInView({ threshold: THRESHOLD });
   const intersectionRatio = entry ? entry.intersectionRatio : 1;
@@ -29,7 +23,8 @@ const Hero = () => {
 
   return (
     <Flex
-      height={{ base: height || '100vh', md: '100vh' }}
+      height={{ base: height + 'px' || '100vh', md: '100vh' }}
+      minHeight={{ base: height + 'px' || '100vh', md: '100vh' }}
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
