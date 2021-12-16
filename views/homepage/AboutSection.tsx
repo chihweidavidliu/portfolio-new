@@ -1,9 +1,6 @@
-import { Grid, Text, Box, Image, Link, HStack } from '@chakra-ui/react';
-import { GithubIcon } from '../../components/icons/GithubIcon';
-import { LinkedinIcon } from '../../components/icons/LinkedinIcon';
+import { Grid, Text, Box, Image, HStack } from '@chakra-ui/react';
 import PageSection from '../../components/PageSection';
 import SocialLink from '../../components/SocialLink';
-import { primaryColor } from '../../theme';
 
 const IMAGE_SRC =
   'https://avatars3.githubusercontent.com/u/40054735?s=460&u=bc4a2fdebed23da2de159078dec770b5ea99ad3c&v=4';
@@ -26,8 +23,8 @@ const AboutSection = () => {
               </Text>
               <Text>Follow my projects on Github and Linkedin:</Text>
               <HStack>
-                <SocialLink href="https://github.com/chihweidavidliu" socialNetwork="github" />
-                <SocialLink href="https://www.linkedin.com/in/david-liu-a6415663/" socialNetwork="linkedin" />
+                <SocialLink socialNetwork="github" />
+                <SocialLink socialNetwork="linkedin" />
               </HStack>
             </Grid>
             <Box>

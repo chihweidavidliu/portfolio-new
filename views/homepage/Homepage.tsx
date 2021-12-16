@@ -5,6 +5,7 @@ import ProjectsSection from './ProjectsSection';
 import TimelineSection from './TimelineSection';
 import Hero from './Hero';
 import AboutSection from './AboutSection';
+import ContactSection from './ContactSection';
 
 export const Homepage = () => {
   return (
@@ -22,6 +23,7 @@ export const Homepage = () => {
         <Divider />
         <ProjectsSection />
         <TimelineSection collapseBeforeYear={2018} />
+        <ContactSection />
       </Box>
     </>
   );

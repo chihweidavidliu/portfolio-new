@@ -6,23 +6,28 @@ import { LinkedinIcon } from '../icons/LinkedinIcon';
 type SocialNetwork = 'github' | 'linkedin';
 
 interface SocialLinkProps {
-  href: string;
   socialNetwork: SocialNetwork;
 }
-const SocialLink = ({ href, socialNetwork }: SocialLinkProps) => {
+const SocialLink = ({ socialNetwork }: SocialLinkProps) => {
+  const getHref = (socialNetwork: SocialNetwork): string => {
+    const map = {
+      github: 'https://github.com/chihweidavidliu',
+      linkedin: 'https://www.linkedin.com/in/david-liu-a6415663/',
+    };
+
+    return map[socialNetwork];
+  };
+
   const renderIcon = (socialNetwork: SocialNetwork) => {
-    switch (socialNetwork) {
-      case 'github':
-        return <GithubIcon />;
-      case 'linkedin':
-        return <LinkedinIcon />;
-      default:
-        return null;
-    }
+    const map = {
+      github: <GithubIcon />,
+      linkedin: <LinkedinIcon />,
+    };
+    return map[socialNetwork];
   };
 
   return (
-    <Link target="_blank" color="gray.500" _hover={{ color: primaryColor(500) }} href={href}>
+    <Link target="_blank" color="gray.500" _hover={{ color: primaryColor(500) }} href={getHref(socialNetwork)}>
       {renderIcon(socialNetwork)}
     </Link>
   );
