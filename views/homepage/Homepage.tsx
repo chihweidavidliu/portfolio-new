@@ -19,10 +19,13 @@ export const Homepage = () => {
       <Box>
         <Hero />
         <AboutSection />
+        <Divider />
         <SkillsSection />
         <Divider />
         <ProjectsSection />
+        <Divider />
         <TimelineSection collapseBeforeYear={2018} />
+        <Divider />
         <ContactSection />
       </Box>
     </>
