@@ -1,5 +1,4 @@
-import { FC, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { FC } from 'react';
 import { useAnimation, motion, useMotionValue, useTransform } from 'framer-motion';
 import TimelineBranch from './TimelineBranch';
 import { Box, BoxProps } from '@chakra-ui/layout';
@@ -28,16 +27,6 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
   const rotateY = useTransform(x, [0, 400], [-3, 3]);
 
   const controls = useAnimation();
-  const { ref, inView } = useInView({
-    threshold: !hasAdequateSpace ? 0 : 0.7,
-    rootMargin: `0px 0px ${!hasAdequateSpace ? '100px' : '0px'} 0px`,
-  });
-
-  useEffect(() => {
-    if (inView) {
-      controls.start('visible');
-    }
-  }, [controls, inView]);
 
   const getAnimationVariants = (position: TimelinePosition, hasAdequateSpace: boolean) => {
     if (!hasAdequateSpace) {
@@ -69,6 +58,7 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
       animate={controls}
       variants={getAnimationVariants(position, hasAdequateSpace)}
       initial="hidden"
+      viewport={{ once: true }}
       right={{
         base: position === 'left' ? '90px' : undefined,
         lg: position === 'left' ? '100px' : undefined,
@@ -103,13 +93,15 @@ const BaseTimelineCard: FC<BaseTimelineCardProps> = ({
       }}
     >
       <MotionBox
+        onViewportEnter={() => {
+          controls.start('visible');
+        }}
         bg="white"
         width={hasAdequateSpace ? 'clamp(350px, 30vw, 400px)' : 'clamp(300px, 80vw, 700px)'}
         padding="30px"
         pointerEvents="initial"
         boxShadow="md"
         borderRadius="md"
-        ref={ref}
         className="timeline-card"
         _hover={{
           '&& + .bar': {

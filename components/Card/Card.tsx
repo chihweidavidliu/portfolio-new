@@ -1,41 +1,27 @@
-import { Box, BoxProps, Heading } from '@chakra-ui/layout';
-import { useAnimation } from 'framer-motion';
-import { FC, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { Box, Heading } from '@chakra-ui/layout';
+import { motion } from 'framer-motion';
+import { FC } from 'react';
 import { primaryColor } from '../../theme';
-import { MotionBox } from '../Timeline/BaseTimelineCard';
 
 interface CardProps {
-  chakraProps?: BoxProps;
   animate?: boolean;
   title?: string;
   id?: string;
 }
 
-const Card: FC<CardProps> = ({ children, chakraProps, animate, title, id }) => {
-  const controls = useAnimation();
-  const { ref, inView } = useInView({
-    threshold: 0,
-    rootMargin: `0px 0px 100px 0px`,
-  });
+const animationVariants = {
+  initial: { opacity: 0, y: '50%' },
+  inView: { opacity: 1, y: '0%', transition: { duration: 0.6 } },
+};
 
-  useEffect(() => {
-    if (inView) {
-      controls.start('visible');
-    }
-  }, [controls, inView]);
-
+const Card: FC<CardProps> = ({ children, animate, title, id }) => {
   return (
-    <MotionBox
+    <motion.div
       id={id}
-      ref={ref}
-      animate={animate ? controls : undefined}
-      initial={animate ? 'hidden' : 'visible'}
-      variants={{
-        visible: { opacity: 1, y: '0%', transition: { duration: 0.7 } },
-        hidden: { opacity: 0, y: '50%' },
-      }}
-      css={{
+      initial={animate ? animationVariants.initial : animationVariants.inView}
+      whileInView={animationVariants.inView}
+      viewport={{ once: true }}
+      style={{
         display: 'grid',
         height: '100%',
         gridTemplateRows: title ? 'max-content 1fr' : '1fr',
@@ -60,7 +46,7 @@ const Card: FC<CardProps> = ({ children, chakraProps, animate, title, id }) => {
       >
         {children}
       </Box>
-    </MotionBox>
+    </motion.div>
   );
 };
 export default Card;
