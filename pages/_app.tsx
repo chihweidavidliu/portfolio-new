@@ -1,4 +1,4 @@
-import { ChakraProvider, Box, ColorModeProvider } from '@chakra-ui/react';
+import { ChakraProvider, ColorModeProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import { theme } from '../theme';
 
@@ -16,9 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           useSystemColorMode: true,
         }}
       >
-        <Box>
-          <Component {...pageProps} />
-        </Box>
+        <Component {...pageProps} />
       </ColorModeProvider>
     </ChakraProvider>
   );
