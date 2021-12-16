@@ -3,6 +3,7 @@ import { useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import HeroImage from '../../components/HeroImage';
 import HeroChevronLink from '../../components/HeroChevronLink';
+import { useWindowSize } from 'react-use';
 
 const HERO_IMAGE_URL =
   "url('https://images.unsplash.com/photo-1506259091721-347e791bab0f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')";
@@ -20,6 +21,7 @@ const THRESHOLD = [
 ]; // Store multiple thresholds in a constant
 
 const Hero = () => {
+  const { height } = useWindowSize();
   const controls = useAnimation();
   const { ref, entry } = useInView({ threshold: THRESHOLD });
   const intersectionRatio = entry ? entry.intersectionRatio : 1;
@@ -27,7 +29,7 @@ const Hero = () => {
 
   return (
     <Flex
-      height="100vh"
+      height={{ base: height || '100vh', md: '100vh' }}
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
@@ -50,7 +52,7 @@ const Hero = () => {
           transition="all cubic-bezier(0.075, 0.82, 0.165, 1) 1s"
           style={{
             transform: `
-              translateY(-${animationWeighting * 100}vh)
+              translateY(-${animationWeighting * 100}%)
               rotateX(${animationWeighting * 120}deg) 
               scale(${intersectionRatio})
               `,

@@ -30,7 +30,7 @@ export const getHeroImagePosition = (position: HeroImagePosition, intersectionRa
         perspective: 400,
         transform: `
             rotateX(${weighting * 120}deg)
-            translateY(-${weighting * 100}vh) 
+            translateY(-${weighting * 100}%) 
             scale(${intersectionRatio * 1.25})`, // 1.2 multiplier to make center image bigger
         opacity: intersectionRatio,
       };
