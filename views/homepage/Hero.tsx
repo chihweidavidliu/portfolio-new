@@ -24,6 +24,7 @@ const Hero = () => {
   const controls = useAnimation();
   const { ref, entry } = useInView({ threshold: THRESHOLD });
   const intersectionRatio = entry ? entry.intersectionRatio : 1;
+  const animationWeighting = 1 - intersectionRatio;
 
   return (
     <Flex
@@ -39,13 +40,21 @@ const Hero = () => {
       ref={ref}
       initial="hidden"
     >
-      <Grid gridGap="70px" maxWidth="container.xl" padding="0px 30px">
+      <Grid gridGap="70px" maxWidth="container.xl" padding="0px 30px" css={{ perspective: '1500px' }}>
         <Heading
           as="h1"
           color="gray.100"
           fontSize="clamp(40px, 5vw, 70px)"
           textShadow="2px 2px 30px #2D3748"
           textAlign="center"
+          transition="all cubic-bezier(0.075, 0.82, 0.165, 1) 1s"
+          style={{
+            transform: `
+              translateY(-${animationWeighting * 100}vh)
+              rotateX(${animationWeighting * 120}deg) 
+              scale(${intersectionRatio})
+              `,
+          }}
         >
           {`Hi, I'm David`} <br />
           <Box as="span" fontSize="clamp(20px, 5vw, 25px)" fontWeight="semibold">
@@ -53,7 +62,7 @@ const Hero = () => {
           </Box>
         </Heading>
 
-        <Grid gridTemplateColumns="repeat(3, 1fr)" gridGap="20px" css={{ perspective: '1500px' }}>
+        <Grid gridTemplateColumns="repeat(3, 1fr)" gridGap="20px">
           <HeroImage
             href="#TaskMaster"
             src="https://res.cloudinary.com/dhccfu1un/image/upload/v1584202957/portfolio/taskmaster/taskmaster-thumbnail_vamjxs.png"
