@@ -14,7 +14,15 @@ const TechStackList = ({ title, items }: TechStackListProps) => {
       <Flex gridGap="2" flexWrap="wrap">
         {items?.map((item) => {
           return (
-            <Badge key={item} padding="2px" size="sm" borderRadius="md" colorScheme="gray" fontWeight="semibold">
+            <Badge
+              key={item}
+              padding="2px"
+              size="sm"
+              borderRadius="md"
+              colorScheme="gray"
+              fontWeight="semibold"
+              fontSize="sm"
+            >
               {item}
             </Badge>
           );

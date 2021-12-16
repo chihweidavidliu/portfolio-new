@@ -38,6 +38,7 @@ const Hero = () => {
       animate={controls}
       ref={ref}
       initial="hidden"
+      overflow="hidden"
     >
       <Grid gridGap="70px" maxWidth="container.xl" padding="0px 30px" css={{ perspective: '1500px' }}>
         <Heading
@@ -54,14 +55,16 @@ const Hero = () => {
               scale(${intersectionRatio})
               `,
           }}
+          maxWidth={{ base: '300px', md: 'none' }}
+          margin="0 auto"
         >
           {`Hi, I'm David`} <br />
-          <Box as="span" fontSize="clamp(20px, 5vw, 25px)" fontWeight="semibold">
+          <Box as="span" fontSize="clamp(10px, 4vw, 25px)" fontWeight="semibold">
             A full stack web developer based in London
           </Box>
         </Heading>
 
-        <Grid gridTemplateColumns="repeat(3, 1fr)" gridGap="20px">
+        <Grid gridTemplateColumns="repeat(3, 1fr)" gridGap="20px" minWidth="700px">
           <HeroImage
             href="#TaskMaster"
             src="https://res.cloudinary.com/dhccfu1un/image/upload/v1584202957/portfolio/taskmaster/taskmaster-thumbnail_vamjxs.png"

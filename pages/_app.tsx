@@ -1,6 +1,12 @@
-import { ChakraProvider, Box, ColorModeProvider, extendTheme } from '@chakra-ui/react'
-import type { AppProps } from 'next/app'
-import { theme } from '../theme'
+import { ChakraProvider, Box, ColorModeProvider } from '@chakra-ui/react';
+import type { AppProps } from 'next/app';
+import { theme } from '../theme';
+
+import '@fontsource/source-sans-pro/200.css';
+import '@fontsource/source-sans-pro/300.css';
+import '@fontsource/source-sans-pro/400.css';
+import '@fontsource/source-sans-pro/600.css';
+import '@fontsource/source-sans-pro/700.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </Box>
       </ColorModeProvider>
     </ChakraProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

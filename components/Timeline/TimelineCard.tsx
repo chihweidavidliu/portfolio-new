@@ -123,14 +123,14 @@ const TimelineCard = ({
           <Image src={item.logoUrl} height="40px" width="40px" alt={item.organisation + ' logo'} marginLeft="10px" />
         )}
       </Box>
-      <Text color="gray.600" fontSize="sm" fontWeight="semibold">
+      <Text color="gray.600" fontSize="md" fontWeight="semibold">
         {format(startDate, 'MMMM yyyy')} - {isPresentJob ? 'Present' : format(endDate, 'MMMM yyyy')}
         {renderDuration()}
       </Text>
 
       <Box
         marginTop="15px"
-        fontSize="sm"
+        fontSize="md"
         maxW="100%"
         css={{
           li: { marginLeft: '20px' },
