@@ -1,7 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { Box, Center, Heading } from '@chakra-ui/layout';
 import useResizeObserver from 'use-resize-observer';
-import { ReactElement } from 'react-markdown/lib/react-markdown';
 
 interface PageSectionProps {
   title?: string;
@@ -14,7 +13,7 @@ export const PageSection: FC<PageSectionProps> = ({ children, title }) => {
   });
 
   return (
-    <Center padding="clamp(10px, 5vw, 40px)" ref={ref}>
+    <Center padding="clamp(10px, 5vw, 40px)" ref={ref} css={{ perspective: '1500px' }}>
       <Box maxWidth="container.xl" width="100%">
         {title && (
           <Heading as="h2" mb="10" textAlign="center" fontWeight="semibold" color="gray.600">

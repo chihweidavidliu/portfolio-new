@@ -22,7 +22,6 @@ const Hero = () => {
   const controls = useAnimation();
   const { ref, entry } = useInView({ threshold: THRESHOLD });
   const intersectionRatio = entry ? entry.intersectionRatio : 1;
-  console.log('intersectionRatio', intersectionRatio);
 
   return (
     <Flex
@@ -38,7 +37,7 @@ const Hero = () => {
       ref={ref}
       initial="hidden"
     >
-      <Grid gridGap="50px" maxWidth="container.xl" padding="0px 30px">
+      <Grid gridGap="70px" maxWidth="container.xl" padding="0px 30px">
         <Heading
           as="h1"
           color="white"
@@ -46,13 +45,13 @@ const Hero = () => {
           textShadow="2px 2px 30px #2D3748"
           textAlign="center"
         >
-          Hi, I'm David <br />
+          {`Hi, I'm David`} <br />
           <Box as="span" fontSize="clamp(20px, 5vw, 25px)" fontWeight="semibold">
             A full stack web developer based in London
           </Box>
         </Heading>
 
-        <Grid gridTemplateColumns="repeat(3, 1fr)" gridGap="20px">
+        <Grid gridTemplateColumns="repeat(3, 1fr)" gridGap="20px" css={{ perspective: '1500px' }}>
           <HeroImage
             href="#TaskMaster"
             src="https://res.cloudinary.com/dhccfu1un/image/upload/v1584202957/portfolio/taskmaster/taskmaster-thumbnail_vamjxs.png"

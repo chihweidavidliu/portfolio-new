@@ -13,6 +13,11 @@ interface HeroImageProps {
   interSectionRatio: number;
 }
 
+const animationVariants = {
+  visible: { opacity: 1, transition: { duration: 0.7 } },
+  hidden: { opacity: 0 },
+};
+
 const HeroImage = ({ href, src, alt, position, interSectionRatio }: HeroImageProps) => {
   const controls = useAnimation();
   const { ref, inView } = useInView();
@@ -23,17 +28,10 @@ const HeroImage = ({ href, src, alt, position, interSectionRatio }: HeroImagePro
     }
   }, [controls, inView]);
 
-  const getAnimationVariants = (position: HeroImageProps['position']) => {
-    return {
-      visible: { opacity: 1, transition: { duration: 0.7 } },
-      hidden: { opacity: 0 },
-    };
-  };
-
   return (
     <MotionBox
       animate={controls}
-      variants={getAnimationVariants(position)}
+      variants={animationVariants}
       ref={ref}
       initial="hidden"
       style={{
