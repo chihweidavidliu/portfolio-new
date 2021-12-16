@@ -1,5 +1,5 @@
 import { Flex, Grid, Heading, Box } from '@chakra-ui/layout';
-import { useAnimation } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import HeroImage from '../../components/HeroImage';
 import HeroChevronLink from '../../components/HeroChevronLink';
@@ -10,6 +10,11 @@ const HERO_IMAGE_URL =
 const THRESHOLD = [
   0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1,
 ]; // Store multiple thresholds in a constant
+
+const animationVariants = {
+  visible: { opacity: 1, transition: { duration: 0.7 } },
+  hidden: { opacity: 0 },
+};
 
 const Hero = () => {
   const controls = useAnimation();
@@ -33,28 +38,30 @@ const Hero = () => {
       overflow="hidden"
     >
       <Grid gridGap="70px" maxWidth="container.xl" padding="0px 30px" css={{ perspective: '1500px' }}>
-        <Heading
-          as="h1"
-          color="gray.100"
-          fontSize="clamp(40px, 5vw, 65px)"
-          textShadow="2px 2px 30px #2D3748"
-          textAlign="center"
-          transition="all cubic-bezier(0.075, 0.82, 0.165, 1) 1s"
-          style={{
-            transform: `
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={animationVariants}>
+          <Heading
+            as="h1"
+            color="gray.100"
+            fontSize="clamp(40px, 5vw, 65px)"
+            textShadow="2px 2px 30px #2D3748"
+            textAlign="center"
+            transition="all cubic-bezier(0.075, 0.82, 0.165, 1) 1s"
+            style={{
+              transform: `
               translateY(-${animationWeighting * 100}%)
               rotateX(${animationWeighting * 120}deg) 
               scale(${intersectionRatio})
               `,
-          }}
-          maxWidth={{ base: '300px', md: 'none' }}
-          margin="0 auto"
-        >
-          {`Hi, I'm David`} <br />
-          <Box as="span" fontSize="clamp(10px, 4vw, 25px)" fontWeight="semibold">
-            A full stack web developer based in London
-          </Box>
-        </Heading>
+            }}
+            maxWidth={{ base: '300px', md: 'none' }}
+            margin="0 auto"
+          >
+            {`Hi, I'm David`} <br />
+            <Box as="span" fontSize="clamp(10px, 4vw, 25px)" fontWeight="semibold">
+              A full stack web developer based in London
+            </Box>
+          </Heading>
+        </motion.div>
 
         <Grid gridTemplateColumns="repeat(3, 1fr)" gridGap="20px" minWidth="700px">
           <HeroImage

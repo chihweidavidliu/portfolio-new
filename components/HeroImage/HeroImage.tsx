@@ -1,7 +1,4 @@
 import { Image } from '@chakra-ui/image';
-import { useAnimation } from 'framer-motion';
-import { useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
 import { MotionBox } from '../Timeline/BaseTimelineCard';
 import { getHeroImagePosition, HeroImagePosition } from './helpers';
 
@@ -19,21 +16,12 @@ const animationVariants = {
 };
 
 const HeroImage = ({ href, src, alt, position, interSectionRatio }: HeroImageProps) => {
-  const controls = useAnimation();
-  const { ref, inView } = useInView();
-
-  useEffect(() => {
-    if (inView) {
-      controls.start('visible');
-    }
-  }, [controls, inView]);
-
   return (
     <MotionBox
-      animate={controls}
       variants={animationVariants}
-      ref={ref}
       initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
       style={{
         transition: 'all cubic-bezier(0.075, 0.82, 0.165, 1) 0.8s',
         ...getHeroImagePosition(position, interSectionRatio),

@@ -1,9 +1,7 @@
 import { Box, Divider, Grid, Heading, Stack, Text } from '@chakra-ui/layout';
 import { primaryColor } from '../../theme';
 import { ISkillCard } from '../../types/SkillCard';
-import { useSlideInAnimation } from '../../util/useSlideInAnimation';
 import Card from '../Card';
-import { MotionBox } from '../Timeline/BaseTimelineCard';
 
 interface SkillCardProps {
   skillCard: ISkillCard;
