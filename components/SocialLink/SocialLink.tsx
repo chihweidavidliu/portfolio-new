@@ -27,7 +27,14 @@ const SocialLink = ({ socialNetwork }: SocialLinkProps) => {
   };
 
   return (
-    <Link target="_blank" color="gray.500" _hover={{ color: primaryColor(500) }} href={getHref(socialNetwork)}>
+    <Link
+      target="_blank"
+      rel="noreferrer"
+      color="gray.500"
+      _hover={{ color: primaryColor(500) }}
+      href={getHref(socialNetwork)}
+      aria-label={`${socialNetwork}-link`}
+    >
       {renderIcon(socialNetwork)}
     </Link>
   );
