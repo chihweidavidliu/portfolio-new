@@ -24,7 +24,7 @@ const SkillCard = ({ skillCard }: SkillCardProps) => {
 
               <Grid templateColumns="repeat(2, 1fr)" gridGap="2" marginTop="3">
                 {section.skills.map((skill) => (
-                  <Text key={skill._id}>{skill.title}</Text>
+                  <Text key={skill.title}>{skill.title}</Text>
                 ))}
               </Grid>
             </Box>
