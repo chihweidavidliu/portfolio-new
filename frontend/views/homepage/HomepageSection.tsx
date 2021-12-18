@@ -13,7 +13,6 @@ const HomepageSection = ({ section, nextSectionId }: HomepageSectionProps) => {
     case 'heroSection':
       return <Hero hero={section} nextSectionId={nextSectionId} />;
     case 'aboutSection':
-      console.log('section', section);
       return <AboutSection section={section} />;
     case 'skillsSection':
       return <SkillsSection section={section} />;
