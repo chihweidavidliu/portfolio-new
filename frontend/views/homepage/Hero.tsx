@@ -3,6 +3,8 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import HeroImage from '@components/HeroImage';
 import HeroChevronLink from '@components/HeroChevronLink';
+import { SanityHeroSection } from '@groq/fragments/HeroSection';
+import { urlFor } from 'sanity';
 
 const HERO_IMAGE_URL =
   "url('https://images.unsplash.com/photo-1506259091721-347e791bab0f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')";
@@ -16,7 +18,16 @@ const animationVariants = {
   hidden: { opacity: 0 },
 };
 
-const Hero = () => {
+const getHeroImageUrl = (ref: string) => urlFor(ref).width(491).height(240).url() || '';
+
+interface HeroProps {
+  hero: SanityHeroSection;
+}
+
+const Hero = ({ hero }: HeroProps) => {
+  const { title, subtitle, leftImage, centerImage, rightImage } = hero;
+
+  console.log('HERO', hero);
   const controls = useAnimation();
   const { ref, entry } = useInView({ threshold: THRESHOLD });
   const intersectionRatio = entry ? entry.intersectionRatio : 1;
@@ -56,9 +67,9 @@ const Hero = () => {
             maxWidth={{ base: '300px', md: 'none' }}
             margin="0 auto"
           >
-            {`Hi, I'm David`} <br />
+            {title} <br />
             <Box as="span" fontSize="clamp(10px, 4vw, 25px)" fontWeight="semibold">
-              A full stack web developer based in London
+              {subtitle}
             </Box>
           </Heading>
         </motion.div>
@@ -66,24 +77,24 @@ const Hero = () => {
         <Grid gridTemplateColumns="repeat(3, 1fr)" gridGap="20px" minWidth="700px">
           <HeroImage
             href="#TaskMaster"
-            src="https://res.cloudinary.com/dhccfu1un/image/upload/v1584202957/portfolio/taskmaster/taskmaster-thumbnail_vamjxs.png"
-            alt="Taskmaster App Dashboard"
+            src={getHeroImageUrl(leftImage.asset._ref)}
+            alt={leftImage.metadata.caption}
             position="left"
             interSectionRatio={intersectionRatio}
           />
 
           <HeroImage
             href="#MyInternship"
-            src="https://res.cloudinary.com/dhccfu1un/image/upload/v1584202941/portfolio/myinternship/myinternship-thumbnail_nvtgiz.png"
-            alt="MyInternship App Dashboard"
+            src={getHeroImageUrl(centerImage.asset._ref)}
+            alt={centerImage.metadata.caption}
             position="center"
             interSectionRatio={intersectionRatio}
           />
 
           <HeroImage
             href="#Lingualink"
-            src="https://res.cloudinary.com/dhccfu1un/image/upload/v1584202924/portfolio/lingualink/lingualink-student-detail_mzbai1.png"
-            alt="Lingualink App Dashboard"
+            src={getHeroImageUrl(rightImage.asset._ref)}
+            alt={rightImage.metadata.caption}
             position="right"
             interSectionRatio={intersectionRatio}
           />

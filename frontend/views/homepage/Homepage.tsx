@@ -6,8 +6,13 @@ import TimelineSection from './TimelineSection';
 import Hero from './Hero';
 import AboutSection from './AboutSection';
 import ContactSection from './ContactSection';
+import { SanityHomepageSection } from '@groq/homepage';
 
-export const Homepage = () => {
+interface HomepageProps {
+  sections: SanityHomepageSection[];
+}
+
+export const Homepage = ({ sections }: HomepageProps) => {
   return (
     <>
       <Head>
@@ -17,7 +22,14 @@ export const Homepage = () => {
       </Head>
 
       <Box>
-        <Hero />
+        {sections.map((section) => {
+          switch (section._type) {
+            case 'heroSection':
+              return <Hero hero={section} key={section._key} />;
+            default:
+              return null;
+          }
+        })}
         <AboutSection />
         <Divider />
         <SkillsSection />

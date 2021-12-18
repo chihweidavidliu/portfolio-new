@@ -8,8 +8,7 @@ interface Homeprops {
 }
 
 const Home: NextPage<Homeprops> = ({ sections }) => {
-  console.log('sections', sections);
-  return <Homepage />;
+  return <Homepage sections={sections} />;
 };
 
 export const getStaticProps: GetStaticProps<Homeprops> = async ({ preview = false }) => {
@@ -19,7 +18,7 @@ export const getStaticProps: GetStaticProps<Homeprops> = async ({ preview = fals
 
   return {
     props: {
-      sections: homepageData.sections,
+      sections: homepageData.sections || [],
     },
   };
 };

@@ -7,12 +7,13 @@ export type SanityHomepageSection = SanityHeroSection;
 export interface HomepageQuery {
   sections: SanityHomepageSection[];
 }
-export const HOMEPAGE_QUERY = groq`*[_type == 'homepage'] {
-    ...,
-    sections[] {
-        ${sanityHeroSectionFields}
+export const HOMEPAGE_QUERY = groq`
+    *[_type == 'homepage'][0] {
+        ...,
+        sections[] {
+            ${sanityHeroSectionFields}
+        }
     }
-  }
 `;
 
 export class HomepageFetcher extends SanityFetcher {
