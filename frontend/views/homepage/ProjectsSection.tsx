@@ -1,7 +1,7 @@
 import { Grid } from '@chakra-ui/layout';
-import PageSection from '../../frontend/components/PageSection';
-import PortfolioCard from '../../frontend/components/PortfolioCard';
-import { projects } from '../../frontend/data/projects';
+import PageSection from '../../components/PageSection';
+import PortfolioCard from '../../components/PortfolioCard';
+import { projects } from '../../data/projects';
 
 const ProjectsSection = () => {
   return (

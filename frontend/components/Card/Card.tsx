@@ -1,7 +1,7 @@
 import { Box, Heading } from '@chakra-ui/layout';
 import { motion } from 'framer-motion';
 import { FC } from 'react';
-import { primaryColor } from '../../../theme';
+import { primaryColor } from '../../theme';
 
 interface CardProps {
   animate?: boolean;

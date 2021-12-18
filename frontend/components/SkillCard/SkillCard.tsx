@@ -1,6 +1,6 @@
 import { Box, Divider, Grid, Heading, Stack, Text } from '@chakra-ui/layout';
-import { primaryColor } from '../../../theme';
-import { ISkillCard } from '../../../types/SkillCard';
+import { primaryColor } from '../../theme';
+import { ISkillCard } from '../../types/SkillCard';
 import Card from '../Card';
 
 interface SkillCardProps {

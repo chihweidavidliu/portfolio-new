@@ -1,5 +1,5 @@
 import { Link } from '@chakra-ui/react';
-import { primaryColor } from '../../../theme';
+import { primaryColor } from '../../theme';
 import { GithubIcon } from '../icons/GithubIcon';
 import { LinkedinIcon } from '../icons/LinkedinIcon';
 

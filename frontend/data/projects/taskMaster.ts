@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IPortfolioProject } from '../../../types/PortfolioProject';
+import { IPortfolioProject } from '../../types/PortfolioProject';
 
 export const taskMasterProject: IPortfolioProject = {
   id: uuidv4(),
