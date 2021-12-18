@@ -16,15 +16,7 @@ export default {
           name: "caption",
           type: "string",
         },
-        {
-          title: "Link",
-          name: "link",
-          type: "url",
-          validation: (Rule) =>
-            Rule.uri({
-              allowRelative: true,
-            }),
-        },
+        // TODO: add link to portfolio project card
       ],
 
       options: {
