@@ -1,4 +1,4 @@
-import { SanityImageWithCaption } from '@interfaces/sanity/image';
+import { SanityHeroImage } from '@interfaces/sanity/image';
 import groq from 'groq';
 
 export interface SanityHeroSection {
@@ -6,9 +6,9 @@ export interface SanityHeroSection {
   _type: 'heroSection';
   title: string;
   subtitle: string;
-  centerImage: SanityImageWithCaption;
-  leftImage: SanityImageWithCaption;
-  rightImage: SanityImageWithCaption;
+  centerImage: SanityHeroImage;
+  leftImage: SanityHeroImage;
+  rightImage: SanityHeroImage;
 }
 
 export const sanityHeroSectionFields = groq`
@@ -18,5 +18,5 @@ export const sanityHeroSectionFields = groq`
     subtitle,
     centerImage,
     leftImage,
-    rightImage
+    rightImage,
 `;

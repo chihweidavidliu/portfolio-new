@@ -1,6 +1,7 @@
 import { Grid } from '@chakra-ui/layout';
 import PageSection from '@components/PageSection';
 import SkillCard from '@components/SkillCard';
+import { SanitySkillsSection } from '@groq/fragments/SkillsSection.fragment';
 import { ISkillCard } from '@interfaces/SkillCard';
 
 // TODO: move this to Sanity
@@ -62,12 +63,16 @@ const skillCards: ISkillCard[] = [
   },
 ];
 
-const SkillsSection = () => {
+interface SkillsSectionProps {
+  section: SanitySkillsSection;
+}
+
+const SkillsSection = ({ section }: SkillsSectionProps) => {
   return (
-    <PageSection title="Skills">
+    <PageSection title={section?.title || 'Skills'}>
       {() => (
         <Grid gridGap="7" gridTemplateColumns="repeat(auto-fill, minmax(300px, 1fr))" width="100%">
-          {skillCards.map((skillCard) => {
+          {section.skillCards.map((skillCard) => {
             return <SkillCard key={skillCard.title} skillCard={skillCard} />;
           })}
         </Grid>

@@ -1,10 +1,10 @@
 import { Box, Divider, Grid, Heading, Stack, Text } from '@chakra-ui/layout';
 import { primaryColor } from '@theme';
-import { ISkillCard } from '@interfaces/SkillCard';
 import Card from '../Card';
+import { SanitySkillCard } from '@groq/fragments/SkillsSection.fragment';
 
 interface SkillCardProps {
-  skillCard: ISkillCard;
+  skillCard: SanitySkillCard;
 }
 
 const SkillCard = ({ skillCard }: SkillCardProps) => {
@@ -15,16 +15,16 @@ const SkillCard = ({ skillCard }: SkillCardProps) => {
       </Heading>
 
       <Stack spacing="5" divider={<Divider />}>
-        {skillCard.categories.map((category) => {
+        {skillCard.sections?.map((section) => {
           return (
-            <Box key={category.categoryName}>
+            <Box key={section.title}>
               <Heading as="h4" size="sm" fontWeight="semibold" color={primaryColor(500)}>
-                {category.categoryName}
+                {section.title}
               </Heading>
 
               <Grid templateColumns="repeat(2, 1fr)" gridGap="2" marginTop="3">
-                {category.skills.map((skill, index) => (
-                  <Text key={skill + index}>{skill}</Text>
+                {section.skills.map((skill) => (
+                  <Text key={skill._id}>{skill.title}</Text>
                 ))}
               </Grid>
             </Box>

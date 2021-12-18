@@ -3,7 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import HeroImage from '@components/HeroImage';
 import HeroChevronLink from '@components/HeroChevronLink';
-import { SanityHeroSection } from '@groq/fragments/HeroSection';
+import { SanityHeroSection } from '@groq/fragments/HeroSection.fragment';
 import { urlFor } from 'sanity';
 
 const HERO_IMAGE_URL =
@@ -27,7 +27,6 @@ interface HeroProps {
 const Hero = ({ hero }: HeroProps) => {
   const { title, subtitle, leftImage, centerImage, rightImage } = hero;
 
-  console.log('HERO', hero);
   const controls = useAnimation();
   const { ref, entry } = useInView({ threshold: THRESHOLD });
   const intersectionRatio = entry ? entry.intersectionRatio : 1;

@@ -1,17 +1,20 @@
 import SanityFetcher from '@interfaces/SanityFetcher';
 import groq from 'groq';
-import { SanityHeroSection, sanityHeroSectionFields } from './fragments/HeroSection';
+import { SanityHeroSection, sanityHeroSectionFields } from './fragments/HeroSection.fragment';
+import { SanitySkillsSection, sanitySkillsSectionFields } from './fragments/SkillsSection.fragment';
 
-export type SanityHomepageSection = SanityHeroSection;
+export type SanityHomepageSection = SanityHeroSection | SanitySkillsSection;
 
 export interface HomepageQuery {
   sections: SanityHomepageSection[];
 }
+
 export const HOMEPAGE_QUERY = groq`
     *[_type == 'homepage'][0] {
         ...,
         sections[] {
             ${sanityHeroSectionFields}
+            ${sanitySkillsSectionFields}
         }
     }
 `;

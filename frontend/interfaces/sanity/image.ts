@@ -27,3 +27,9 @@ export interface SanityImageWithCaption extends SanityImage {
     caption: string;
   };
 }
+
+export interface SanityHeroImage extends SanityImage {
+  metadata: {
+    caption: string;
+  };
+}
