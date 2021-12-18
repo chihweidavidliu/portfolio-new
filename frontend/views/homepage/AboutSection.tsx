@@ -1,6 +1,6 @@
 import { Grid, Text, Box, Image, HStack } from '@chakra-ui/react';
-import PageSection from '../../components/PageSection';
-import SocialLink from '../../components/SocialLink';
+import PageSection from '@components/PageSection';
+import SocialLink from '@components/SocialLink';
 
 const IMAGE_SRC =
   'https://avatars3.githubusercontent.com/u/40054735?s=460&u=bc4a2fdebed23da2de159078dec770b5ea99ad3c&v=4';

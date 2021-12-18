@@ -1,5 +1,5 @@
 import { Badge, Box, Flex, Text } from '@chakra-ui/layout';
-import { primaryColor } from '../../theme';
+import { primaryColor } from '@theme';
 
 interface TechStackListProps {
   title: string;

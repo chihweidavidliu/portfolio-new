@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box } from '@chakra-ui/layout';
 import { differenceInMonths, getYear, isAfter, subMonths } from 'date-fns';
-import PageSection from '../../components/PageSection';
+import PageSection from '@components/PageSection';
 import { timelineContents } from '../../data/timeline/timelineContents';
-import TimelineYear from '../../components/Timeline/TimelineYear';
-import TimelineCard from '../../components/Timeline/TimelineCard';
+import TimelineYear from '@components/Timeline/TimelineYear';
+import TimelineCard from '@components/Timeline/TimelineCard';
 
 const REDUCED_SCALE = 0.2; // the factor by which condensed years should shrink
 const CONTAINER_BREAKPOINT = 920;

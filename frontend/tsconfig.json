@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -13,7 +14,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@groq/*": ["groq/*"],
+      "@components/*": ["components/*"],
+      "@util/*": ["util/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@theme": ["theme"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "block-content-to-react.d.ts"],
   "exclude": ["node_modules"]

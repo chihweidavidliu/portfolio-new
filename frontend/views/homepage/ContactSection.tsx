@@ -1,6 +1,6 @@
 import { Grid, Text } from '@chakra-ui/react';
-import PageSection from '../../components/PageSection';
-import SocialLink from '../../components/SocialLink';
+import PageSection from '@components/PageSection';
+import SocialLink from '@components/SocialLink';
 
 const ContactSection = () => {
   return (

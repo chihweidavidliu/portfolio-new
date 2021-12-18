@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { useAnimation, motion, useMotionValue, useTransform } from 'framer-motion';
 import TimelineBranch from './TimelineBranch';
 import { Box, BoxProps } from '@chakra-ui/layout';
-import { primaryColor } from '../../theme';
-import { TimelinePosition } from '../../types/TimelinePosition';
+import { primaryColor } from '@theme';
+import { TimelinePosition } from '@interfaces/TimelinePosition';
 
 export const MotionBox = motion<BoxProps>(Box);
 

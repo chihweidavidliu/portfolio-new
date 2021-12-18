@@ -2,8 +2,8 @@ import { Button } from '@chakra-ui/button';
 import { Image } from '@chakra-ui/image';
 import { Box, Grid, Heading, Stack, Text } from '@chakra-ui/layout';
 import { FC } from 'react';
-import { primaryColor } from '../../theme';
-import { IPortfolioProject } from '../../types/PortfolioProject';
+import { primaryColor } from '@theme';
+import { IPortfolioProject } from '@interfaces/PortfolioProject';
 import Card from '../Card';
 import TechStackList from '../TechStackList';
 

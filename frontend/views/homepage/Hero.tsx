@@ -1,8 +1,8 @@
 import { Flex, Grid, Heading, Box } from '@chakra-ui/layout';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import HeroImage from '../../components/HeroImage';
-import HeroChevronLink from '../../components/HeroChevronLink';
+import HeroImage from '@components/HeroImage';
+import HeroChevronLink from '@components/HeroChevronLink';
 
 const HERO_IMAGE_URL =
   "url('https://images.unsplash.com/photo-1506259091721-347e791bab0f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')";

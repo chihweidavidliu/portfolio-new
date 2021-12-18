@@ -1,7 +1,7 @@
 import { Link } from '@chakra-ui/react';
-import { primaryColor } from '../../theme';
-import { GithubIcon } from '../icons/GithubIcon';
-import { LinkedinIcon } from '../icons/LinkedinIcon';
+import { primaryColor } from '@theme';
+import { GithubIcon } from '@components/icons/GithubIcon';
+import { LinkedinIcon } from '@components/icons/LinkedinIcon';
 
 type SocialNetwork = 'github' | 'linkedin';
 

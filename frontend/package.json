@@ -44,5 +44,21 @@
     "eslint-config-next": "12.0.3",
     "prettier": "^2.4.1",
     "typescript": "4.4.4"
+  },
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**",
+      "!**/mocks/**",
+      "!**/__snapshots__/**"
+    ],
+    "moduleNameMapper": {
+      "@components/(.*)$": "<rootDir>/components/$1",
+      "@styles/(.*)$": "<rootDir>/styles/$1",
+      "@interfaces/(.*)$": "<rootDir>/interfaces/$1",
+      "@providers/(.*)$": "<rootDir>/providers/$1",
+      "@util/(.*)$": "<rootDir>/util/$1",
+      "@groq/(.*)$": "<rootDir>/groq/$1",
+      "@theme": "<rootDir>/theme"
+    }
   }
 }

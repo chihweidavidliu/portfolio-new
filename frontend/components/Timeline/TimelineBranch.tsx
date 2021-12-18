@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/layout';
-import { TimelinePosition } from '../../types/TimelinePosition';
+import { TimelinePosition } from '@interfaces/TimelinePosition';
 
 const getVerticalBranchStyles = (cardPosition: TimelinePosition) => {
   if (cardPosition === 'right') {

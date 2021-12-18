@@ -2,16 +2,16 @@ import { Heading, Box, Text } from '@chakra-ui/layout';
 import { differenceInCalendarDays, getYear } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
-import { primaryColor } from '../../theme';
-import { TimelineItem } from '../../types/TimelineItem';
-import { monthDiff } from '../../util/monthDiff';
+import { primaryColor } from '@theme';
+import { TimelineItem } from '@interfaces/TimelineItem';
+import { monthDiff } from '@util/monthDiff';
 import { DEFAULT_LABEL_HEIGHT } from './TimelinePoint';
 import { MONTH_HEIGHT } from './TimelineYear';
 import { Image } from '@chakra-ui/image';
 import format from 'date-fns/format';
 import TechStackList from '../TechStackList';
 import BaseTimelineCard from './BaseTimelineCard';
-import { TimelinePosition } from '../../types/TimelinePosition';
+import { TimelinePosition } from '@interfaces/TimelinePosition';
 
 interface TimelineCardProps {
   item: TimelineItem;
