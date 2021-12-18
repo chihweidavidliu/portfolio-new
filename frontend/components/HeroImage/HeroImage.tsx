@@ -1,9 +1,10 @@
 import { Image } from '@chakra-ui/image';
+import { Link } from 'react-scroll';
 import { MotionBox } from '../Timeline/BaseTimelineCard';
 import { getHeroImagePosition, HeroImagePosition } from './helpers';
 
 interface HeroImageProps {
-  href: string;
+  to: string;
   src: string;
   alt: string;
   position: HeroImagePosition;
@@ -15,7 +16,7 @@ const animationVariants = {
   hidden: { opacity: 0 },
 };
 
-const HeroImage = ({ href, src, alt, position, interSectionRatio }: HeroImageProps) => {
+const HeroImage = ({ to, src, alt, position, interSectionRatio }: HeroImageProps) => {
   return (
     <MotionBox
       variants={animationVariants}
@@ -27,9 +28,9 @@ const HeroImage = ({ href, src, alt, position, interSectionRatio }: HeroImagePro
         ...getHeroImagePosition(position, interSectionRatio),
       }}
     >
-      <a href={href}>
+      <Link to={to} smooth style={{ cursor: 'pointer' }} duration={300}>
         <Image boxShadow="md" width="100%" maxWidth="800px" alt={alt} src={src} />
-      </a>
+      </Link>
     </MotionBox>
   );
 };

@@ -77,7 +77,7 @@ const Hero = ({ hero, nextSectionId }: HeroProps) => {
 
         <Grid gridTemplateColumns="repeat(3, 1fr)" gridGap="20px" minWidth="700px">
           <HeroImage
-            href="#TaskMaster"
+            to={leftImage.metadata?.associatedProject?._ref || '#'}
             src={getHeroImageUrl(leftImage.asset._ref)}
             alt={leftImage.metadata.caption}
             position="left"
@@ -85,7 +85,7 @@ const Hero = ({ hero, nextSectionId }: HeroProps) => {
           />
 
           <HeroImage
-            href="#MyInternship"
+            to={centerImage.metadata?.associatedProject?._ref || '#'}
             src={getHeroImageUrl(centerImage.asset._ref)}
             alt={centerImage.metadata.caption}
             position="center"
@@ -93,7 +93,7 @@ const Hero = ({ hero, nextSectionId }: HeroProps) => {
           />
 
           <HeroImage
-            href="#Lingualink"
+            to={rightImage.metadata?.associatedProject?._ref || '#'}
             src={getHeroImageUrl(rightImage.asset._ref)}
             alt={rightImage.metadata.caption}
             position="right"

@@ -16,7 +16,12 @@ export default {
           name: "caption",
           type: "string",
         },
-        // TODO: add link to portfolio project card
+        {
+          title: "Associated Project",
+          name: "associatedProject",
+          type: "reference",
+          to: [{ type: "projectCard" }],
+        },
       ],
 
       options: {

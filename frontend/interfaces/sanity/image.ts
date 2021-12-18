@@ -1,3 +1,5 @@
+import { SanityReference } from './reference';
+
 export interface SanityImage {
   _key?: string;
   _type: 'image';
@@ -31,5 +33,6 @@ export interface SanityImageWithCaption extends SanityImage {
 export interface SanityHeroImage extends SanityImage {
   metadata: {
     caption: string;
+    associatedProject?: SanityReference;
   };
 }

@@ -12,13 +12,13 @@ interface HomepageSectionProps {
 const HomepageSection = ({ section, nextSectionId }: HomepageSectionProps) => {
   switch (section._type) {
     case 'heroSection':
+      console.log('section', section);
       return <Hero hero={section} nextSectionId={nextSectionId} />;
     case 'aboutSection':
       return <AboutSection section={section} />;
     case 'skillsSection':
       return <SkillsSection section={section} />;
     case 'projectsSection':
-      console.log('section', section);
       return <ProjectsSection section={section} />;
     default:
       return null;
