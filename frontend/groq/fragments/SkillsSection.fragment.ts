@@ -4,13 +4,18 @@ import groq from 'groq';
 export interface SanitySkill {
   _id: string;
   title: string;
-  icon: SanityImageWithCaption;
+  icon?: SanityImageWithCaption;
+}
+
+export interface SanitySkillsList {
+  title: string;
+  skills: SanitySkill[];
 }
 
 export interface SanitySkillCard {
   _id: string;
   title: string;
-  sections: { title: string; skills: SanitySkill[] }[];
+  sections: { title: string; skills: SanitySkillsList[] }[];
 }
 
 export interface SanitySkillsSection {
@@ -25,14 +30,18 @@ export const sanitySkillFields = groq`
   title,
   icon
 `;
+
+export const sanitySkillsListFields = groq`
+    title,
+    skills[]-> {
+      ${sanitySkillFields}
+    },
+`;
 export const sanitySkillCardFields = groq`
   _id,
   title,
   sections[] {
-    title,
-    skills[]-> {
-      ${sanitySkillFields}
-    }
+    ${sanitySkillsListFields}
   }
 `;
 export const sanitySkillsSectionFields = groq`

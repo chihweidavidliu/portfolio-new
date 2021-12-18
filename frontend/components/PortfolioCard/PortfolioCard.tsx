@@ -3,9 +3,10 @@ import { Image } from '@chakra-ui/image';
 import { Box, Grid, Heading, Stack, Text } from '@chakra-ui/layout';
 import { FC } from 'react';
 import { primaryColor } from '@theme';
-import { IPortfolioProject } from '@interfaces/PortfolioProject';
 import Card from '../Card';
 import TechStackList from '../TechStackList';
+import { SanityProjectCard } from '@groq/fragments/ProjectsSection.fragment';
+import { BlockContent, urlFor } from 'sanity';
 
 const Subheading: FC = ({ children }) => {
   return (
@@ -16,14 +17,19 @@ const Subheading: FC = ({ children }) => {
 };
 
 interface PortfolioCardProps {
-  project: IPortfolioProject;
+  project: SanityProjectCard;
 }
 
 const PortfolioCard = ({ project }: PortfolioCardProps) => {
   return (
-    <Card animate title={project.title} id={project.title}>
+    <Card animate title={project.title} id={project._id}>
       <Box display="grid" gridTemplateRows="max-content 1fr max-content" gridGap="12" height="100%">
-        <Image src={project.images[0].source} alt={project.images[0].caption} borderRadius="md" width="100%" />
+        <Image
+          src={urlFor(project.images[0].asset._ref).url() || ''}
+          alt={project.images[0]?.metadata.caption}
+          borderRadius="md"
+          width="100%"
+        />
         <Grid
           gridTemplateColumns={{ base: '1fr', md: '1fr 1fr' }}
           textAlign={{ base: 'center', md: 'left' }}
@@ -31,38 +37,45 @@ const PortfolioCard = ({ project }: PortfolioCardProps) => {
         >
           <Box>
             <Subheading>About</Subheading>
-            <Text>{project.description}</Text>
+            <BlockContent blocks={project.description} />
           </Box>
 
           <Box>
             <Subheading>Tech Stack</Subheading>
             <Stack spacing="5">
-              {project.techStack?.frontEnd && <TechStackList title="Front End" items={project.techStack.frontEnd} />}
-              {project.techStack?.backEnd && <TechStackList title="Front End" items={project.techStack.backEnd} />}
+              {project?.techStack.map((stack) => {
+                return (
+                  <TechStackList
+                    title={stack.title}
+                    items={stack.skills.map((skill) => skill.title)}
+                    key={stack.title}
+                  />
+                );
+              })}
             </Stack>
           </Box>
         </Grid>
 
         <Grid gridGap="3">
-          {project.githubLinks.map((link) => (
+          {project.secondaryCTAs?.map((cta) => (
             <Button
               as="a"
-              href={link.url}
-              key={link.url}
+              href={cta.url}
+              key={cta.url}
               color={primaryColor(500)}
               bgColor="gray.200"
               target="_blank"
               rel="noopener noreferrer"
             >
-              {link.label}
+              {cta.title}
             </Button>
           ))}
 
-          {project.liveSiteLink && (
+          {project.primaryCTA && (
             <Button
               as="a"
-              href={project.liveSiteLink.url}
-              key={project.liveSiteLink.url}
+              href={project.primaryCTA.url}
+              key={project.primaryCTA.url}
               bgColor={primaryColor(500)}
               _hover={{
                 bgColor: primaryColor(600),
@@ -71,7 +84,7 @@ const PortfolioCard = ({ project }: PortfolioCardProps) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {project.liveSiteLink.label}
+              {project.primaryCTA.title}
             </Button>
           )}
         </Grid>

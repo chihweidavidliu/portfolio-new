@@ -1,9 +1,14 @@
 import { Grid } from '@chakra-ui/layout';
+import { SanityProjectsSection } from '@groq/fragments/ProjectsSection.fragment';
 import PageSection from '../../components/PageSection';
 import PortfolioCard from '../../components/PortfolioCard';
-import { projects } from '../../data/projects';
 
-const ProjectsSection = () => {
+interface ProjectsSectionProps {
+  section: SanityProjectsSection;
+}
+
+const ProjectsSection = ({ section }: ProjectsSectionProps) => {
+  const { projectCards } = section;
   return (
     <PageSection title="Portfolio">
       {() => (
@@ -17,8 +22,8 @@ const ProjectsSection = () => {
           justifyItems="center"
           gridAutoRows="max-content"
         >
-          {projects.map((project) => {
-            return <PortfolioCard key={project.id} project={project} />;
+          {projectCards.map((projectCard) => {
+            return <PortfolioCard key={projectCard._id} project={projectCard} />;
           })}
         </Grid>
       )}

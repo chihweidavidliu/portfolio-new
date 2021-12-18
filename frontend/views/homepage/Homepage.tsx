@@ -32,10 +32,6 @@ export const Homepage = ({ sections }: HomepageProps) => {
             </Fragment>
           );
         })}
-        <Divider />
-        <Divider />
-        <ProjectsSection />
-        <Divider />
         <TimelineSection collapseBeforeYear={2018} />
         <Divider />
         <ContactSection />

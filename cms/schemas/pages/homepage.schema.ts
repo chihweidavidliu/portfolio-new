@@ -12,6 +12,7 @@ export default {
         { type: "heroSection" },
         { type: "skillsSection" },
         { type: "aboutSection" },
+        { type: "projectsSection" },
       ],
     },
   ],

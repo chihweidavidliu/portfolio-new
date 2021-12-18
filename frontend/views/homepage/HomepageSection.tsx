@@ -1,6 +1,7 @@
 import { SanityHomepageSection } from '@groq/homepage';
 import AboutSection from './AboutSection';
 import Hero from './Hero';
+import ProjectsSection from './ProjectsSection';
 import SkillsSection from './SkillsSection';
 
 interface HomepageSectionProps {
@@ -16,6 +17,9 @@ const HomepageSection = ({ section, nextSectionId }: HomepageSectionProps) => {
       return <AboutSection section={section} />;
     case 'skillsSection':
       return <SkillsSection section={section} />;
+    case 'projectsSection':
+      console.log('section', section);
+      return <ProjectsSection section={section} />;
     default:
       return null;
   }
