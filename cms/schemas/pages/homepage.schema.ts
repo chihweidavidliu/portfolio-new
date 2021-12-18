@@ -8,7 +8,11 @@ export default {
     {
       name: "sections",
       type: "array",
-      of: [{ type: "heroSection" }, { type: "skillsSection" }],
+      of: [
+        { type: "heroSection" },
+        { type: "skillsSection" },
+        { type: "aboutSection" },
+      ],
     },
   ],
   preview: {

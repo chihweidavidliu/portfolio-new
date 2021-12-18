@@ -5,19 +5,22 @@ import createSchema from "part:@sanity/base/schema-creator";
 import schemaTypes from "all:part:@sanity/base/schema-type";
 
 // ---- FOUNDATIONS ----
-import skill from "./foundations/skill.sanity";
-import imageWithCaption from "./foundations/imageWithCaption.sanity";
+import skill from "./foundations/skill.schema";
+import imageWithCaption from "./foundations/imageWithCaption.schema";
+import socialLink from "./foundations/socialLink.schema";
+import blockContent from "./foundations/blockContent.schema";
 
 // ---- WIDGETS ----
-import heroImage from "./widgets/heroImage.sanity";
-import skillsCard from "./widgets/skillsCard.sanity";
+import heroImage from "./widgets/heroImage.schema";
+import skillsCard from "./widgets/skillsCard.schema";
 
 // ---- SECTIONS ----
-import Hero from "./sections/Hero.sanity";
-import skillsSection from "./sections/skillsSection.sanity";
+import Hero from "./sections/Hero.schema";
+import skillsSection from "./sections/skillsSection.schema";
+import aboutSectionSchema from "./sections/aboutSection.schema";
 
 // ---- PAGES ----
-import homepage from "./pages/homepage.sanity";
+import homepage from "./pages/homepage.schema";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -33,5 +36,8 @@ export default createSchema({
     skill,
     imageWithCaption,
     skillsSection,
+    socialLink,
+    aboutSectionSchema,
+    blockContent,
   ]),
 });
