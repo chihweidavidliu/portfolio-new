@@ -8,15 +8,19 @@ import schemaTypes from "all:part:@sanity/base/schema-type";
 import skill from "./foundations/skill.schema";
 import imageWithCaption from "./foundations/imageWithCaption.schema";
 import blockContent from "./foundations/blockContent.schema";
+import ctaSchema from "./foundations/cta.schema";
 
 // ---- WIDGETS ----
 import heroImage from "./widgets/heroImage.schema";
 import skillsCard from "./widgets/skillsCard.schema";
+import projectCardSchema from "./widgets/projectCard.schema";
+import skillsListSchema from "./widgets/skillsList.schema";
 
 // ---- SECTIONS ----
 import Hero from "./sections/Hero.schema";
 import skillsSection from "./sections/skillsSection.schema";
 import aboutSectionSchema from "./sections/aboutSection.schema";
+import projectsSectionSchema from "./sections/projectsSection.schema";
 
 // ---- PAGES ----
 import homepage from "./pages/homepage.schema";
@@ -37,5 +41,9 @@ export default createSchema({
     skillsSection,
     aboutSectionSchema,
     blockContent,
+    projectCardSchema,
+    skillsListSchema,
+    ctaSchema,
+    projectsSectionSchema,
   ]),
 });
