@@ -1,7 +1,7 @@
 import { Grid } from '@chakra-ui/layout';
-import PageSection from '../../components/PageSection';
-import SkillCard from '../../components/SkillCard';
-import { ISkillCard } from '../../types/SkillCard';
+import PageSection from '@components/PageSection';
+import SkillCard from '@components/SkillCard';
+import { ISkillCard } from '@interfaces/SkillCard';
 
 // TODO: move this to Sanity
 const skillCards: ISkillCard[] = [

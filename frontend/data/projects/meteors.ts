@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IPortfolioProject } from '../../types/PortfolioProject';
+import { IPortfolioProject } from '@interfaces/PortfolioProject';
 
 export const meteorsProject: IPortfolioProject = {
   id: uuidv4(),

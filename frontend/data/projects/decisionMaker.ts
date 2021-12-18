@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IPortfolioProject } from '../../interfaces/PortfolioProject';
+import { IPortfolioProject } from '@interfaces/PortfolioProject';
 
 export const decisionMakerProject: IPortfolioProject = {
   id: uuidv4(),

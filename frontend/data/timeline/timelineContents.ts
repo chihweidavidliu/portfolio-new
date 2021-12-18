@@ -1,5 +1,5 @@
 import dedent from 'dedent';
-import { TimelineItem } from '../../types/TimelineItem';
+import { TimelineItem } from '@interfaces/TimelineItem';
 
 export const timelineContents: { [index: string]: TimelineItem } = {
   sourceful2: {
