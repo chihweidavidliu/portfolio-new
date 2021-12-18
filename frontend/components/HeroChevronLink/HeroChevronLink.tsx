@@ -2,7 +2,11 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Link } from 'react-scroll';
 import { motion } from 'framer-motion';
 
-const HeroChevronLink = () => {
+interface HeroChevronLinkProps {
+  to: string;
+}
+
+const HeroChevronLink = ({ to }: HeroChevronLinkProps) => {
   return (
     <motion.div
       animate={{ y: [5, -5] }}
@@ -21,7 +25,7 @@ const HeroChevronLink = () => {
         width: '100%',
       }}
     >
-      <Link to="about-section" smooth style={{ cursor: 'pointer' }} duration={300}>
+      <Link to={to} smooth style={{ cursor: 'pointer' }} duration={300}>
         <ChevronDownIcon color="gray.400" w={12} h={12} />
       </Link>
     </motion.div>

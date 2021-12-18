@@ -24,9 +24,10 @@ export const Homepage = ({ sections }: HomepageProps) => {
       <Box>
         {sections.map((section, index) => {
           const isLast = index === sections.length - 1;
+          const nextSectionId = isLast ? undefined : sections[index + 1]._key;
           return (
             <Fragment key={section._key}>
-              <HomepageSection section={section} />
+              <HomepageSection section={section} nextSectionId={nextSectionId} />
               {!isLast && <Divider />}
             </Fragment>
           );

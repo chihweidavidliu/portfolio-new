@@ -69,7 +69,7 @@ interface SkillsSectionProps {
 
 const SkillsSection = ({ section }: SkillsSectionProps) => {
   return (
-    <PageSection title={section?.title || 'Skills'}>
+    <PageSection title={section?.title || 'Skills'} id={section._key}>
       {() => (
         <Grid gridGap="7" gridTemplateColumns="repeat(auto-fill, minmax(300px, 1fr))" width="100%">
           {section.skillCards.map((skillCard) => {

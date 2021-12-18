@@ -22,10 +22,11 @@ const getHeroImageUrl = (ref: string) => urlFor(ref).width(491).height(240).url(
 
 interface HeroProps {
   hero: SanityHeroSection;
+  nextSectionId?: string;
 }
 
-const Hero = ({ hero }: HeroProps) => {
-  const { title, subtitle, leftImage, centerImage, rightImage } = hero;
+const Hero = ({ hero, nextSectionId }: HeroProps) => {
+  const { _key, title, subtitle, leftImage, centerImage, rightImage } = hero;
 
   const controls = useAnimation();
   const { ref, entry } = useInView({ threshold: THRESHOLD });
@@ -34,6 +35,7 @@ const Hero = ({ hero }: HeroProps) => {
 
   return (
     <Flex
+      id={_key}
       height={{ base: '90vh', md: '100vh' }} // use 90vh for mobile to avoid 100vh issue cf. https://stackoverflow.com/questions/37112218/css3-100vh-not-constant-in-mobile-browser
       flexDirection="column"
       alignItems="center"
@@ -99,7 +101,7 @@ const Hero = ({ hero }: HeroProps) => {
           />
         </Grid>
       </Grid>
-      <HeroChevronLink />
+      {nextSectionId && <HeroChevronLink to={nextSectionId} />}
     </Flex>
   );
 };

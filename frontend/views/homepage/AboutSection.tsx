@@ -9,10 +9,10 @@ interface AboutSectionProps {
 }
 
 const AboutSection = ({ section }: AboutSectionProps) => {
-  const { title, description, socialLinks, socialLinksDescription, profileImage } = section;
+  const { _key, title, description, socialLinks, socialLinksDescription, profileImage } = section;
 
   return (
-    <PageSection title={title || 'About'} id="about-section">
+    <PageSection title={title || 'About'} id={_key}>
       {() => {
         return (
           <Grid

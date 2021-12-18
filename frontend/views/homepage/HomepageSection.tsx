@@ -5,12 +5,13 @@ import SkillsSection from './SkillsSection';
 
 interface HomepageSectionProps {
   section: SanityHomepageSection;
+  nextSectionId?: string;
 }
 
-const HomepageSection = ({ section }: HomepageSectionProps) => {
+const HomepageSection = ({ section, nextSectionId }: HomepageSectionProps) => {
   switch (section._type) {
     case 'heroSection':
-      return <Hero hero={section} />;
+      return <Hero hero={section} nextSectionId={nextSectionId} />;
     case 'aboutSection':
       console.log('section', section);
       return <AboutSection section={section} />;
