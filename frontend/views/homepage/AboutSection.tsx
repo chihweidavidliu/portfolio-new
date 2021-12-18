@@ -1,12 +1,18 @@
 import { Grid, Text, Box, Image, HStack } from '@chakra-ui/react';
 import PageSection from '@components/PageSection';
 import SocialLink from '@components/SocialLink';
+import { SanityAboutSection } from '@groq/fragments/AboutSection.fragment';
+import { BlockContent, urlFor } from 'sanity';
 
-const IMAGE_SRC =
-  'https://avatars3.githubusercontent.com/u/40054735?s=460&u=bc4a2fdebed23da2de159078dec770b5ea99ad3c&v=4';
-const AboutSection = () => {
+interface AboutSectionProps {
+  section: SanityAboutSection;
+}
+
+const AboutSection = ({ section }: AboutSectionProps) => {
+  const { title, description, socialLinks, socialLinksDescription, profileImage } = section;
+
   return (
-    <PageSection title="About" id="about-section">
+    <PageSection title={title || 'About'} id="about-section">
       {() => {
         return (
           <Grid
@@ -18,18 +24,23 @@ const AboutSection = () => {
             padding="10px"
           >
             <Grid gridGap={4}>
-              <Text>
-                I’m a self-taught full-stack web developer who creates beautiful, powerful web apps using a range of
-                modern technologies.
-              </Text>
-              <Text>Follow my projects on Github and Linkedin:</Text>
+              <BlockContent blocks={description} />
+
+              <Text>{socialLinksDescription}</Text>
               <HStack>
-                <SocialLink socialNetwork="github" />
-                <SocialLink socialNetwork="linkedin" />
+                {socialLinks?.map((socialLink) => (
+                  <SocialLink socialNetwork={socialLink} key={socialLink} />
+                ))}
               </HStack>
             </Grid>
             <Box>
-              <Image src={IMAGE_SRC} alt="profile-photo" height={150} width={150} borderRadius="50%" />
+              <Image
+                src={urlFor(profileImage.asset._ref).width(150).height(150).url() || ''}
+                alt="profile-photo"
+                height={150}
+                width={150}
+                borderRadius="50%"
+              />
             </Box>
           </Grid>
         );

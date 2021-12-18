@@ -7,7 +7,6 @@ import schemaTypes from "all:part:@sanity/base/schema-type";
 // ---- FOUNDATIONS ----
 import skill from "./foundations/skill.schema";
 import imageWithCaption from "./foundations/imageWithCaption.schema";
-import socialLink from "./foundations/socialLink.schema";
 import blockContent from "./foundations/blockContent.schema";
 
 // ---- WIDGETS ----
@@ -36,7 +35,6 @@ export default createSchema({
     skill,
     imageWithCaption,
     skillsSection,
-    socialLink,
     aboutSectionSchema,
     blockContent,
   ]),

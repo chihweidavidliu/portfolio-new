@@ -1,4 +1,5 @@
 import { SanityHomepageSection } from '@groq/homepage';
+import AboutSection from './AboutSection';
 import Hero from './Hero';
 import SkillsSection from './SkillsSection';
 
@@ -9,7 +10,10 @@ interface HomepageSectionProps {
 const HomepageSection = ({ section }: HomepageSectionProps) => {
   switch (section._type) {
     case 'heroSection':
-      return <Hero hero={section} key={section._key} />;
+      return <Hero hero={section} />;
+    case 'aboutSection':
+      console.log('section', section);
+      return <AboutSection section={section} />;
     case 'skillsSection':
       return <SkillsSection section={section} />;
     default:

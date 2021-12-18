@@ -31,7 +31,6 @@ export const Homepage = ({ sections }: HomepageProps) => {
             </Fragment>
           );
         })}
-        <AboutSection />
         <Divider />
         <Divider />
         <ProjectsSection />

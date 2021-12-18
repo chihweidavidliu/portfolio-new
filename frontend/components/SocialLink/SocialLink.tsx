@@ -2,8 +2,7 @@ import { Link } from '@chakra-ui/react';
 import { primaryColor } from '@theme';
 import { GithubIcon } from '@components/icons/GithubIcon';
 import { LinkedinIcon } from '@components/icons/LinkedinIcon';
-
-type SocialNetwork = 'github' | 'linkedin';
+import { SocialNetwork } from '@groq/fragments/AboutSection.fragment';
 
 interface SocialLinkProps {
   socialNetwork: SocialNetwork;
