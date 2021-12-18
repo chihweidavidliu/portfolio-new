@@ -8,7 +8,7 @@ export default {
     {
       name: "sections",
       type: "array",
-      of: [{ type: "heroSection" }],
+      of: [{ type: "heroSection" }, { type: "skillsSection" }],
     },
   ],
   preview: {
