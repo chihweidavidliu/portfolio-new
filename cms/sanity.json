@@ -12,13 +12,12 @@
     "@sanity/default-layout",
     "@sanity/default-login",
     "@sanity/desk-tool",
-    "media-library"
+    "media-library",
+    "@sanity/production-preview"
   ],
   "env": {
     "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
+      "plugins": ["@sanity/vision"]
     }
   },
   "parts": [
@@ -29,6 +28,10 @@
     {
       "name": "part:@sanity/desk-tool/structure",
       "path": "./deskStructure"
+    },
+    {
+      "implements": "part:@sanity/production-preview/resolve-production-url",
+      "path": "./resolveProductionUrl.ts"
     }
   ]
 }

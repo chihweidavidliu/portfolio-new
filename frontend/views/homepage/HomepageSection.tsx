@@ -22,7 +22,6 @@ const HomepageSection = ({ section, nextSectionId }: HomepageSectionProps) => {
     case 'projectsSection':
       return <ProjectsSection section={section} />;
     case 'timelineSection':
-      console.log('section', section);
       return <TimelineSection section={section} />;
     default:
       return null;

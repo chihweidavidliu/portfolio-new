@@ -1,1 +1,5 @@
 dist
+
+.env.development
+.env.production
+.env.local
