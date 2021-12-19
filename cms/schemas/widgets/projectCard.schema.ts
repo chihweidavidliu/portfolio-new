@@ -7,7 +7,7 @@ export default {
   icon: MdWork,
   fields: [
     {
-      title: "Title", // using localeString at top level does not work for some reason
+      title: "Title",
       name: "title",
       type: "string",
       validation: (Rule) => Rule.required(),

@@ -15,6 +15,7 @@ import heroImage from "./widgets/heroImage.schema";
 import skillsCard from "./widgets/skillsCard.schema";
 import projectCardSchema from "./widgets/projectCard.schema";
 import skillsListSchema from "./widgets/skillsList.schema";
+import timelineCardSchema from "./widgets/timelineCard.schema";
 
 // ---- SECTIONS ----
 import Hero from "./sections/Hero.schema";
@@ -45,5 +46,6 @@ export default createSchema({
     skillsListSchema,
     ctaSchema,
     projectsSectionSchema,
+    timelineCardSchema,
   ]),
 });
