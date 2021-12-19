@@ -5,23 +5,26 @@ import PageSection from '@components/PageSection';
 import { timelineContents } from '../../data/timeline/timelineContents';
 import TimelineYear from '@components/Timeline/TimelineYear';
 import TimelineCard from '@components/Timeline/TimelineCard';
+import { SanityTimelineSection } from '@groq/fragments/TimelineSection.fragment';
 
 const REDUCED_SCALE = 0.2; // the factor by which condensed years should shrink
 const CONTAINER_BREAKPOINT = 920;
 
 interface TimelineSectionProps {
-  collapseBeforeYear?: number;
+  section: SanityTimelineSection;
 }
 
-const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
-  const timelineItems = Object.values(timelineContents).sort((a, b) => {
-    if (isAfter(a.startDate, b.startDate)) {
+const TimelineSection = ({ section }: TimelineSectionProps) => {
+  const { title, collapseBeforeYear, timelineCards } = section;
+
+  const timelineItems = Object.values(timelineCards).sort((a, b) => {
+    if (isAfter(new Date(a.startDate), new Date(b.startDate))) {
       return -1;
     }
     return 1;
   });
 
-  const earliestDate = timelineItems[timelineItems.length - 1].startDate;
+  const earliestDate = new Date(timelineItems[timelineItems.length - 1].startDate);
 
   const months = differenceInMonths(new Date(), earliestDate);
 
@@ -45,7 +48,7 @@ const TimelineSection = ({ collapseBeforeYear }: TimelineSectionProps) => {
   const keys = Object.keys(timelinePointsByYear).sort((a, b) => Number(b) - Number(a));
 
   return (
-    <PageSection title="Work Experience and Education">
+    <PageSection title={title || 'Work Experience and Education'}>
       {({ width }) => {
         const hasAdequateSpace = width && width > CONTAINER_BREAKPOINT;
         console.log({ width, hasAdequateSpace });

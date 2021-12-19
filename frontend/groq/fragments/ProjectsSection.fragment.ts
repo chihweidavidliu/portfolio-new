@@ -38,5 +38,5 @@ export const sanityProjectsSectionFields = groq`
     title,
     projectCards[]-> {
         ${sanityProjectCardFields}
-    }
+    },
 `;

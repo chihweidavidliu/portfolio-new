@@ -1,14 +1,14 @@
 import { SanityImageWithCaption } from '@interfaces/sanity/image';
 import { SanityPortableText } from '@interfaces/sanity/PortableText';
 import groq from 'groq';
-import { SanitySkill } from './SkillsSection.fragment';
+import { SanitySkill, sanitySkillFields } from './SkillsSection.fragment';
 
 export interface SanityTimelineCard {
   _id: string;
   title: string;
   organisation: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   description: SanityPortableText;
   logo?: SanityImageWithCaption;
   keyTechnologies?: SanitySkill[];
@@ -30,7 +30,9 @@ export const sanityTimelineCardFields = groq`
     endDate,
     description,
     logo,
-    keyTechnologies,
+    keyTechnologies[]-> {
+      ${sanitySkillFields}
+    }
 `;
 export const sanityTimelineSectionFields = groq`
     _key,
@@ -38,7 +40,6 @@ export const sanityTimelineSectionFields = groq`
     title,
     collapseBeforeYear,
     timelineCards[]-> {
-        ${sanityTimelineCardFields}
-    }
-
+        ${sanityTimelineCardFields},
+    },
 `;

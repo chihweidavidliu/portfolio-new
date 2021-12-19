@@ -32,8 +32,6 @@ export const Homepage = ({ sections }: HomepageProps) => {
             </Fragment>
           );
         })}
-        <TimelineSection collapseBeforeYear={2018} />
-        <Divider />
         <ContactSection />
       </Box>
     </>

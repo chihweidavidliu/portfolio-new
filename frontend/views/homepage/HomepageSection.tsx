@@ -3,6 +3,7 @@ import AboutSection from './AboutSection';
 import Hero from './Hero';
 import ProjectsSection from './ProjectsSection';
 import SkillsSection from './SkillsSection';
+import TimelineSection from './TimelineSection';
 
 interface HomepageSectionProps {
   section: SanityHomepageSection;
@@ -20,6 +21,9 @@ const HomepageSection = ({ section, nextSectionId }: HomepageSectionProps) => {
       return <SkillsSection section={section} />;
     case 'projectsSection':
       return <ProjectsSection section={section} />;
+    case 'timelineSection':
+      console.log('section', section);
+      return <TimelineSection section={section} />;
     default:
       return null;
   }

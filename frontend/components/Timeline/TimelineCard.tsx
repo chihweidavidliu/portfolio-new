@@ -1,9 +1,6 @@
 import { Heading, Box, Text } from '@chakra-ui/layout';
 import { differenceInCalendarDays, getYear } from 'date-fns';
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
 import { primaryColor } from '@theme';
-import { TimelineItem } from '@interfaces/TimelineItem';
 import { monthDiff } from '@util/monthDiff';
 import { DEFAULT_LABEL_HEIGHT } from './TimelinePoint';
 import { MONTH_HEIGHT } from './TimelineYear';
@@ -12,9 +9,11 @@ import format from 'date-fns/format';
 import TechStackList from '../TechStackList';
 import BaseTimelineCard from './BaseTimelineCard';
 import { TimelinePosition } from '@interfaces/TimelinePosition';
+import { SanityTimelineCard } from '@groq/fragments/TimelineSection.fragment';
+import { BlockContent, urlFor } from 'sanity';
 
 interface TimelineCardProps {
-  item: TimelineItem;
+  item: SanityTimelineCard;
   position: TimelinePosition;
   defaultScale?: number;
   reducedScale?: number;
@@ -30,40 +29,33 @@ const TimelineCard = ({
   collapseBeforeYear,
   hasAdequateSpace = true,
 }: TimelineCardProps) => {
-  const { startDate, endDate, description, title, organisation } = item;
+  const { description, title, organisation } = item;
+  const startDate = new Date(item.startDate);
+  const endDate = item?.endDate ? new Date(item.endDate) : new Date();
+
   const startYear = getYear(startDate);
   const endYear = getYear(endDate);
 
-  const durationMonths = monthDiff(item.startDate, item.endDate);
+  const durationMonths = monthDiff(startDate, endDate);
   const numYearsSpanned = endYear - startYear;
   const yearsSinceEnd = getYear(new Date()) - endYear;
-  const monthsSinceEnd = monthDiff(item.endDate, new Date());
+  const monthsSinceEnd = monthDiff(endDate, new Date());
 
   // the number of months above the end date that have been scaled down
   const monthsSinceCompactedFromEndDate = collapseBeforeYear
-    ? monthDiff(item.endDate, new Date(collapseBeforeYear - 1, 11, 31)) // last day of year where compacting started
+    ? monthDiff(endDate, new Date(collapseBeforeYear - 1, 11, 31)) // last day of year where compacting started
     : 0;
 
   const numCompactedMonthsAfter = monthsSinceCompactedFromEndDate > 0 ? monthsSinceCompactedFromEndDate : 0;
   const numFullSizeMonthsAfter = monthsSinceEnd - numCompactedMonthsAfter;
 
   const monthsSinceCompactedFromStartDate = collapseBeforeYear
-    ? monthDiff(item.startDate, new Date(collapseBeforeYear - 1, 11, 31))
+    ? monthDiff(startDate, new Date(collapseBeforeYear - 1, 11, 31))
     : 0;
 
   const numCompactedMonthsDuring =
     monthsSinceCompactedFromStartDate > 0 ? monthsSinceCompactedFromStartDate - numCompactedMonthsAfter : 0;
   const numFullSizeMonthsDuring = durationMonths - numCompactedMonthsDuring;
-
-  // console.log({
-  //   organisation,
-  //   title,
-  //   durationMonths,
-  //   monthsSinceEnd,
-  //   monthsSinceCompactedFromEndDate,
-  //   numFullSizeMonthsAfter,
-  //   numCompactedMonthsAfter,
-  // });
 
   const baseOffset =
     numCompactedMonthsAfter > 0
@@ -119,8 +111,14 @@ const TimelineCard = ({
             {organisation}
           </Text>
         </Box>
-        {item.logoUrl && (
-          <Image src={item.logoUrl} height="40px" width="40px" alt={item.organisation + ' logo'} marginLeft="10px" />
+        {item.logo && (
+          <Image
+            src={urlFor(item.logo.asset._ref).height(40).width(40).url() || ''}
+            height="40px"
+            width="40px"
+            alt={item.logo.metadata.caption}
+            marginLeft="10px"
+          />
         )}
       </Box>
       <Text color="gray.600" fontSize="md" fontWeight="semibold">
@@ -140,12 +138,12 @@ const TimelineCard = ({
           },
         }}
       >
-        <ReactMarkdown plugins={[gfm]}>{description}</ReactMarkdown>
+        <BlockContent blocks={description} />
       </Box>
 
       {item?.keyTechnologies && item.keyTechnologies.length > 0 && (
         <Box mt="15px">
-          <TechStackList title="Key Technologies" items={item.keyTechnologies} />
+          <TechStackList title="Key Technologies" items={item.keyTechnologies.map((i) => i.title)} />
         </Box>
       )}
     </BaseTimelineCard>
