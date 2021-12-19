@@ -1,0 +1,38 @@
+name: SANITY-STUDIO-BUILD
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "cms/**"
+      - ".github/workflows/sanity-studio.build.yaml"
+jobs:
+  build-sanity-studio:
+    name: build-sanity-studio
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+      SANITY_STUDIO_PREVIEW_TOKEN: ${{ secrets.SANITY_STUDIO_PREVIEW_TOKEN }}
+      SANITY_STUDIO_PREVIEW_BASE_URL: ${{ secrets.SANITY_STUDIO_PREVIEW_BASE_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build shared packages
+        run: yarn tsc
+
+      - name: Install sanity cli
+        run: |
+          cd cms
+          yarn add @sanity/cli
+
+      - name: Deploy Sanity Studio
+        run: |
+          set -e
+          cd cms
+          npx sanity deploy
