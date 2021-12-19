@@ -13,6 +13,7 @@ export default {
         { type: "skillsSection" },
         { type: "aboutSection" },
         { type: "projectsSection" },
+        { type: "timelineSection" },
       ],
     },
   ],

@@ -4,12 +4,14 @@ import { SanityAboutSection, sanityAboutSectionFields } from './fragments/AboutS
 import { SanityHeroSection, sanityHeroSectionFields } from './fragments/HeroSection.fragment';
 import { SanityProjectsSection, sanityProjectsSectionFields } from './fragments/ProjectsSection.fragment';
 import { SanitySkillsSection, sanitySkillsSectionFields } from './fragments/SkillsSection.fragment';
+import { SanityTimelineSection, sanityTimelineSectionFields } from './fragments/TimelineSection.fragment';
 
 export type SanityHomepageSection =
   | SanityHeroSection
   | SanityAboutSection
   | SanitySkillsSection
-  | SanityProjectsSection;
+  | SanityProjectsSection
+  | SanityTimelineSection;
 
 export interface HomepageQuery {
   sections: SanityHomepageSection[];
@@ -23,6 +25,7 @@ export const HOMEPAGE_QUERY = groq`
             ${sanitySkillsSectionFields}
             ${sanityAboutSectionFields}
             ${sanityProjectsSectionFields}
+            ${sanityTimelineSectionFields}
         }
     }
 `;

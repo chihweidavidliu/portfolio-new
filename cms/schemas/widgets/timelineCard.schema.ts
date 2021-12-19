@@ -16,7 +16,6 @@ export default {
       title: "Organisation",
       name: "organisation",
       type: "string",
-      validation: (Rule) => Rule.required(),
     },
     {
       title: "Location",
@@ -51,7 +50,6 @@ export default {
       name: "keyTechnologies",
       type: "array",
       of: [{ type: "reference", to: [{ type: "skill" }] }],
-      validation: (Rule) => Rule.required(),
     },
   ],
   preview: {

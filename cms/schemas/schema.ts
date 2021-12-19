@@ -22,6 +22,7 @@ import Hero from "./sections/Hero.schema";
 import skillsSection from "./sections/skillsSection.schema";
 import aboutSectionSchema from "./sections/aboutSection.schema";
 import projectsSectionSchema from "./sections/projectsSection.schema";
+import timelineSectionSchema from "./sections/timelineSection.schema";
 
 // ---- PAGES ----
 import homepage from "./pages/homepage.schema";
@@ -47,5 +48,6 @@ export default createSchema({
     ctaSchema,
     projectsSectionSchema,
     timelineCardSchema,
+    timelineSectionSchema,
   ]),
 });
