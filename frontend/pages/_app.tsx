@@ -7,8 +7,9 @@ import '@fontsource/source-sans-pro/300.css';
 import '@fontsource/source-sans-pro/400.css';
 import '@fontsource/source-sans-pro/600.css';
 import '@fontsource/source-sans-pro/700.css';
+import PreviewBanner from '@components/PreviewBanner';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router: { isPreview } }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <ColorModeProvider
@@ -16,6 +17,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           useSystemColorMode: true,
         }}
       >
+        {isPreview && <PreviewBanner />}
+
         <Component {...pageProps} />
       </ColorModeProvider>
     </ChakraProvider>
