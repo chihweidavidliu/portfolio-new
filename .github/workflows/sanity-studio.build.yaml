@@ -20,15 +20,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: yarn
+      # - name: Install dependencies
+      #   run: yarn
 
-      - name: Build shared packages
-        run: yarn tsc
+      # - name: Build shared packages
+      #   run: yarn tsc
 
       - name: Install sanity cli
         run: |
           cd cms
+          yarn
           yarn add @sanity/cli
 
       - name: Deploy Sanity Studio
